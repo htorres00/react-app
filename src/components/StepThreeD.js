@@ -21,11 +21,16 @@ const StepThreeD = (props) => {
   const [startDateThree, setStartDateThree] = useState(null);
   const [startTimeThree, setStartTimeThree] = useState(null);
 
+  const [mindate, setMinDate] = useState(null);
+
   const [messageone, setMessageOne] = useState("");
   const [messagetwo, setMessageTwo] = useState("");
   const [messagethree, setMessageThree] = useState("");
   const [messagefour, setMessageFour] = useState("");
 
+  const [optdateonemsg, setOptDateOneMsg] = useState("");
+  const [optdatetwomsg, setOptDateTwoMsg] = useState("");
+  const [optdatethreemsg, setOptDateThreeMsg] = useState("");
   // let emailInput = null;
   let okButn = null;
   // const [emailValue, setEmailValue] = useState("");
@@ -33,46 +38,23 @@ const StepThreeD = (props) => {
 
   useEffect(() => {
     console.log("props three D", props);
-    // setEmailValue(props.values?.email);
-    // emailInput.focus();
-
     props.setValues.setCompletedProgress(85);
+
+    let date = new Date(new Date().toISOString().slice(0, 10));
+    date.setDate(date.getDate() + parseInt(5));
+    setMinDate(date.toLocaleDateString("fr-CA"));
   }, []);
 
-  // const setValue = (answer) => {
-  //   value = answer;
-  //   setEmailValue(value);
-  //   setTimeout(function () {
-  //     props.setValues.setEmail(value);
-  //   }, 1000);
-  // };
-
-  // const handleOnButnClick = () => {
-  //   if (emailValue != "") {
-  //     props.setValues.setEmail(emailValue);
-  //     props.nextStep();
-  //   }
-  // };
-
   const handleStartDateOne = (startdateone) => {
-    let date = new Date(startdateone);
-    date.setDate(date.getDate() + parseInt(5));
-    setStartDateOne(date.toLocaleDateString("fr-CA"));
-    console.log(date, "date one");
+    setStartDateOne(startdateone);
   };
 
   const handleStartDateTwo = (startdatetwo) => {
-    let date = new Date(startdatetwo);
-    date.setDate(date.getDate() + parseInt(5));
-    setStartDateTwo(date.toLocaleDateString("fr-CA"));
-    console.log(date, "date two");
+    setStartDateTwo(startdatetwo);
   };
 
   const handleStartDateThree = (startdatethree) => {
-    let date = new Date(startdatethree);
-    date.setDate(date.getDate() + parseInt(5));
-    setStartDateThree(date.toLocaleDateString("fr-CA"));
-    console.log(date, "date three");
+    setStartDateThree(startdatethree);
   };
 
   const handleStartTimeOne = (timeone) => {
@@ -103,6 +85,27 @@ const StepThreeD = (props) => {
   };
 
   const handleOnButnClick = () => {
+    if (startDateOne >= mindate) {
+      setOptDateOneMsg("");
+    } else {
+      setOptDateOneMsg("Date should be greater than Today + 4 days");
+      return;
+    }
+
+    if (startDateTwo >= mindate) {
+      setOptDateTwoMsg("");
+    } else {
+      setOptDateTwoMsg("Date should be greater than Today + 4 days");
+      return;
+    }
+
+    if (startDateThree >= mindate) {
+      setOptDateThreeMsg("");
+    } else {
+      setOptDateThreeMsg("Date should be greater than Today + 4 days");
+      return;
+    }
+
     let opt1 = startDateOne + " " + startTimeOne;
     let opt2 = startDateTwo + " " + startTimeTwo;
     let opt3 = startDateThree + " " + startTimeThree;
@@ -159,20 +162,20 @@ const StepThreeD = (props) => {
           <div>
             <span>
               <input
-                onKeyDown={(e) => e.preventDefault()}
-                className="datetime"
-                min={new Date().toISOString().slice(0, 10)}
+                //onKeyDown={(e) => e.preventDefault()}
+                //className="datetime"
+                min={mindate}
+                max="9999-12-31"
                 style={{ fontSize: "20px", color: "darkslategrey" }}
                 type="date"
                 value={startDateOne}
-                selected=""
                 onChange={(e) => handleStartDateOne(e.target.value)}
               />
             </span>
             <span>
               <input
-                onKeyDown={(e) => e.preventDefault()}
-                className="datetime"
+                // onKeyDown={(e) => e.preventDefault()}
+                // className="datetime"
                 style={{
                   marginLeft: "90px",
                   //marginBottom: "30px",
@@ -184,8 +187,16 @@ const StepThreeD = (props) => {
                 selected=""
                 onChange={(e) => handleStartTimeOne(e.target.value)}
               />
-              <div style={{ color: "red", marginBottom: "30px" }}>
+              <div
+                style={{
+                  color: "red",
+                  marginBottom: messageone == "" ? "0px" : "30px",
+                }}
+              >
                 {messageone}
+              </div>
+              <div style={{ color: "red", marginBottom: "30px" }}>
+                {optdateonemsg}
               </div>
             </span>
           </div>
@@ -196,20 +207,20 @@ const StepThreeD = (props) => {
           <div>
             <span>
               <input
-                onKeyDown={(e) => e.preventDefault()}
-                className="datetime"
-                min={new Date().toISOString().slice(0, 10)}
+                // onKeyDown={(e) => e.preventDefault()}
+                // className="datetime"
+                min={mindate}
+                max="9999-12-31"
                 style={{ fontSize: "20px", color: "darkslategrey" }}
                 type="date"
                 value={startDateTwo}
-                selected=""
                 onChange={(e) => handleStartDateTwo(e.target.value)}
               />
             </span>
             <span>
               <input
-                onKeyDown={(e) => e.preventDefault()}
-                className="datetime"
+                // onKeyDown={(e) => e.preventDefault()}
+                // className="datetime"
                 style={{
                   marginLeft: "90px",
                   // marginBottom: "30px",
@@ -221,8 +232,16 @@ const StepThreeD = (props) => {
                 selected=""
                 onChange={(e) => handleStartTimeTwo(e.target.value)}
               />
-              <div style={{ color: "red", marginBottom: "30px" }}>
+              <div
+                style={{
+                  color: "red",
+                  marginBottom: messagetwo == "" ? "0px" : "30px",
+                }}
+              >
                 {messagetwo}
+              </div>
+              <div style={{ color: "red", marginBottom: "30px" }}>
+                {optdatetwomsg}
               </div>
             </span>
           </div>
@@ -233,20 +252,21 @@ const StepThreeD = (props) => {
           <div>
             <span>
               <input
-                onKeyDown={(e) => e.preventDefault()}
-                className="datetime"
-                min={new Date().toISOString().slice(0, 10)}
+                // onKeyDown={(e) => e.preventDefault()}
+                // className="datetime"
+                min={mindate}
                 style={{ fontSize: "20px", color: "darkslategrey" }}
                 type="date"
+                max="9999-12-31"
                 value={startDateThree}
-                selected=""
+                // selected=""
                 onChange={(e) => handleStartDateThree(e.target.value)}
               />
             </span>
             <span>
               <input
-                onKeyDown={(e) => e.preventDefault()}
-                className="datetime"
+                // onKeyDown={(e) => e.preventDefault()}
+                // className="datetime"
                 style={{
                   marginLeft: "90px",
                   //marginBottom: "30px",
@@ -258,8 +278,16 @@ const StepThreeD = (props) => {
                 selected=""
                 onChange={(e) => handleStartTimeThree(e.target.value)}
               />
-              <div style={{ color: "red", marginBottom: "30px" }}>
+              <div
+                style={{
+                  color: "red",
+                  marginBottom: messagethree == "" ? "0px" : "30px",
+                }}
+              >
                 {messagethree}
+              </div>
+              <div style={{ color: "red", marginBottom: "30px" }}>
+                {optdatethreemsg}
               </div>
             </span>
           </div>
