@@ -12,6 +12,8 @@ import StepFour from "./StepFour";
 import ThankYou from "./Thankyou";
 import NoPageStep1 from "./NoPageStep1";
 import NoPageStep2 from "./NoPageStep2";
+import DistanceApi from "./DistanceApi";
+import FeedBack from "./FeedBack";
 
 const UserForm = () => {
   const [step, setStep] = useState(0);
@@ -29,6 +31,7 @@ const UserForm = () => {
   const [optionthree, setOptionThree] = useState([]);
   const [comments, setComments] = useState("");
   const [completedProgress, setCompletedProgress] = useState("");
+  const [tecnicianResponce, setTecnicianResponce] = useState("");
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
   ];
@@ -65,6 +68,10 @@ const UserForm = () => {
   // Handle fields change
   const handleChange = (input) => (e) => {
     setInput(e.target.value);
+  };
+
+  const callBackFeedBack = (cbFeedBack) => {
+    setTecnicianResponce(cbFeedBack);
   };
 
   const HandleView = () => {
@@ -218,6 +225,32 @@ const UserForm = () => {
 
       case 10:
         return (
+          <DistanceApi
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+            callBackFeedBack={callBackFeedBack}
+          />
+        );
+
+      case 11:
+        return (
+          <FeedBack
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+            tecnicianresponce={tecnicianResponce}
+          />
+        );
+
+      case 12:
+        return (
           <ThankYou
             stepNo={step}
             setStep={setStep}
@@ -227,7 +260,6 @@ const UserForm = () => {
             values={values}
           />
         );
-
       default:
         return (
           <Welcome
@@ -241,7 +273,7 @@ const UserForm = () => {
 
   return (
     <div className="user-from">
-      {step === 0 || step === 10
+      {step === 0 || step === 12
         ? null
         : testData.map((item, idx) => (
             <ProgressBar
@@ -251,7 +283,7 @@ const UserForm = () => {
             />
           ))}
       <HandleView />
-      {step === 0 || step === 10 ? null : (
+      {step === 0 || step === 12 ? null : (
         <Footer stepNo={step} nextStep={nextStep} prevStep={prevStep} />
       )}
     </div>
