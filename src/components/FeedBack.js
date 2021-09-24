@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
+import axios from "axios";
 
 const styles = {
   fadeInUp: {
@@ -12,10 +13,58 @@ const styles = {
 
 const FeedBack = (props) => {
   let textInput = null;
+  const [id, setId] = useState(0);
+
   useEffect(() => {
-    console.log(props, "props");
+    console.log(props, "my props");
     textInput.focus();
   }, []);
+
+  const postUserList = () => {
+    const url = "https://philobotoapi.hztech.biz/php/api.php";
+    var data = [
+      {
+        formSubmission: 2392039293,
+        submissionDate: "2021-08-30T20:42:27.430",
+        firstName: "",
+        lastName: "",
+        email: props.values.email,
+        altEmail: props.values.email,
+        phone: props.values.phone,
+        altPhone: props.values.phone,
+        insuranceFront: props.values.files,
+        insuranceBack: props.values.cardback,
+        labOrders: props.values.laborder,
+        ApptOpion1: props.values.optionone,
+        ApptOpion2: props.values.optiontwo,
+        ApptOpion3: props.values.optionthree,
+        notes: props.values.comments,
+        serviceAddress: props.values.location,
+        serviceDistance: props.values.distance,
+        serviceMillage: 4.34,
+      },
+    ];
+
+    const options = {
+      method: "post",
+      url,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      data: data,
+    };
+    // && item.addressWork_Street
+    axios(options)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data, "response"));
+        setId(response.data.id);
+        props.setValues.setId(response.data.id);
+        props.nextStep(12);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <StyleRoot>
@@ -45,7 +94,7 @@ const FeedBack = (props) => {
           <button
             className="ok-butn ok-step-three"
             onClick={() => {
-              props.nextStep(12);
+              postUserList();
             }}
             ref={(button) => {
               textInput = button;

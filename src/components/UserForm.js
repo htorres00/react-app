@@ -32,6 +32,10 @@ const UserForm = () => {
   const [comments, setComments] = useState("");
   const [completedProgress, setCompletedProgress] = useState("");
   const [tecnicianResponce, setTecnicianResponce] = useState("");
+  const [location, setLocation] = useState("");
+  const [id, setId] = useState("");
+  const [distance, setDistance] = useState("");
+
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
   ];
@@ -92,6 +96,9 @@ const UserForm = () => {
       optionthree,
       comments,
       yesstep,
+      location,
+      id,
+      distance,
     };
     const setValues = {
       setEmailQuestion,
@@ -107,6 +114,9 @@ const UserForm = () => {
       setOptionThree,
       setComments,
       setYesStep,
+      setLocation,
+      setId,
+      setDistance,
     };
     console.log(values, "parent values");
     switch (step) {
@@ -232,6 +242,7 @@ const UserForm = () => {
             prevStep={prevStep}
             handleChange={handleChange}
             values={values}
+            setValues={setValues}
             callBackFeedBack={callBackFeedBack}
           />
         );
@@ -245,6 +256,7 @@ const UserForm = () => {
             prevStep={prevStep}
             handleChange={handleChange}
             values={values}
+            setValues={setValues}
             tecnicianresponce={tecnicianResponce}
           />
         );

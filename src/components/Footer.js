@@ -6,10 +6,10 @@ const Footer = (props) => {
       <button
         className={[
           "footer-navigation-butn down bold",
-          props.stepNo >= 10 && " disabled",
+          props.stepNo >= 12 && " disabled",
         ]}
         onClick={
-          props.stepNo < 10
+          props.stepNo < 12
             ? () => {
                 props.nextStep(props.stepNo + 1);
                 console.log(props.stepNo, "pg in footor");
