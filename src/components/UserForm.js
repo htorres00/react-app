@@ -46,20 +46,20 @@ const UserForm = () => {
   const nextStep = (stepNo, bool) => {
     if (bool === true) {
       setYesindicator(bool);
-      console.log(bool, " after indicator on yes");
-      console.log(stepNo, "step number on clicking yess");
+      //console.log(bool, " after indicator on yes");
+      //console.log(stepNo, "step number on clicking yess");
     }
 
     if (bool === false) {
       setYesindicator(bool);
-      console.log(bool, "indicator on no");
+      //console.log(bool, "indicator on no");
     }
 
     setStep(stepNo);
-    console.log(stepNo, "Step number before");
+    //console.log(stepNo, "Step number before");
 
-    console.log(yesstep, "Yess step");
-    console.log(bool, "Indicator");
+    // console.log(yesstep, "Yess step");
+    // console.log(bool, "Indicator");
   };
 
   // Go back to prev step
@@ -82,7 +82,7 @@ const UserForm = () => {
 
   const HandleView = () => {
     useEffect(() => {
-      console.log(files, "files user form");
+      //console.log(files, "files user form");
     }, []);
     const values = {
       emailQuestion,
@@ -124,7 +124,7 @@ const UserForm = () => {
       setFirstName,
       setLastName,
     };
-    console.log(values, "parent values");
+    //console.log(values, "parent values");
     switch (step) {
       case 1:
         return (

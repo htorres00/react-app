@@ -24,50 +24,42 @@ const FeedBack = (props) => {
 
   const postUserList = () => {
     const url = "https://philobotoapi.hztech.biz/php/api.php";
-    var data = [
-      {
-        formSubmission: 2392039293,
-        submissionDate: new Date(),
-        firstName: props.values.firstname,
-        lastName: props.values.lastname,
-        email: props.values.email,
-        altEmail: props.values.email,
-        phone: props.values.phone,
-        altPhone: props.values.phone,
-        insuranceFront: props.values.files,
-        insuranceBack: props.values.cardback,
-        labOrders: props.values.laborder,
-        ApptOpion1: props.values.optionone,
-        ApptOpion2: props.values.optiontwo,
-        ApptOpion3: props.values.optionthree,
-        notes: props.values.comments,
-        serviceAddress: props.values.location,
-        serviceDistance: props.values.distance,
-        serviceMillage: (props.values.distance * 0.54).toFixed(2),
-      },
-    ];
-    console.log(data, "params");
-    const options = {
+    var data = new FormData();
+    data.append("formSubmission", 2392039293);
+    data.append("submissionDate", new Date());
+    data.append("firstName", props.values.firstname);
+    data.append("lastName", props.values.lastname);
+    data.append("email", props.values.email);
+    data.append("altEmail", props.values.email);
+    data.append("phone", props.values.phone);
+    data.append("altPhone", props.values.phone);
+    data.append("insuranceFront", props.values.files);
+    data.append("insuranceBack", props.values.cardback);
+    data.append("labOrders", props.values.laborder);
+    data.append("ApptOpion1", props.values.optionone);
+    data.append("ApptOpion2", props.values.optiontwo);
+    data.append("ApptOpion3", props.values.optionthree);
+    data.append("notes", props.values.comments);
+    data.append("serviceAddress", props.values.location);
+    data.append("serviceDistance", props.values.distance);
+    data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
+    var config = {
       method: "post",
-      url,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+      url: url,
       data: data,
     };
-    // && item.addressWork_Street
-    axios(options)
+
+    axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data, "response"));
+        console.log(response.data, "response");
         setLoader(false);
         setId(response.data.id);
         props.setValues.setId(response.data.id);
         props.nextStep(12);
       })
       .catch(function (error) {
-        setLoader(false);
-
         console.log(error);
+        setLoader(false);
       });
   };
 

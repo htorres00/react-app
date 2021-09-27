@@ -78,7 +78,7 @@ const DistanceApi = (props) => {
           temp = [];
         }
         setLoader(false);
-        console.log(destinations, "destinations");
+        //console.log(destinations, "destinations");
       })
 
       .catch((error) => {
@@ -103,7 +103,7 @@ const DistanceApi = (props) => {
 
   // get distance results
   const calculateDistance = (response, status) => {
-    console.log(response, destinations, address, "calculateDistance");
+    //console.log(response, destinations, address, "calculateDistance");
     for (let i = 0; i < response.rows[0].elements.length; i++) {
       if (
         response.rows[0].elements[i].status == "NOT_FOUND" ||
@@ -129,7 +129,7 @@ const DistanceApi = (props) => {
       style: "currency",
       currency: "USD",
     });
-    console.log(uniqSortedDistance, "sortedDistance");
+    //console.log(uniqSortedDistance, "sortedDistance");
     if (uniqSortedDistance.length > 0) {
       if (uniqSortedDistance[0] > 25000) {
         setMinDistance(uniqSortedDistance[0].toFixed(2));
