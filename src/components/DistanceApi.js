@@ -54,7 +54,7 @@ const DistanceApi = (props) => {
               item.addressWork_State.length > 0 ||
               item.addressWork_PostalCode.length > 0)
         );
-
+        let temp = [];
         filterdata.forEach((dest) => {
           let destination = "";
           if (dest.addressWork_Street.length > 0)
@@ -66,8 +66,17 @@ const DistanceApi = (props) => {
           if (dest.addressWork_PostalCode.length > 0)
             destination += dest.addressWork_PostalCode;
 
-          if (destinations.length < 25) destinations.push(destination);
+          if (temp.length < 25) {
+            temp.push(destination);
+          } else {
+            destinations.push(temp);
+            temp = [destination];
+          }
         });
+        if (temp.length) {
+          destinations.push(temp);
+          temp = [];
+        }
         setLoader(false);
         console.log(destinations, "destinations");
       })
@@ -160,6 +169,27 @@ const DistanceApi = (props) => {
     componentRestrictions: { country: "us" },
   };
 
+  const getDistanceMatrix = () => {
+    let temp = [];
+    for (let i = 0; i < destinations.length; i++) {
+      temp.push(
+        <DistanceMatrixService
+          options={{
+            origins: [address],
+            destinations: destinations[i], // destinations
+            travelMode: "DRIVING", // destination by driving
+            avoidHighways: false,
+            avoidTolls: false,
+          }}
+          callback={(response, status) => {
+            calculateDistance(response, status);
+          }}
+        />
+      );
+    }
+    return <GoogleMap>{temp}</GoogleMap>;
+  };
+
   return (
     <StyleRoot>
       {!loader ? (
@@ -210,24 +240,7 @@ const DistanceApi = (props) => {
             )}
           </PlacesAutocomplete>
 
-          {handledistance ? (
-            <GoogleMap>
-              <DistanceMatrixService
-                options={{
-                  origins: [address],
-                  destinations: destinations, // destinations
-                  travelMode: "DRIVING", // destination by driving
-                  avoidHighways: false,
-                  avoidTolls: false,
-                }}
-                callback={(response, status) => {
-                  calculateDistance(response, status);
-                }}
-              />
-            </GoogleMap>
-          ) : (
-            <></>
-          )}
+          {handledistance ? getDistanceMatrix() : <></>}
 
           <div className="instructions">
             <span className="bold">Shift ⇧</span> +{" "}
