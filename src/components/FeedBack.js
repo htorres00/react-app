@@ -3,6 +3,7 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import axios from "axios";
+import Loader from "./Loader/Loader";
 
 const styles = {
   fadeInUp: {
@@ -14,6 +15,7 @@ const styles = {
 const FeedBack = (props) => {
   let textInput = null;
   const [id, setId] = useState(0);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     console.log(props, "my props");
@@ -25,9 +27,9 @@ const FeedBack = (props) => {
     var data = [
       {
         formSubmission: 2392039293,
-        submissionDate: "2021-08-30T20:42:27.430",
-        firstName: "",
-        lastName: "",
+        submissionDate: new Date(),
+        firstName: props.values.firstname,
+        lastName: props.values.lastname,
         email: props.values.email,
         altEmail: props.values.email,
         phone: props.values.phone,
@@ -41,10 +43,10 @@ const FeedBack = (props) => {
         notes: props.values.comments,
         serviceAddress: props.values.location,
         serviceDistance: props.values.distance,
-        serviceMillage: 4.34,
+        serviceMillage: (props.values.distance * 0.54).toFixed(2),
       },
     ];
-
+    console.log(data, "params");
     const options = {
       method: "post",
       url,
@@ -57,11 +59,14 @@ const FeedBack = (props) => {
     axios(options)
       .then(function (response) {
         console.log(JSON.stringify(response.data, "response"));
+        setLoader(false);
         setId(response.data.id);
         props.setValues.setId(response.data.id);
         props.nextStep(12);
       })
       .catch(function (error) {
+        setLoader(false);
+
         console.log(error);
       });
   };
@@ -94,14 +99,14 @@ const FeedBack = (props) => {
           <button
             className="ok-butn ok-step-three"
             onClick={() => {
+              setLoader(true);
               postUserList();
             }}
             ref={(button) => {
               textInput = button;
             }}
           >
-            OK
-            <HiOutlineCheck></HiOutlineCheck>
+            {loader ? <Loader /> : "Submit"}
           </button>
           <span className="enter-text">press Enter ↵</span>
         </>

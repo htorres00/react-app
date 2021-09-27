@@ -5,6 +5,7 @@ import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import axios from "axios";
 import "react-phone-input-2/lib/style.css";
+import Loader from "./Loader/Loader";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -25,14 +26,13 @@ const DistanceApi = (props) => {
   const [mindistance, setMinDistance] = useState(0);
   const [handledistance, setHandleDistance] = useState(false);
   const [servicemsg, setServiceMsg] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
   });
-  let textInput = null;
-
   useEffect(() => {
-    textInput.focus();
+    setLoader(true);
     getUserList();
   }, []);
 
@@ -68,10 +68,12 @@ const DistanceApi = (props) => {
 
           if (destinations.length < 25) destinations.push(destination);
         });
+        setLoader(false);
         console.log(destinations, "destinations");
       })
 
       .catch((error) => {
+        setLoader(false);
         console.log("how", error);
       });
   };
@@ -85,6 +87,7 @@ const DistanceApi = (props) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
     setAddress(value);
+    setDistance([]);
     setHandleDistance(true);
     setCoordinates(latLng);
   };
@@ -113,15 +116,27 @@ const DistanceApi = (props) => {
 
     let sortedDistance = distance.sort();
     let uniqSortedDistance = [...new Set(sortedDistance)];
-
+    var formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
     console.log(uniqSortedDistance, "sortedDistance");
     if (uniqSortedDistance.length > 0) {
       if (uniqSortedDistance[0] > 25000) {
         setMinDistance(uniqSortedDistance[0].toFixed(2));
         setServiceMsg(
-          "Good news, you're within our area of service. A millage fee of at least " +
-            (uniqSortedDistance[0] * 0.54).toFixed(2) +
-            " will be added to the order. The final amount will be added when the appointment is confirmed."
+          <>
+            Good news, you're within our area of service. A millage fee of at
+            least{" "}
+            {formatter
+              .format((uniqSortedDistance[0] * 0.54).toFixed(2))
+              .replace(/^(\D+)/, "$1 ")}{" "}
+            will be added to the order.
+            <br />
+            <div style={{ fontSize: 20, color: "#777368" }}>
+              The final amount will be added when the appointment is confirmed.
+            </div>
+          </>
         );
       } else {
         setServiceMsg(
@@ -147,93 +162,100 @@ const DistanceApi = (props) => {
 
   return (
     <StyleRoot>
-      <div className="step-two" style={styles.fadeInUp}>
-        <div className="question">
-          <span className="step-no">
-            {props.indicator === true ? <span>2</span> : <> {props.stepNo}</>}
-            <BsArrowRightShort></BsArrowRightShort>
-          </span>
-          <p>
-            <span>
-              Please enter the address where the service will be rendered.*
+      {!loader ? (
+        <div className="step-two" style={styles.fadeInUp}>
+          <div className="question">
+            <span className="step-no">
+              {props.indicator === true ? <span>2</span> : <> {props.stepNo}</>}
+              <BsArrowRightShort></BsArrowRightShort>
             </span>
-          </p>
-        </div>
-        <PlacesAutocomplete
-          value={address}
-          onChange={handleSetAddress}
-          onSelect={handleSelect}
-          searchOptions={searchOptions}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div>
-              <input {...getInputProps({ placeholder: "Type address" })} />
-
-              <div>
-                {loading ? <div> ...Loading</div> : null}
-
-                {suggestions.map((suggestion) => {
-                  const style = {
-                    backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
-                  };
-                  return (
-                    <div {...getSuggestionItemProps(suggestion, { style })}>
-                      {suggestion.description}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-
-        {handledistance ? (
-          <GoogleMap>
-            <DistanceMatrixService
-              options={{
-                origins: [address],
-                destinations: destinations, // destinations
-                travelMode: "DRIVING", // destination by driving
-                avoidHighways: false,
-                avoidTolls: false,
-              }}
-              callback={(response, status) => {
-                calculateDistance(response, status);
-              }}
-            />
-          </GoogleMap>
-        ) : (
-          <></>
-        )}
-
-        <div className="instructions">
-          <span className="bold">Shift ⇧</span> +{" "}
-          <span className="bold">Enter ↵</span> to make a line break
-        </div>
-        <>
-          <button
-            className="ok-butn ok-step-three"
-            onClick={() => {
-              props.callBackFeedBack(servicemsg);
-              props.setValues.setLocation(address);
-              props.setValues.setDistance(mindistance);
-              props.nextStep(11);
-            }}
-            ref={(button) => {
-              textInput = button;
-            }}
+            <p>
+              <span>
+                Please enter the address where the service will be rendered.*
+              </span>
+            </p>
+          </div>
+          <PlacesAutocomplete
+            value={address}
+            onChange={handleSetAddress}
+            onSelect={handleSelect}
+            searchOptions={searchOptions}
           >
-            OK
-            <HiOutlineCheck></HiOutlineCheck>
-          </button>
-          <span className="enter-text">press Enter ↵</span>
-        </>
-      </div>
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div>
+                <input
+                  style={{ width: "100%" }}
+                  {...getInputProps({ placeholder: "Type address" })}
+                />
+                <div>
+                  {loading ? <div> ...Loading</div> : null}
+
+                  {suggestions.map((suggestion) => {
+                    const style = {
+                      backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                    };
+                    return (
+                      <div {...getSuggestionItemProps(suggestion, { style })}>
+                        {suggestion.description}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
+
+          {handledistance ? (
+            <GoogleMap>
+              <DistanceMatrixService
+                options={{
+                  origins: [address],
+                  destinations: destinations, // destinations
+                  travelMode: "DRIVING", // destination by driving
+                  avoidHighways: false,
+                  avoidTolls: false,
+                }}
+                callback={(response, status) => {
+                  calculateDistance(response, status);
+                }}
+              />
+            </GoogleMap>
+          ) : (
+            <></>
+          )}
+
+          <div className="instructions">
+            <span className="bold">Shift ⇧</span> +{" "}
+            <span className="bold">Enter ↵</span> to make a line break
+          </div>
+          {handledistance ? (
+            <>
+              <button
+                className="ok-butn ok-step-three"
+                onClick={() => {
+                  props.callBackFeedBack(servicemsg);
+                  props.setValues.setLocation(address);
+                  props.setValues.setDistance(mindistance);
+                  props.nextStep(11);
+                }}
+              >
+                OK
+                <HiOutlineCheck></HiOutlineCheck>
+              </button>
+              <span className="enter-text">press Enter ↵</span>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      ) : (
+        <Loader />
+      )}
     </StyleRoot>
   );
 };

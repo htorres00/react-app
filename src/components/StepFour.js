@@ -21,7 +21,7 @@ const StepFour = (props) => {
   useEffect(() => {
     setInputValue(props.values?.input);
     inputValueRef?.focus();
-     props.setValues.setCompletedProgress(100);
+    props.setValues.setCompletedProgress(100);
   }, []);
 
   const handleOnButnClick = () => {
@@ -56,7 +56,14 @@ const StepFour = (props) => {
       <div className="step-four" style={styles.fadeInUp}>
         <div className="question">
           <span className="step-no">
-            {props.indicator === true ? <span>4</span> : <> <span>6</span></>}
+            {props.indicator === true ? (
+              <span>4</span>
+            ) : (
+              <>
+                {" "}
+                <span>6</span>
+              </>
+            )}
 
             <BsArrowRightShort></BsArrowRightShort>
           </span>
@@ -99,7 +106,7 @@ const StepFour = (props) => {
                   handleOnButnClick();
                 }}
               >
-                Submit
+                OK
               </button>
               {window.navigator.platform.toLowerCase().includes("win") && (
                 <>

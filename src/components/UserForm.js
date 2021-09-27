@@ -35,6 +35,8 @@ const UserForm = () => {
   const [location, setLocation] = useState("");
   const [id, setId] = useState("");
   const [distance, setDistance] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
 
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
@@ -99,6 +101,8 @@ const UserForm = () => {
       location,
       id,
       distance,
+      firstname,
+      lastname,
     };
     const setValues = {
       setEmailQuestion,
@@ -117,6 +121,8 @@ const UserForm = () => {
       setLocation,
       setId,
       setDistance,
+      setFirstName,
+      setLastName,
     };
     console.log(values, "parent values");
     switch (step) {
