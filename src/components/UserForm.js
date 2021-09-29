@@ -16,7 +16,7 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 
 const UserForm = () => {
-  const [step, setStep] = useState(9);
+  const [step, setStep] = useState(0);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
   const [input, setInput] = useState("");
@@ -35,8 +35,6 @@ const UserForm = () => {
   const [location, setLocation] = useState("");
   const [id, setId] = useState("");
   const [distance, setDistance] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
 
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
@@ -101,8 +99,6 @@ const UserForm = () => {
       location,
       id,
       distance,
-      firstname,
-      lastname,
     };
     const setValues = {
       setEmailQuestion,
@@ -121,10 +117,7 @@ const UserForm = () => {
       setLocation,
       setId,
       setDistance,
-      setFirstName,
-      setLastName,
     };
-    //console.log(values, "parent values");
     switch (step) {
       case 1:
         return (
@@ -166,6 +159,33 @@ const UserForm = () => {
 
       case 4:
         return (
+          <DistanceApi
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            callBackFeedBack={callBackFeedBack}
+            indicator={yesindicator}
+          />
+        );
+      case 5:
+        return (
+          <FeedBack
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            tecnicianresponce={tecnicianResponce}
+          />
+        );
+      case 6:
+        return (
           <StepTwo
             stepNo={step}
             nextStep={nextStep}
@@ -176,7 +196,7 @@ const UserForm = () => {
             indicator={yesindicator}
           />
         );
-      case 5:
+      case 7:
         return (
           <StepThree
             stepNo={step}
@@ -187,7 +207,7 @@ const UserForm = () => {
             setValues={setValues}
           />
         );
-      case 6:
+      case 8:
         return (
           <StepThreeB
             stepNo={step}
@@ -199,35 +219,10 @@ const UserForm = () => {
             setStep={setStep}
           />
         );
-      case 7:
-        return (
-          <StepThreeC
-            stepNo={step}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleChange={handleChange}
-            values={values}
-            setValues={setValues}
-            setStep={setStep}
-          />
-        );
-      case 8:
-        return (
-          <StepThreeD
-            stepNo={step}
-            setStep={setStep}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleChange={handleChange}
-            values={values}
-            setValues={setValues}
-            indicator={yesindicator}
-          />
-        );
 
       case 9:
         return (
-          <StepFour
+          <StepThreeC
             stepNo={step}
             setStep={setStep}
             nextStep={nextStep}
@@ -241,7 +236,7 @@ const UserForm = () => {
 
       case 10:
         return (
-          <DistanceApi
+          <StepThreeD
             stepNo={step}
             setStep={setStep}
             nextStep={nextStep}
@@ -249,13 +244,13 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
-            callBackFeedBack={callBackFeedBack}
+            indicator={yesindicator}
           />
         );
 
       case 11:
         return (
-          <FeedBack
+          <StepFour
             stepNo={step}
             setStep={setStep}
             nextStep={nextStep}
@@ -263,7 +258,7 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
-            tecnicianresponce={tecnicianResponce}
+            indicator={yesindicator}
           />
         );
 

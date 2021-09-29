@@ -25,8 +25,6 @@ const NoPageStep1 = (props) => {
 
   let okButn = null;
   const [phone, setPhone] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
 
   useEffect(() => {
     setPhone(props.values?.phone);
@@ -40,8 +38,6 @@ const NoPageStep1 = (props) => {
   const handleOnButnClick = () => {
     console.log(phone, "phone number");
     props.setValues.setPhone(phone);
-    props.setValues.setFirstName(firstname);
-    props.setValues.setLastName(lastname);
     props.nextStep(3);
   };
 
@@ -55,38 +51,13 @@ const NoPageStep1 = (props) => {
           </span>
           <p>
             <span className="level-one">
-              Enter your first name, last name and the best number to call you?
+              What is the best number to call you?
             </span>
             <span className="level-two">
               Please enter a direct line. If your number has an extension, you
               can add it at the end of the notes.
             </span>
           </p>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="text"
-            value={firstname}
-            placeholder="first name"
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-            style={{ marginBottom: "25px" }}
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            name="text"
-            value={lastname}
-            placeholder="last name"
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-            style={{ marginBottom: "25px" }}
-          />
         </div>
         <div>
           <PhoneInput

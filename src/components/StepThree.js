@@ -48,7 +48,7 @@ const StepThree = (props) => {
   };
   const handleUrls = (urlss) => {
     props.setValues.setFiles(urlss);
-    props.nextStep(6);
+    props.nextStep(8);
   };
 
   return (

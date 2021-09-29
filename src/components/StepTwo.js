@@ -104,10 +104,8 @@ const StepTwo = (props) => {
       <div className="step-two" style={styles.fadeInUp}>
         <div className="question">
           <span className="step-no">
-            {
-              props.indicator === true ? (<span>2</span>) : (<> {props.stepNo}</>)
-            }
-            
+            {props.indicator === true ? <span>3</span> : <> {props.stepNo}</>}
+
             <BsArrowRightShort></BsArrowRightShort>
           </span>
           <p>
@@ -130,7 +128,7 @@ const StepTwo = (props) => {
           <button
             className="start-form"
             onClick={() => {
-              props.nextStep(5);
+              props.nextStep(7);
             }}
             ref={(button) => {
               textInput = button;

@@ -5,6 +5,8 @@ import { BiCommand } from "react-icons/bi";
 import { AiOutlineEnter } from "react-icons/ai";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
+import axios from "axios";
+import Loader from "./Loader/Loader";
 
 const styles = {
   fadeInUp: {
@@ -17,27 +19,70 @@ const StepFour = (props) => {
   let inputValueRef = null;
   const [isTyped, setIsTyped] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [id, setId] = useState(0);
 
   useEffect(() => {
+    console.log(props, "my props");
     setInputValue(props.values?.input);
     inputValueRef?.focus();
     props.setValues.setCompletedProgress(100);
   }, []);
 
   const handleOnButnClick = () => {
-    console.log(inputValue, "Input value");
-    props.setValues.setComments(inputValue);
-    props.nextStep(10);
-    // console.log(props, "Final page props");
-    // props.nextStep(10)
-    // if (inputValue !== "") {
-    //   props.setValues.setInput(inputValue);
-    //   props.nextStep(10)
-    //   console.log("Input found")
-    // }
-    // else{
-    //   console.log("Input not found")
-    // }
+    setLoader(true);
+    postUserList();
+  };
+
+  const postUserList = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    const url = "https://philobotoapi.hztech.biz/php/api.php";
+    var data = new FormData();
+    data.append("formSubmission", 2392039293);
+    data.append("submissionDate", new Date());
+    data.append("firstName", queryParams.get("first_name"));
+    data.append("lastName", queryParams.get("last_name"));
+    data.append("email", queryParams.get("email"));
+    data.append("altEmail", props.values.email);
+    data.append("phone", queryParams.get("mobile_number"));
+    data.append("altPhone", props.values.phone);
+    data.append("customertype", queryParams.get("customer_type"));
+    data.append("insuranceFront", props.values.files);
+    data.append("insuranceBack", props.values.cardback);
+    data.append("labOrders", props.values.laborder);
+    data.append("ApptOpion1", props.values.optionone);
+    data.append("ApptOpion2", props.values.optiontwo);
+    data.append("ApptOpion3", props.values.optionthree);
+    data.append("notes", props.values.comments);
+    data.append("serviceAddress", props.values.location);
+    data.append("serviceDistance", props.values.distance);
+    data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
+    console.log(
+      queryParams.get("first_name"),
+      queryParams.get("last_name"),
+      queryParams.get("email"),
+      queryParams.get("mobile_number"),
+      queryParams.get("customer_type")
+    );
+    var config = {
+      method: "post",
+      url: url,
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(response.data, "response");
+        setLoader(false);
+        setId(response.data.id);
+        props.setValues.setId(response.data.id);
+        props.nextStep(12);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoader(false);
+      });
   };
 
   const handleKeyPress = (e) => {
@@ -57,11 +102,11 @@ const StepFour = (props) => {
         <div className="question">
           <span className="step-no">
             {props.indicator === true ? (
-              <span>4</span>
+              <span>5</span>
             ) : (
               <>
                 {" "}
-                <span>6</span>
+                <span>8</span>
               </>
             )}
 
@@ -106,7 +151,7 @@ const StepFour = (props) => {
                   handleOnButnClick();
                 }}
               >
-                OK
+                {loader ? <Loader /> : "Submit"}
               </button>
               {window.navigator.platform.toLowerCase().includes("win") && (
                 <>

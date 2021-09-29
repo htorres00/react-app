@@ -43,7 +43,7 @@ const StepThreeB = (props) => {
   const handleUrls = (urlss) => {
     console.log(urlss);
     props.setValues.setCardBack(urlss);
-    props.nextStep(7);
+    props.nextStep(9);
   };
 
   return (

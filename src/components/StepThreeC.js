@@ -46,7 +46,7 @@ const StepThreeC = (props) => {
     console.log(props, "Lab order page");
     console.log(urls, "step 5");
     props.setValues.setLabOrder(urls);
-    props.nextStep(8);
+    props.nextStep(10);
   };
 
   return (

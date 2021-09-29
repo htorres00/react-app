@@ -20,7 +20,6 @@ const styles = {
 const StepOne = (props) => {
   useEffect(() => {
     console.log(props, "step one props");
-    
   }, []);
 
   const [KeyValue, setKeyValue] = useState("");
@@ -43,7 +42,7 @@ const StepOne = (props) => {
     // value = answer;
     // setKeyValue(value);
     setTimeout(function () {
-      console.log(answer, "");
+      //console.log(answer, "");
       if (answer == "yes") {
         // props.setValues.setEmailQuestion(value);
         props.nextStep(4, true);

@@ -127,7 +127,7 @@ const StepThreeD = (props) => {
       props.setValues.setOptionOne(opt1);
       props.setValues.setOptionTwo(opt2);
       props.setValues.setOptionThree(opt3);
-      props.nextStep(9);
+      props.nextStep(11);
     }
   };
 
@@ -138,11 +138,11 @@ const StepThreeD = (props) => {
         <div className="question">
           <span className="step-no">
             {props.indicator === true ? (
-              <span>3</span>
+              <span>4</span>
             ) : (
               <>
                 {" "}
-                <span>5</span>
+                <span>7</span>
               </>
             )}
 
