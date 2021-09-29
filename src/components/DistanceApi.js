@@ -103,13 +103,13 @@ const DistanceApi = (props) => {
 
   // get distance results
   const calculateDistance = (response, status) => {
-    //console.log(response, destinations, address, "calculateDistance");
+    //console.log(response, "calculateDistance");
     for (let i = 0; i < response.rows[0].elements.length; i++) {
       if (
         response.rows[0].elements[i].status == "NOT_FOUND" ||
         response.rows[0].elements[i].status == "ZERO_RESULTS"
       ) {
-        console.log("No roads found");
+        //console.log("No roads found");
         //setAddress("");
         // setCoordinates({
         //   lat: null,
@@ -138,7 +138,7 @@ const DistanceApi = (props) => {
             Good news, you're within our area of service. A millage fee of at
             least{" "}
             {formatter
-              .format((uniqSortedDistance[0] * 0.54).toFixed(2))
+              .format(((uniqSortedDistance[0] / 1000) * 0.54).toFixed(2))
               .replace(/^(\D+)/, "$1 ")}{" "}
             will be added to the order.
             <br />
@@ -174,10 +174,12 @@ const DistanceApi = (props) => {
     for (let i = 0; i < destinations.length; i++) {
       temp.push(
         <DistanceMatrixService
+          key={i}
           options={{
             origins: [address],
             destinations: destinations[i], // destinations
             travelMode: "DRIVING", // destination by driving
+            unitSystem: window.google.maps.UnitSystem.IMPERIAL,
             avoidHighways: false,
             avoidTolls: false,
           }}
@@ -225,12 +227,15 @@ const DistanceApi = (props) => {
                 <div>
                   {loading ? <div> ...Loading</div> : null}
 
-                  {suggestions.map((suggestion) => {
+                  {suggestions.map((suggestion, index) => {
                     const style = {
                       backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
                     };
                     return (
-                      <div {...getSuggestionItemProps(suggestion, { style })}>
+                      <div
+                        key={index}
+                        {...getSuggestionItemProps(suggestion, { style })}
+                      >
                         {suggestion.description}
                       </div>
                     );
