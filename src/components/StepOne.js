@@ -18,6 +18,8 @@ const styles = {
 };
 
 const StepOne = (props) => {
+  const queryParams = new URLSearchParams(window.location.search);
+
   useEffect(() => {
     console.log(props, "step one props");
   }, []);
@@ -76,8 +78,9 @@ const StepOne = (props) => {
             <BsArrowRightShort></BsArrowRightShort>
           </span>
           <p>
-            We have you with email xxxxx and phone number xxxxx. Is this the
-            best email and number to reach you?
+            We have you with email {queryParams.get("email")} and phone number{" "}
+            {queryParams.get("mobile_number")}. Is this the best email and
+            number to reach you?
           </p>
         </div>
 
