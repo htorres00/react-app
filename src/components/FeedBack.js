@@ -23,16 +23,19 @@ const FeedBack = (props) => {
   }, []);
 
   const postUserList = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
     const url = "https://philobotoapi.hztech.biz/php/api.php";
     var data = new FormData();
     data.append("formSubmission", 2392039293);
     data.append("submissionDate", new Date());
-    data.append("firstName", props.values.firstname);
-    data.append("lastName", props.values.lastname);
-    data.append("email", props.values.email);
+    data.append("firstName", queryParams.get("first_name"));
+    data.append("lastName", queryParams.get("last_name"));
+    data.append("email", queryParams.get("email"));
     data.append("altEmail", props.values.email);
-    data.append("phone", props.values.phone);
+    data.append("phone", queryParams.get("mobile_number"));
     data.append("altPhone", props.values.phone);
+    data.append("customertype", queryParams.get("customer_type"));
     data.append("insuranceFront", props.values.files);
     data.append("insuranceBack", props.values.cardback);
     data.append("labOrders", props.values.laborder);
@@ -43,6 +46,14 @@ const FeedBack = (props) => {
     data.append("serviceAddress", props.values.location);
     data.append("serviceDistance", props.values.distance);
     data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
+    console.log(
+      queryParams.get("first_name"),
+      queryParams.get("last_name"),
+      queryParams.get("email"),
+      queryParams.get("mobile_number"),
+      queryParams.get("customer_type")
+    );
+
     var config = {
       method: "post",
       url: url,
