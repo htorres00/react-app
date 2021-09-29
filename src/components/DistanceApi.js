@@ -132,7 +132,7 @@ const DistanceApi = (props) => {
     //console.log(uniqSortedDistance, "sortedDistance");
     if (uniqSortedDistance.length > 0) {
       if (uniqSortedDistance[0] > 25000) {
-        setMinDistance(uniqSortedDistance[0].toFixed(2));
+        setMinDistance((uniqSortedDistance[0] / 1000).toFixed(2));
         setServiceMsg(
           <>
             Good news, you're within our area of service. A millage fee of at

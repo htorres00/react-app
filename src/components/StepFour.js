@@ -34,12 +34,23 @@ const StepFour = (props) => {
     postUserList();
   };
 
+  function makeid(length) {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   const postUserList = () => {
     const queryParams = new URLSearchParams(window.location.search);
 
     const url = "https://philobotoapi.hztech.biz/php/api.php";
     var data = new FormData();
-    data.append("formSubmission", 2392039293);
+    data.append("formSubmission", makeid(5));
     data.append("submissionDate", new Date());
     data.append("firstName", queryParams.get("first_name"));
     data.append("lastName", queryParams.get("last_name"));
@@ -54,11 +65,14 @@ const StepFour = (props) => {
     data.append("ApptOpion1", props.values.optionone);
     data.append("ApptOpion2", props.values.optiontwo);
     data.append("ApptOpion3", props.values.optionthree);
-    data.append("notes", props.values.comments);
+    data.append("notes", inputValue);
     data.append("serviceAddress", props.values.location);
     data.append("serviceDistance", props.values.distance);
     data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
     console.log(
+      makeid(5),
+      inputValue,
+      props,
       queryParams.get("first_name"),
       queryParams.get("last_name"),
       queryParams.get("email"),
