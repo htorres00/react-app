@@ -40,9 +40,9 @@ const StepThreeB = (props) => {
   //   }
   // };
 
-  const handleUrls = (urlss) => {
-    console.log(urlss);
-    props.setValues.setCardBack(urlss);
+  const handleUrls = (myurl) => {
+    console.log(myurl);
+    props.setValues.setCardBack(myurl);
     props.nextStep(9);
   };
 

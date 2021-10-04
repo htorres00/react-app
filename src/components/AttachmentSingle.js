@@ -3,6 +3,8 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
+import axios from "axios";
+import Loader from "./Loader/Loader";
 
 const AttachmentSingle = (props) => {
   useEffect(() => {
@@ -14,6 +16,9 @@ const AttachmentSingle = (props) => {
   const [urls, setUrls] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [selected, setSelected] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [selectedFile, setSelectedFile] = useState([]);
+  const [myUrls, setMyUrls] = useState([]);
 
   const thumb = {
     display: "inline-flex",
@@ -48,14 +53,15 @@ const AttachmentSingle = (props) => {
         url: URL.createObjectURL(e.target.files[i]),
         isLoading: false,
       });
-      // if (urls.length === 3) {
-      //   console.log(urls.length, "length");
-      //   setSelected(true);
-      // }
+      selectedFile.push(e.target.files[i]);
+    }
+    if (urls.length < 3) {
+      setSelected(true);
+    } else {
+      setSelected(false);
     }
     setUrls(urls);
     setRefresh(refresh + 1);
-    setSelected(false);
   };
 
   useEffect(() => {
@@ -76,19 +82,35 @@ const AttachmentSingle = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
-    console.log(props, "props");
-    console.log(urls, "urls");
-    props.url(urls);
-    // props.Aprops.setValues.setFiles(urls);
-    // props.nextStep();
-    // props.setValues.setFiles(urls);
-    // props.nextStep();
+    setLoader(true);
+    let data = new FormData();
+    for (let i = 0; i < selectedFile.length; i++) {
+      data.append("file", selectedFile[i]);
+      const url = `http://philobotoapi.hztech.biz/php/upload.php`;
+      axios
+        .post(url, data)
+        .then((res) => {
+          myUrls.push(res.data);
+          if (i == selectedFile.length - 1) {
+            props.url(myUrls);
+            setLoader(false);
+          }
+        })
+        .catch((error) => {
+          setLoader(false);
+          console.log(error, "upload api");
+        });
+    }
   };
 
   const remove = (url, index) => {
     urls.splice(index, 1); // remove the file from the array
+    if (urls.length == 1 || urls.length == 2 || urls.length > 20) {
+      setSelected(true);
+    } else {
+      setSelected(false);
+    }
     setRefresh(refresh + 1);
-    setSelected(false);
   };
 
   return (
@@ -208,7 +230,7 @@ const AttachmentSingle = (props) => {
             className="ok-butn ok-step-attachment"
             onClick={() => handleClick()}
           >
-            OK
+            {loader ? <Loader /> : "OK"}
             <HiOutlineCheck></HiOutlineCheck>
           </button>
         </>
@@ -218,7 +240,7 @@ const AttachmentSingle = (props) => {
 
       {selected ? (
         <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          Selected files should be less than 20.
+          Selected files should be greater than 2 or less than 21.
         </div>
       ) : (
         <></>

@@ -27,6 +27,7 @@ const DistanceApi = (props) => {
   const [handledistance, setHandleDistance] = useState(false);
   const [servicemsg, setServiceMsg] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [loader2, setLoader2] = useState(false);
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
@@ -93,12 +94,14 @@ const DistanceApi = (props) => {
   };
 
   const handleSelect = async (value) => {
+    setLoader2(true);
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
     setAddress(value);
     setDistance([]);
     setHandleDistance(true);
     setCoordinates(latLng);
+    setLoader2(false);
   };
 
   // get distance results
@@ -251,7 +254,7 @@ const DistanceApi = (props) => {
             <span className="bold">Shift ⇧</span> +{" "}
             <span className="bold">Enter ↵</span> to make a line break
           </div>
-          {handledistance ? (
+          {handledistance || !loader2 ? (
             <>
               <button
                 className="ok-butn ok-step-three"
@@ -268,7 +271,7 @@ const DistanceApi = (props) => {
               <span className="enter-text">press Enter ↵</span>
             </>
           ) : (
-            <></>
+            <Loader />
           )}
         </div>
       ) : (

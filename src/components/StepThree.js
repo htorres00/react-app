@@ -46,8 +46,8 @@ const StepThree = (props) => {
     console.log("next page");
     // props.nextStep();
   };
-  const handleUrls = (urlss) => {
-    props.setValues.setFiles(urlss);
+  const handleUrls = (myurl) => {
+    props.setValues.setFiles(myurl);
     props.nextStep(8);
   };
 

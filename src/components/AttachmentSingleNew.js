@@ -3,11 +3,10 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
+import axios from "axios";
+import Loader from "./Loader/Loader";
 
 const AttachmentSingleNew = (props) => {
-  useEffect(() => {
-    console.log(props.Aprops, "Aprops");
-  }, []);
   var input;
   var imageWraperContainer;
   const [domUploadWraper, setDomUploadWraper] = useState([]);
@@ -15,6 +14,8 @@ const AttachmentSingleNew = (props) => {
   const [refresh, setRefresh] = useState(0);
   const [selected, setSelected] = useState(false);
   const [errormsg, setErrorMsg] = useState(false);
+  const [selectedFile, setsSelectedFile] = useState(null);
+  const [loader, setLoader] = useState(false);
 
   const thumb = {
     display: "inline-flex",
@@ -52,6 +53,7 @@ const AttachmentSingleNew = (props) => {
     }
     setSelected(true);
     setUrls(urls);
+    setsSelectedFile(e.target.files[0]);
     setRefresh(refresh + 1);
   };
 
@@ -73,11 +75,21 @@ const AttachmentSingleNew = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
-    console.log(urls, "urls");
-    props.url(urls);
-    // props.Aprops.setValues.setFiles(urls);
-    // props.nextStep();
-    // props.Aprops.nextStep();
+    setLoader(true);
+    let data = new FormData();
+    data.append("file", selectedFile);
+    const url = `http://philobotoapi.hztech.biz/php/upload.php`;
+    axios
+      .post(url, data)
+      .then((res) => {
+        //console.log(res.data, "Image");
+        props.url(res.data);
+        setLoader(false);
+      })
+      .catch((error) => {
+        setLoader(false);
+        console.log(error, "upload api");
+      });
   };
 
   const remove = (url, index) => {
@@ -202,7 +214,7 @@ const AttachmentSingleNew = (props) => {
             className="ok-butn ok-step-attachment"
             onClick={() => handleClick()}
           >
-            OK
+            {loader ? <Loader /> : "OK"}
             <HiOutlineCheck></HiOutlineCheck>
           </button>
         </>
