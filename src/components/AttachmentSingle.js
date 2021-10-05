@@ -3,8 +3,8 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
-import axios from "axios";
 import Loader from "./Loader/Loader";
+import pdfImage from "../images/pdficon.png";
 
 const AttachmentSingle = (props) => {
   useEffect(() => {
@@ -19,6 +19,7 @@ const AttachmentSingle = (props) => {
   const [loader, setLoader] = useState(false);
   const [selectedFile, setSelectedFile] = useState([]);
   const [myUrls, setMyUrls] = useState([]);
+  const [msg, setMsg] = useState("");
 
   const thumb = {
     display: "inline-flex",
@@ -44,22 +45,40 @@ const AttachmentSingle = (props) => {
 
   const handleFile = (e) => {
     if (urls.length + e.target.files.length > 20) {
+      setMsg("Selected files should be less than 21.");
       setSelected(true);
       return;
     }
-    for (let i = 0; i < e.target.files.length; i++) {
-      urls.push({
-        name: e.target.files[i].name,
-        url: URL.createObjectURL(e.target.files[i]),
-        isLoading: false,
-      });
-      selectedFile.push(e.target.files[i]);
-    }
     if (urls.length < 3) {
+      setMsg("Selected files should be greater than 2.");
       setSelected(true);
     } else {
+      setMsg("");
       setSelected(false);
     }
+
+    for (let i = 0; i < e.target.files.length; i++) {
+      if (
+        e.target.files[i].type == "image/jpeg" ||
+        e.target.files[i].type == "image/png" ||
+        e.target.files[i].type == "application/pdf"
+      ) {
+        urls.push({
+          name: e.target.files[i].name,
+          url: URL.createObjectURL(e.target.files[i]),
+          isLoading: false,
+        });
+        selectedFile.push(e.target.files[i]);
+        setMsg("");
+
+        console.log(e.target.files[i], "files");
+      } else {
+        setSelected(true);
+        setMsg("Invalid file type");
+        // return;
+      }
+    }
+
     setUrls(urls);
     setRefresh(refresh + 1);
   };
@@ -72,7 +91,7 @@ const AttachmentSingle = (props) => {
   }, []);
 
   useEffect(() => {
-    setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
+    //setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
     setTimeout(function () {
       for (let k = 0; k < urls.length; k++) {
         urls[k].isLoading = true;
@@ -82,32 +101,17 @@ const AttachmentSingle = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
-    setLoader(true);
-    let data = new FormData();
-    for (let i = 0; i < selectedFile.length; i++) {
-      data.append("file", selectedFile[i]);
-      const url = `http://philobotoapi.hztech.biz/php/upload.php`;
-      axios
-        .post(url, data)
-        .then((res) => {
-          myUrls.push(res.data);
-          if (i == selectedFile.length - 1) {
-            props.url(myUrls);
-            setLoader(false);
-          }
-        })
-        .catch((error) => {
-          setLoader(false);
-          console.log(error, "upload api");
-        });
-    }
+    props.url(selectedFile);
   };
 
   const remove = (url, index) => {
-    urls.splice(index, 1); // remove the file from the array
+    urls.splice(index, 1);
+    selectedFile.splice(index, 1);
     if (urls.length == 1 || urls.length == 2 || urls.length > 20) {
+      setMsg("Selected files should be greater than 2.");
       setSelected(true);
     } else {
+      setMsg("");
       setSelected(false);
     }
     setRefresh(refresh + 1);
@@ -191,7 +195,11 @@ const AttachmentSingle = (props) => {
                 <div className="img-uper-box">
                   <div className="img-box" style={thumbInner}>
                     <div className="img-inner-box">
-                      <img src={url.url} style={img} />
+                      {url.name.split(".").pop() == "pdf" ? (
+                        <img src={pdfImage} style={img} />
+                      ) : (
+                        <img src={url.url} style={img} />
+                      )}
                     </div>
                   </div>
                   <div className="imgDescWraper">
@@ -212,18 +220,6 @@ const AttachmentSingle = (props) => {
         </div>
       </div>
 
-      {/* {urls.length > 0 && (
-        <>
-          <button
-            className="ok-butn ok-step-attachment"
-            onClick={() => handleClick()}
-          >
-            OK
-            <HiOutlineCheck></HiOutlineCheck>
-          </button>
-        </>
-      )} */}
-
       {urls.length > 2 && urls.length < 21 ? (
         <>
           <button
@@ -240,7 +236,7 @@ const AttachmentSingle = (props) => {
 
       {selected ? (
         <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          Selected files should be greater than 2 or less than 21.
+          {msg}
         </div>
       ) : (
         <></>

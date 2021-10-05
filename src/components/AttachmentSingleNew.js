@@ -3,10 +3,13 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
-import axios from "axios";
 import Loader from "./Loader/Loader";
+import pdfImage from "../images/pdficon.png";
 
 const AttachmentSingleNew = (props) => {
+  useEffect(() => {
+    console.log(props, "Aprops");
+  }, []);
   var input;
   var imageWraperContainer;
   const [domUploadWraper, setDomUploadWraper] = useState([]);
@@ -16,6 +19,8 @@ const AttachmentSingleNew = (props) => {
   const [errormsg, setErrorMsg] = useState(false);
   const [selectedFile, setsSelectedFile] = useState(null);
   const [loader, setLoader] = useState(false);
+  const [imgres, setImgRes] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const thumb = {
     display: "inline-flex",
@@ -40,21 +45,34 @@ const AttachmentSingleNew = (props) => {
   };
 
   const handleFile = (e) => {
+    console.log(e.target.files);
     if (urls.length > 0) {
       setErrorMsg(true);
+      setMsg("Only one file is acceptable.");
+      return;
+    } else if (
+      e.target.files[0].type == "image/jpeg" ||
+      e.target.files[0].type == "image/png" ||
+      e.target.files[0].type == "application/pdf"
+    ) {
+      for (let i = 0; i < e.target.files.length; i++) {
+        urls.push({
+          name: e.target.files[i].name,
+          url: URL.createObjectURL(e.target.files[i]),
+          isLoading: false,
+          type: e.target.files[0].type,
+        });
+      }
+      setErrorMsg(false);
+      setSelected(true);
+      setUrls(urls);
+      setsSelectedFile(e.target.files[0]);
+      setRefresh(refresh + 1);
+    } else {
+      setErrorMsg(true);
+      setMsg("Invalid file format.");
       return;
     }
-    for (let i = 0; i < e.target.files.length; i++) {
-      urls.push({
-        name: e.target.files[i].name,
-        url: URL.createObjectURL(e.target.files[i]),
-        isLoading: false,
-      });
-    }
-    setSelected(true);
-    setUrls(urls);
-    setsSelectedFile(e.target.files[0]);
-    setRefresh(refresh + 1);
   };
 
   useEffect(() => {
@@ -65,7 +83,7 @@ const AttachmentSingleNew = (props) => {
   }, []);
 
   useEffect(() => {
-    setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
+    //setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
     setTimeout(function () {
       for (let k = 0; k < urls.length; k++) {
         urls[k].isLoading = true;
@@ -75,21 +93,7 @@ const AttachmentSingleNew = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
-    setLoader(true);
-    let data = new FormData();
-    data.append("file", selectedFile);
-    const url = `http://philobotoapi.hztech.biz/php/upload.php`;
-    axios
-      .post(url, data)
-      .then((res) => {
-        //console.log(res.data, "Image");
-        props.url(res.data);
-        setLoader(false);
-      })
-      .catch((error) => {
-        setLoader(false);
-        console.log(error, "upload api");
-      });
+    props.url(selectedFile);
   };
 
   const remove = (url, index) => {
@@ -124,6 +128,7 @@ const AttachmentSingleNew = (props) => {
           onChange={(e) => {
             handleFile(e);
           }}
+          // onChange={onFileChange}
           single
           style={
             domUploadWraper.height > 0
@@ -179,7 +184,11 @@ const AttachmentSingleNew = (props) => {
                 <div className="img-uper-box">
                   <div className="img-box" style={thumbInner}>
                     <div className="img-inner-box">
-                      <img src={url.url} style={img} />
+                      {url.type === "image/jpeg" || url.type === "image/png" ? (
+                        <img src={url.url} style={img} />
+                      ) : (
+                        <img src={pdfImage} style={img} />
+                      )}
                     </div>
                   </div>
                   <div className="imgDescWraper">
@@ -202,13 +211,13 @@ const AttachmentSingleNew = (props) => {
 
       {errormsg ? (
         <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          Only one file is acceptable.
+          {msg}
         </div>
       ) : (
         <></>
       )}
 
-      {urls.length > 0 && (
+      {urls.length > 0 || loader ? (
         <>
           <button
             className="ok-butn ok-step-attachment"
@@ -218,6 +227,8 @@ const AttachmentSingleNew = (props) => {
             <HiOutlineCheck></HiOutlineCheck>
           </button>
         </>
+      ) : (
+        <></>
       )}
     </section>
   );

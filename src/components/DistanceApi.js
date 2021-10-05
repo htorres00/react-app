@@ -290,7 +290,9 @@ const DistanceApi = (props) => {
                   props.callBackFeedBack(servicemsg);
                   props.setValues.setLocation(serviceaddress);
                   props.setValues.setDistance(mindistance);
-                  props.nextStep(5);
+                  setTimeout(function () {
+                    props.nextStep(5);
+                  }, 2000);
                 }}
               >
                 OK

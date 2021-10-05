@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
-import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
-import Attachment from "./Attachment";
-import AttachmentSingle from "./AttachmentSingle";
 import AttachmentSingleNew from "./AttachmentSingleNew";
+import axios from "axios";
+import Loader from "./Loader/Loader";
 
 const styles = {
   fadeInUp: {
@@ -15,7 +13,7 @@ const styles = {
 };
 
 const StepThree = (props) => {
-  // let emailInput = null;
+  const [loader, setLoader] = useState(false);
   let okButn = null;
   // const [emailValue, setEmailValue] = useState("");
   var value;
@@ -46,95 +44,45 @@ const StepThree = (props) => {
     console.log("next page");
     // props.nextStep();
   };
+
   const handleUrls = (myurl) => {
-    props.setValues.setFiles(myurl);
-    props.nextStep(8);
+    setLoader(true);
+    let data = new FormData();
+    data.append("file", myurl);
+    const url = `http://philobotoapi.hztech.biz/php/upload.php`;
+    axios
+      .post(url, data)
+      .then((res) => {
+        console.log(res.data, "Image");
+        setLoader(false);
+        props.setValues.setFiles(res.data);
+        props.nextStep(8);
+      })
+      .catch((error) => {
+        setLoader(false);
+        console.log(error, "upload api");
+      });
   };
 
   return (
     <StyleRoot>
-      <div className="step-three" style={styles.fadeInUp}>
-        <div className="question">
-          <span className="step-no">a.</span>
-          <p>
-            <span className="level-one" style={{ display: "inline" }}>
-              Please upload the front of your{" "}
-              <span style={{ fontWeight: 600 }}>insurance card.</span>
-            </span>
-            {/* <span className="level-two">
-              We promise not to spam you or sell your contact information.
-            </span> */}
-          </p>
+      {!loader ? (
+        <div className="step-three" style={styles.fadeInUp}>
+          <div className="question">
+            <span className="step-no">a.</span>
+            <p>
+              <span className="level-one" style={{ display: "inline" }}>
+                Please upload the front of your{" "}
+                <span style={{ fontWeight: 600 }}>insurance card.</span>
+              </span>
+            </p>
+          </div>
+
+          <AttachmentSingleNew url={handleUrls} />
         </div>
-
-        <AttachmentSingleNew url={handleUrls} />
-
-        {/* <Attachment/> */}
-
-        {/* <AttachmentSingle/> */}
-
-        {/* <div>
-          <input
-            type="email"
-            name="email"
-            value={emailValue}
-            placeholder="name@example.com"
-            onChange={(e) => {
-              setEmailValue(e.target.value);
-            }}
-            ref={(emailInpt) => {
-              emailInput = emailInpt;
-            }}
-            onKeyDown={(e) => {
-              if (e.keyCode === 13) {
-                handleOnButnClick();
-              }
-            }}
-          />
-        </div> */}
-
-        {/* {emailValue && emailValue.length > 0 && (
-          <>
-            <button
-              className="ok-butn ok-step-three"
-              tabIndex="0"
-              onClick={() => {
-                handleOnButnClick();
-              }}
-              ref={(button) => {
-                okButn = button;
-              }}
-              onKeyDown={() => {
-                handleOnButnClick();
-              }}
-            >
-              OK
-              <HiOutlineCheck></HiOutlineCheck>
-            </button>
-            <span className="enter-text">press Enter ↵</span>
-          </>
-        )} */}
-
-        {/* <>
-            <button
-              className="ok-butn ok-step-three"
-              // tabIndex="0"
-              onClick={() => {
-                handleOnButnClick();
-              }}
-              ref={(button) => {
-                okButn = button;
-              }}
-              onKeyDown={() => {
-                handleOnButnClick();
-              }}
-            >
-              OK 
-              <HiOutlineCheck></HiOutlineCheck>
-            </button>
-            <span className="enter-text">press Enter ↵</span>
-          </> */}
-      </div>
+      ) : (
+        <Loader />
+      )}
     </StyleRoot>
   );
 };
