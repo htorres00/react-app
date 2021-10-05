@@ -106,9 +106,9 @@ const StepThreeD = (props) => {
       return;
     }
 
-    let opt1 = startDateOne + " " + startTimeOne;
-    let opt2 = startDateTwo + " " + startTimeTwo;
-    let opt3 = startDateThree + " " + startTimeThree;
+    let opt1 = startDateOne + "T" + startTimeOne + ":00";
+    let opt2 = startDateTwo + "T" + startTimeTwo + ":00";
+    let opt3 = startDateThree + "T" + startTimeThree + ":00";
 
     console.log(opt1, opt2, opt3, "My options");
 

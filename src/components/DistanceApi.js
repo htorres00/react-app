@@ -22,6 +22,7 @@ const styles = {
 const DistanceApi = (props) => {
   const [destinations, setDestinations] = useState([]);
   const [address, setAddress] = useState("");
+  const [serviceaddress, setServiceAddress] = useState({});
   const [distance, setDistance] = useState([]);
   const [mindistance, setMinDistance] = useState(0);
   const [handledistance, setHandleDistance] = useState(false);
@@ -96,8 +97,34 @@ const DistanceApi = (props) => {
   const handleSelect = async (value) => {
     setLoader2(true);
     const results = await geocodeByAddress(value);
+
+    let storableLocation = {};
+
+    for (let ac = 0; ac < results[0].address_components.length; ac++) {
+      let component = results[0].address_components[ac];
+      if (
+        component.types.includes("sublocality") ||
+        component.types.includes("locality")
+      ) {
+        storableLocation.city = component.long_name;
+      } else if (component.types.includes("administrative_area_level_1")) {
+        storableLocation.state = component.long_name;
+      } else if (component.types.includes("postal_code")) {
+        storableLocation.zip = component.long_name;
+      } else if (component.types.includes("street_number")) {
+        storableLocation.street1 =
+          component.long_name == undefined ? "" : component.long_name;
+      } else if (component.types.includes("route")) {
+        storableLocation.street1 != undefined
+          ? (storableLocation.street1 += " " + component.long_name)
+          : (storableLocation.street1 = component.long_name);
+      } else if (component.types.includes("neighborhood")) {
+        storableLocation.street2 = component.long_name;
+      }
+    }
     const latLng = await getLatLng(results[0]);
     setAddress(value);
+    setServiceAddress(storableLocation);
     setDistance([]);
     setHandleDistance(true);
     setCoordinates(latLng);
@@ -259,8 +286,9 @@ const DistanceApi = (props) => {
               <button
                 className="ok-butn ok-step-three"
                 onClick={() => {
+                  console.log(serviceaddress, "serviceaddress");
                   props.callBackFeedBack(servicemsg);
-                  props.setValues.setLocation(address);
+                  props.setValues.setLocation(serviceaddress);
                   props.setValues.setDistance(mindistance);
                   props.nextStep(5);
                 }}

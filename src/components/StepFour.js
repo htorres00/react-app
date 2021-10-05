@@ -52,20 +52,45 @@ const StepFour = (props) => {
     });
   }
 
+  const dateMaker = (date) => {
+    var dateInString = date.toString();
+    var dateInSplit = dateInString.split("GMT");
+    var dateParts = dateInSplit[1].split(" ");
+    var day = ("0" + date.getDate()).slice(-2);
+    var monthIndex = ("0" + (date.getMonth() + 1)).slice(-2);
+    var year = date.getFullYear();
+    var seconds = (date.getSeconds() < 10 ? "0" : "") + date.getSeconds();
+    var minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+    var hour = ("0" + date.getHours()).slice(-2);
+    var newDate =
+      year +
+      "-" +
+      monthIndex +
+      "-" +
+      day +
+      "T" +
+      hour +
+      ":" +
+      minutes +
+      ":" +
+      seconds +
+      "";
+    return newDate;
+  };
+
   const postUserList = () => {
     const queryParams = new URLSearchParams(window.location.search);
-
     const url = "https://philobotoapi.hztech.biz/php/api.php";
     var data = new FormData();
     data.append("formSubmission", makeid(5));
-    data.append("submissionDate", new Date());
+    data.append("submissionDate", dateMaker(new Date()));
     data.append("firstName", queryParams.get("first_name"));
     data.append("lastName", queryParams.get("last_name"));
     data.append("email", queryParams.get("email"));
     data.append("altEmail", props.values.email);
     data.append("phone", queryParams.get("mobile_number"));
     data.append("altPhone", props.values.phone);
-    data.append("customertype", queryParams.get("customer_type"));
+    data.append("customerType", queryParams.get("customer_type"));
     data.append("insuranceFront", props.values.files);
     data.append("insuranceBack", props.values.cardback);
     data.append("labOrders", props.values.laborder);
@@ -73,19 +98,27 @@ const StepFour = (props) => {
     data.append("ApptOpion2", props.values.optiontwo);
     data.append("ApptOpion3", props.values.optionthree);
     data.append("notes", inputValue);
-    data.append("serviceAddress", props.values.location);
     data.append("serviceDistance", props.values.distance);
     data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
+    data.append("serviceStreet1", props.values.location.street1);
+    data.append("serviceStreet2", props.values.location.street2);
+    data.append("serviceCity", props.values.location.city);
+    data.append("serviceState", props.values.location.state);
+    data.append("serviceZip", props.values.location.zip);
+
     console.log(
       makeid(5),
       inputValue,
       props,
+      props.values.location.city,
+      props.values.optionone,
       queryParams.get("first_name"),
       queryParams.get("last_name"),
       queryParams.get("email"),
       queryParams.get("mobile_number"),
       queryParams.get("customer_type")
     );
+    return;
     var config = {
       method: "post",
       url: url,
