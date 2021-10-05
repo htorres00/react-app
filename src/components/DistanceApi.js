@@ -128,7 +128,6 @@ const DistanceApi = (props) => {
     setDistance([]);
     setHandleDistance(true);
     setCoordinates(latLng);
-    setLoader2(false);
   };
 
   // get distance results
@@ -177,10 +176,12 @@ const DistanceApi = (props) => {
             </div>
           </>
         );
+        setLoader2(false);
       } else {
         setServiceMsg(
           "Good news. This address is within our area of service. Please notice mileage fees might be incurred when the appointment is confirmed."
         );
+        setLoader2(false);
       }
     }
   };
@@ -281,18 +282,16 @@ const DistanceApi = (props) => {
             <span className="bold">Shift ⇧</span> +{" "}
             <span className="bold">Enter ↵</span> to make a line break
           </div>
-          {handledistance || !loader2 ? (
+          {!loader2 ? (
             <>
               <button
                 className="ok-butn ok-step-three"
                 onClick={() => {
-                  console.log(serviceaddress, "serviceaddress");
+                  //console.log(serviceaddress, "serviceaddress");
                   props.callBackFeedBack(servicemsg);
                   props.setValues.setLocation(serviceaddress);
                   props.setValues.setDistance(mindistance);
-                  setTimeout(function () {
-                    props.nextStep(5);
-                  }, 2000);
+                  props.nextStep(5);
                 }}
               >
                 OK
