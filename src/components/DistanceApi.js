@@ -11,6 +11,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import { DistanceMatrixService, GoogleMap } from "@react-google-maps/api";
+import Constants from "../Constants";
 
 const styles = {
   fadeInUp: {
@@ -39,7 +40,7 @@ const DistanceApi = (props) => {
   }, []);
 
   const getUserList = () => {
-    const url = "https://philobotoapi.hztech.biz/php/new.php";
+    const url = Constants.API_URL + "?action=get_bf_users"; //"https://philobotoapi.hztech.biz/php/new.php";
 
     const options = {
       method: "GET",

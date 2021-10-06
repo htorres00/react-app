@@ -4,6 +4,7 @@ import Radium, { StyleRoot } from "radium";
 import AttachmentSingleNew from "./AttachmentSingleNew";
 import axios from "axios";
 import Loader from "./Loader/Loader";
+import Constants from "../Constants";
 
 const styles = {
   fadeInUp: {
@@ -22,7 +23,8 @@ const StepThreeB = (props) => {
     setLoader(true);
     let data = new FormData();
     data.append("file", myurl);
-    const url = `http://philobotoapi.hztech.biz/php/upload.php`;
+    data.append("action", "post_file");
+    const url = Constants.API_URL; //`http://philobotoapi.hztech.biz/php/upload.php`;
     axios
       .post(url, data)
       .then((res) => {

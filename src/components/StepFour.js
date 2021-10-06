@@ -7,6 +7,7 @@ import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import axios from "axios";
 import Loader from "./Loader/Loader";
+import Constants from "../Constants";
 
 const styles = {
   fadeInUp: {
@@ -80,8 +81,9 @@ const StepFour = (props) => {
 
   const postUserList = () => {
     const queryParams = new URLSearchParams(window.location.search);
-    const url = "https://philobotoapi.hztech.biz/php/api.php";
+    const url = Constants.API_URL; //"https://philobotoapi.hztech.biz/php/api.php";
     var data = new FormData();
+    data.append("action", "post_zapier");
     data.append("formSubmission", makeid(5));
     data.append("submissionDate", dateMaker(new Date()));
     data.append("firstName", queryParams.get("first_name"));
