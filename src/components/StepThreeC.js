@@ -23,28 +23,23 @@ const StepThreeC = (props) => {
   const handleUrl = (urls) => {
     setLoader(true);
     let data = new FormData();
-
+    const url = Constants.API_URL;
     data.append("action", "post_file");
-
     for (let i = 0; i < urls.length; i++) {
-      data.append("file", urls[i]);
-      const url = Constants.API_URL; //`http://philobotoapi.hztech.biz/php/upload.php`;
-      axios
-        .post(url, data)
-        .then((res) => {
-          myUrls.push(res.data);
-          if (i == urls.length - 1) {
-            setLoader(false);
-            props.setValues.setLabOrder(myUrls);
-            console.log(myUrls, "myUrls pushed");
-            props.nextStep(10);
-          }
-        })
-        .catch((error) => {
-          setLoader(false);
-          console.log(error, "upload api");
-        });
+      data.append(`file${i}`, urls[i]);
     }
+    axios
+      .post(url, data)
+      .then((res) => {
+        setLoader(false);
+        props.setValues.setLabOrder(res.data);
+        console.log(res.data, "upload api");
+        props.nextStep(10);
+      })
+      .catch((error) => {
+        setLoader(false);
+        console.log(error, "upload api");
+      });
   };
 
   return (

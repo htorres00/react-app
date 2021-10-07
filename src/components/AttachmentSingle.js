@@ -8,7 +8,7 @@ import pdfImage from "../images/pdficon.png";
 
 const AttachmentSingle = (props) => {
   useEffect(() => {
-    console.log(props, "props attachment file");
+    //console.log(props, "props attachment file");
   }, []);
   var input;
   var imageWraperContainer;
@@ -71,7 +71,7 @@ const AttachmentSingle = (props) => {
         selectedFile.push(e.target.files[i]);
         setMsg("");
 
-        console.log(e.target.files[i], "files");
+        //console.log(e.target.files[i], "files");
       } else {
         setSelected(true);
         setMsg("Invalid file type");
