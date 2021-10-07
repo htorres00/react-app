@@ -11,7 +11,8 @@ const ThankYou = (props) => {
   return (
     <StyleRoot>
       <div className="thank-you" style={styles.fadeInUp}>
-        <h2 className="title">That's it! You've been great.</h2>
+        <h1 className="title">That's it! You've been great.</h1>
+        <h2 className="title">Your Service Request # is: {props.values.id}</h2>
         <p className="levelOOne">
           One of our representatives will contact you shortly. Thank you!
         </p>
@@ -19,7 +20,6 @@ const ThankYou = (props) => {
           Feel free to contact us if you have questions.
           <span className="website bold">phlebotomynetwork.com</span>
           <span className="phone bold">(415) 687-4854</span>
-          <span className="phone bold">Zapier # : {props.values.id}</span>
         </p>
       </div>
     </StyleRoot>
