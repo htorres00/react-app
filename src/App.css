@@ -331,9 +331,10 @@ button.ok-butn {
 .footer-navigation {
   display: flex;
   flex-direction: row-reverse;
-  position: absolute;
+  padding-top: 20px;
+  /* position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: 10px; */
 }
 
 .footer-navigation-butn {

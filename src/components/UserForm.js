@@ -16,7 +16,7 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 
 const UserForm = () => {
-  const [step, setStep] = useState(12);
+  const [step, setStep] = useState(0);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
   const [input, setInput] = useState("");
