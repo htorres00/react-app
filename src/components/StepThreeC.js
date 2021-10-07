@@ -54,6 +54,16 @@ const StepThreeC = (props) => {
                 <span style={{ fontWeight: 600 }}> lab order.</span>
               </span>
             </p>
+            <p
+              style={{
+                marginTop: "-25px",
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "rgb(71, 69, 64) ",
+              }}
+            >
+              Upload as many files as needed.
+            </p>
           </div>
 
           <AttachmentSingle url={handleUrl} />

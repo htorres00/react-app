@@ -8,7 +8,7 @@ import pdfImage from "../images/pdficon.png";
 
 const AttachmentSingleNew = (props) => {
   useEffect(() => {
-    console.log(props, "Aprops");
+    //console.log(props, "Aprops");
   }, []);
   var input;
   var imageWraperContainer;
@@ -45,34 +45,24 @@ const AttachmentSingleNew = (props) => {
   };
 
   const handleFile = (e) => {
-    console.log(e.target.files);
+    //console.log(e.target.files);
     if (urls.length > 0) {
       setErrorMsg(true);
-      setMsg("Only one file is acceptable.");
-      return;
-    } else if (
-      e.target.files[0].type == "image/jpeg" ||
-      e.target.files[0].type == "image/png" ||
-      e.target.files[0].type == "application/pdf"
-    ) {
-      for (let i = 0; i < e.target.files.length; i++) {
-        urls.push({
-          name: e.target.files[i].name,
-          url: URL.createObjectURL(e.target.files[i]),
-          isLoading: false,
-          type: e.target.files[0].type,
-        });
-      }
-      setErrorMsg(false);
-      setSelected(true);
-      setUrls(urls);
-      setsSelectedFile(e.target.files[0]);
-      setRefresh(refresh + 1);
-    } else {
-      setErrorMsg(true);
-      setMsg("Invalid file format.");
       return;
     }
+    for (let i = 0; i < e.target.files.length; i++) {
+      urls.push({
+        name: e.target.files[i].name,
+        url: URL.createObjectURL(e.target.files[i]),
+        isLoading: false,
+        type: e.target.files[0].type,
+      });
+    }
+    setErrorMsg(false);
+    setSelected(true);
+    setUrls(urls);
+    setsSelectedFile(e.target.files[0]);
+    setRefresh(refresh + 1);
   };
 
   useEffect(() => {
@@ -124,6 +114,7 @@ const AttachmentSingleNew = (props) => {
           type="file"
           name="images"
           id="imgid"
+          accept="image/jpeg, application/pdf, image/png, image/jpg"
           className="imgcls"
           onChange={(e) => {
             handleFile(e);
@@ -211,7 +202,7 @@ const AttachmentSingleNew = (props) => {
 
       {errormsg ? (
         <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          {msg}
+          Only one file is acceptable.
         </div>
       ) : (
         <></>

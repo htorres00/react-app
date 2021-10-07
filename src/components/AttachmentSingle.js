@@ -3,7 +3,6 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
-import Loader from "./Loader/Loader";
 import pdfImage from "../images/pdficon.png";
 
 const AttachmentSingle = (props) => {
@@ -16,10 +15,8 @@ const AttachmentSingle = (props) => {
   const [urls, setUrls] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [selected, setSelected] = useState(false);
-  const [loader, setLoader] = useState(false);
   const [selectedFile, setSelectedFile] = useState([]);
-  const [myUrls, setMyUrls] = useState([]);
-  const [msg, setMsg] = useState("");
+  const [imgload, setImgLoad] = useState(false);
 
   const thumb = {
     display: "inline-flex",
@@ -45,40 +42,24 @@ const AttachmentSingle = (props) => {
 
   const handleFile = (e) => {
     if (urls.length + e.target.files.length > 20) {
-      setMsg("Selected files should be less than 21.");
       setSelected(true);
       return;
     }
-    if (urls.length < 3) {
-      setMsg("Selected files should be greater than 2.");
+
+    if (urls.length + e.target.files.length < 3) {
       setSelected(true);
     } else {
-      setMsg("");
       setSelected(false);
     }
 
     for (let i = 0; i < e.target.files.length; i++) {
-      if (
-        e.target.files[i].type == "image/jpeg" ||
-        e.target.files[i].type == "image/png" ||
-        e.target.files[i].type == "application/pdf"
-      ) {
-        urls.push({
-          name: e.target.files[i].name,
-          url: URL.createObjectURL(e.target.files[i]),
-          isLoading: false,
-        });
-        selectedFile.push(e.target.files[i]);
-        setMsg("");
-
-        //console.log(e.target.files[i], "files");
-      } else {
-        setSelected(true);
-        setMsg("Invalid file type");
-        // return;
-      }
+      urls.push({
+        name: e.target.files[i].name,
+        url: URL.createObjectURL(e.target.files[i]),
+        isLoading: false,
+      });
+      selectedFile.push(e.target.files[i]);
     }
-
     setUrls(urls);
     setRefresh(refresh + 1);
   };
@@ -91,7 +72,7 @@ const AttachmentSingle = (props) => {
   }, []);
 
   useEffect(() => {
-    //setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
+    setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
     setTimeout(function () {
       for (let k = 0; k < urls.length; k++) {
         urls[k].isLoading = true;
@@ -101,17 +82,20 @@ const AttachmentSingle = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
+    if (urls.length < 3 || urls.length > 20) {
+      setSelected(true);
+      return;
+    }
+
     props.url(selectedFile);
   };
 
   const remove = (url, index) => {
     urls.splice(index, 1);
     selectedFile.splice(index, 1);
-    if (urls.length == 1 || urls.length == 2 || urls.length > 20) {
-      setMsg("Selected files should be greater than 2.");
+    if (urls.length < 3 || urls.length > 20) {
       setSelected(true);
     } else {
-      setMsg("");
       setSelected(false);
     }
     setRefresh(refresh + 1);
@@ -139,6 +123,7 @@ const AttachmentSingle = (props) => {
           name="images"
           id="imgid"
           className="imgcls"
+          accept="image/jpeg, application/pdf, image/png, image/jpg"
           onChange={(e) => {
             handleFile(e);
           }}
@@ -220,23 +205,17 @@ const AttachmentSingle = (props) => {
         </div>
       </div>
 
-      {urls.length > 2 && urls.length < 21 ? (
-        <>
-          <button
-            className="ok-butn ok-step-attachment"
-            onClick={() => handleClick()}
-          >
-            {loader ? <Loader /> : "OK"}
-            <HiOutlineCheck></HiOutlineCheck>
-          </button>
-        </>
-      ) : (
-        console.log("")
-      )}
+      <button
+        className="ok-butn ok-step-attachment"
+        onClick={() => handleClick()}
+      >
+        OK
+        <HiOutlineCheck></HiOutlineCheck>
+      </button>
 
       {selected ? (
         <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          {msg}
+          Files should be minimum 3 or maximum 20
         </div>
       ) : (
         <></>
