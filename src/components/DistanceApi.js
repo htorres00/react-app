@@ -30,6 +30,7 @@ const DistanceApi = (props) => {
   const [servicemsg, setServiceMsg] = useState([]);
   const [loader, setLoader] = useState(false);
   const [loader2, setLoader2] = useState(false);
+  const [showerrmsg, setShowErrMsg] = useState(false);
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
@@ -93,11 +94,14 @@ const DistanceApi = (props) => {
 
   const handleSetAddress = (address) => {
     setAddress(address);
+    setShowErrMsg(false);
     setHandleDistance(false);
   };
 
   const handleSelect = async (value) => {
     setLoader2(true);
+    setShowErrMsg(false);
+
     const results = await geocodeByAddress(value);
 
     let storableLocation = {};
@@ -245,6 +249,17 @@ const DistanceApi = (props) => {
     return <GoogleMap>{temp}</GoogleMap>;
   };
 
+  const handleDistance = () => {
+    if (address == "") {
+      setShowErrMsg(true);
+      return;
+    }
+    props.callBackFeedBack(servicemsg);
+    props.setValues.setLocation(serviceaddress);
+    props.setValues.setDistance(mindistance);
+    props.nextStep(5);
+  };
+
   return (
     <StyleRoot>
       {!loader ? (
@@ -304,17 +319,22 @@ const DistanceApi = (props) => {
             <span className="bold">Shift ⇧</span> +{" "}
             <span className="bold">Enter ↵</span> to make a line break
           </div>
+
+          {showerrmsg ? (
+            <div
+              style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}
+            >
+              Please enter your service location.
+            </div>
+          ) : (
+            <></>
+          )}
+
           {!loader2 ? (
             <>
               <button
                 className="ok-butn ok-step-three"
-                onClick={() => {
-                  //console.log(serviceaddress, "serviceaddress");
-                  props.callBackFeedBack(servicemsg);
-                  props.setValues.setLocation(serviceaddress);
-                  props.setValues.setDistance(mindistance);
-                  props.nextStep(5);
-                }}
+                onClick={() => handleDistance()}
               >
                 OK
                 <HiOutlineCheck></HiOutlineCheck>

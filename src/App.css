@@ -331,7 +331,6 @@ button.ok-butn {
 .footer-navigation {
   display: flex;
   flex-direction: row-reverse;
-  padding-top: 20px;
   /* position: absolute;
   right: 10px;
   bottom: 10px; */
@@ -650,6 +649,7 @@ span.level-one {
 }
 
 .user-from section.container {
+  margin-bottom: 18px;
   width: 688px;
   outline: none !important;
 }

@@ -31,13 +31,13 @@ const StepThreeD = (props) => {
   const [optdateonemsg, setOptDateOneMsg] = useState("");
   const [optdatetwomsg, setOptDateTwoMsg] = useState("");
   const [optdatethreemsg, setOptDateThreeMsg] = useState("");
-  // let emailInput = null;
-  let okButn = null;
-  // const [emailValue, setEmailValue] = useState("");
-  var value;
+
+  const [messagemins, setMessageMins] = useState("");
+  const [messageminstwo, setMessageMinsTwo] = useState("");
+  const [messageminsthree, setMessageMinsThree] = useState("");
 
   useEffect(() => {
-    console.log("props three D", props);
+    //console.log("props three D", props);
     props.setValues.setCompletedProgress(85);
 
     let date = new Date(new Date().toISOString().slice(0, 10));
@@ -58,15 +58,71 @@ const StepThreeD = (props) => {
   };
 
   const handleStartTimeOne = (timeone) => {
+    //checkTime(timeone);
+    let checktimecond = checkTime(timeone);
+    if (!checktimecond) {
+      setMessageOne("");
+      return;
+    }
+
     if (timeone > "07:00" && timeone < "17:00") {
       setStartTimeOne(timeone);
       setMessageOne("");
     } else {
       setMessageOne("Please enter the time between 7am to 4pm Only.");
     }
+
+    // if (timeone > "07:00" && timeone < "17:00") {
+    //   setStartTimeOne(timeone);
+    //   setMessageOne("");
+    // } else {
+    //   setMessageOne("Please enter the time between 7am to 4pm Only.");
+    // }
+  };
+
+  const checkTime = (timeone) => {
+    let timesplit = timeone.split(":");
+
+    if (timesplit[1] == "00" || timesplit[1] == "30") {
+      setMessageMins("");
+      return true;
+    } else {
+      setMessageMins("Choose minutes between 00 or 30.");
+      return false;
+    }
+  };
+
+  const checkTimetwo = (timeone) => {
+    let timesplit = timeone.split(":");
+
+    if (timesplit[1] == "00" || timesplit[1] == "30") {
+      setMessageMinsTwo("");
+      return true;
+    } else {
+      setMessageMinsTwo("Choose minutes between 00 or 30.");
+      return false;
+    }
+  };
+
+  const checkTimethree = (timeone) => {
+    let timesplit = timeone.split(":");
+
+    if (timesplit[1] == "00" || timesplit[1] == "30") {
+      setMessageMinsThree("");
+      return true;
+    } else {
+      setMessageMinsThree("Choose minutes between 00 or 30.");
+      return false;
+    }
   };
 
   const handleStartTimeTwo = (timetwo) => {
+    let checktimecond = checkTimetwo(timetwo);
+    if (!checktimecond) {
+      setMessageTwo("");
+      return;
+    }
+
     if (timetwo > "07:00" && timetwo < "17:00") {
       setStartTimeTwo(timetwo);
       setMessageTwo("");
@@ -76,6 +132,11 @@ const StepThreeD = (props) => {
   };
 
   const handleStartTimeThree = (timethree) => {
+    let checktimecond = checkTimethree(timethree);
+    if (!checktimecond) {
+      setMessageThree("");
+      return;
+    }
     if (timethree > "07:00" && timethree < "17:00") {
       setStartTimeThree(timethree);
       setMessageThree("");
@@ -131,6 +192,32 @@ const StepThreeD = (props) => {
     }
   };
 
+  const handleBlurDate = () => {
+    console.log(startDateOne, startDateTwo, startDateThree);
+    if (
+      startDateOne === null ||
+      startDateTwo === null ||
+      startDateThree === null
+    ) {
+      setMessageFour(
+        "The appointment options should be unique or should not be empty Please review your options."
+      );
+    } else {
+      if (
+        startDateOne !== startDateTwo &&
+        startDateOne !== startDateThree &&
+        startDateTwo !== startDateThree
+      ) {
+        console.log("Good to go");
+        setMessageFour("");
+      } else {
+        setMessageFour(
+          "The appointment options should be unique or should not be empty Please review your options."
+        );
+      }
+    }
+  };
+
   return (
     <StyleRoot>
       {/* <div> <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /></div> */}
@@ -169,6 +256,7 @@ const StepThreeD = (props) => {
                 style={{ fontSize: "20px", color: "darkslategrey" }}
                 type="date"
                 value={startDateOne}
+                onBlur={() => handleBlurDate()}
                 onChange={(e) => handleStartDateOne(e.target.value)}
               />
             </span>
@@ -184,6 +272,7 @@ const StepThreeD = (props) => {
                 }}
                 type="time"
                 value={startTimeOne}
+                step="1800"
                 selected=""
                 onChange={(e) => handleStartTimeOne(e.target.value)}
               />
@@ -194,6 +283,7 @@ const StepThreeD = (props) => {
                 }}
               >
                 {messageone}
+                {messagemins}
               </div>
               <div style={{ color: "red", marginBottom: "30px" }}>
                 {optdateonemsg}
@@ -214,6 +304,7 @@ const StepThreeD = (props) => {
                 style={{ fontSize: "20px", color: "darkslategrey" }}
                 type="date"
                 value={startDateTwo}
+                onBlur={() => handleBlurDate()}
                 onChange={(e) => handleStartDateTwo(e.target.value)}
               />
             </span>
@@ -239,6 +330,7 @@ const StepThreeD = (props) => {
                 }}
               >
                 {messagetwo}
+                {messageminstwo}
               </div>
               <div style={{ color: "red", marginBottom: "30px" }}>
                 {optdatetwomsg}
@@ -259,7 +351,7 @@ const StepThreeD = (props) => {
                 type="date"
                 max="9999-12-31"
                 value={startDateThree}
-                // selected=""
+                onBlur={() => handleBlurDate()}
                 onChange={(e) => handleStartDateThree(e.target.value)}
               />
             </span>
@@ -285,6 +377,7 @@ const StepThreeD = (props) => {
                 }}
               >
                 {messagethree}
+                {messageminsthree}
               </div>
               <div style={{ color: "red", marginBottom: "30px" }}>
                 {optdatethreemsg}
