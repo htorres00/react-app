@@ -32,7 +32,9 @@ const DistanceApi = (props) => {
     const [servicemsg, setServiceMsg] = useState([]);
     const [loader, setLoader] = useState(false);
     const [loader2, setLoader2] = useState(false);
+    const [proceed, setProceed] = useState(false);
     const [showerrmsg, setShowErrMsg] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const [coordinates, setCoordinates] = useState({
         lat: null,
         lng: null,
@@ -43,6 +45,11 @@ const DistanceApi = (props) => {
 
         getUserList();
     }, []);
+
+    const _setProceed = (bool) => {
+        setProceed(bool);
+        props.canProceed(bool);
+    };
 
     const getUserList = () => {
         const url = Constants.API_URL + "?action=get_bf_users"; //"https://philobotoapi.hztech.biz/php/new.php";
@@ -192,16 +199,19 @@ const DistanceApi = (props) => {
                     </>
                 );
                 setLoader2(false);
+                setProceed(true);
             } else if (finalDistance > 100) {
                 setServiceMsg(
-                    "Sorry, we can only service locations in the USA"
+                    "Sorry, we don't have any technicians available near you."
                 );
                 setLoader2(false);
+                setProceed(false);
             } else {
                 setServiceMsg(
                     "Good news. This address is within our area of service. Please notice mileage fees might be incurred when the appointment is confirmed."
                 );
                 setLoader2(false);
+                setProceed(true);
             }
         }
     };
@@ -262,14 +272,23 @@ const DistanceApi = (props) => {
     };
 
     const handleDistance = () => {
-        if (address == "") {
+        if (address === "") {
             setShowErrMsg(true);
+            setErrorMsg("Please enter your service location.");
             return;
         }
-        props.callBackFeedBack(servicemsg);
-        props.setValues.setLocation(serviceaddress);
-        props.setValues.setDistance(mindistance);
-        props.nextStep(5);
+
+        if (proceed) {
+            setShowErrMsg(false);
+
+            props.callBackFeedBack(servicemsg);
+            props.setValues.setLocation(serviceaddress);
+            props.setValues.setDistance(mindistance);
+            props.nextStep(5);
+        } else {
+            setErrorMsg("Sorry, we don't have any technicians available near you.");
+            setShowErrMsg(true);
+        }
     };
 
     return (
@@ -336,7 +355,7 @@ const DistanceApi = (props) => {
                         <div
                             style={{color: "red", fontWeight: "bold", marginTop: "10px"}}
                         >
-                            Please enter your service location.
+                            {errorMsg}
                         </div>
                     ) : (
                         <></>

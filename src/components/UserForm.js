@@ -16,7 +16,8 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 
 const UserForm = () => {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(0);
+  const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
   const [input, setInput] = useState("");
@@ -58,6 +59,11 @@ const UserForm = () => {
 
     // console.log(yesstep, "Yess step");
     // console.log(bool, "Indicator");
+  };
+
+  // Proceed to next step
+  const handleCanProceed = (bool) => {
+    setCanProceed(bool);
   };
 
   // Go back to prev step
@@ -129,6 +135,7 @@ const UserForm = () => {
               handleChange={handleChange}
               values={values}
               setValues={setValues}
+              canProceed={handleCanProceed}
             />
           </>
         );
@@ -142,6 +149,7 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
+            canProceed={handleCanProceed}
           />
         );
 
@@ -154,6 +162,7 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
+            canProceed={handleCanProceed}
           />
         );
 
@@ -169,6 +178,7 @@ const UserForm = () => {
             setValues={setValues}
             callBackFeedBack={callBackFeedBack}
             indicator={yesindicator}
+            canProceed={handleCanProceed}
           />
         );
       case 5:
@@ -182,6 +192,7 @@ const UserForm = () => {
             values={values}
             setValues={setValues}
             tecnicianresponce={tecnicianResponce}
+            canProceed={handleCanProceed}
           />
         );
       case 6:
@@ -194,6 +205,7 @@ const UserForm = () => {
             values={values}
             setValues={setValues}
             indicator={yesindicator}
+            canProceed={handleCanProceed}
           />
         );
       case 7:
@@ -205,6 +217,7 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
+            canProceed={handleCanProceed}
           />
         );
       case 8:
@@ -217,6 +230,7 @@ const UserForm = () => {
             values={values}
             setValues={setValues}
             setStep={setStep}
+            canProceed={handleCanProceed}
           />
         );
 
@@ -231,6 +245,7 @@ const UserForm = () => {
             values={values}
             setValues={setValues}
             indicator={yesindicator}
+            canProceed={handleCanProceed}
           />
         );
 
@@ -245,6 +260,7 @@ const UserForm = () => {
             values={values}
             setValues={setValues}
             indicator={yesindicator}
+            canProceed={handleCanProceed}
           />
         );
 
@@ -259,6 +275,7 @@ const UserForm = () => {
             values={values}
             setValues={setValues}
             indicator={yesindicator}
+            canProceed={handleCanProceed}
           />
         );
 
@@ -297,7 +314,7 @@ const UserForm = () => {
           ))}
       <HandleView />
       {step === 0 || step === 12 ? null : (
-        <Footer stepNo={step} nextStep={nextStep} prevStep={prevStep} />
+        <Footer stepNo={step} canProceed={canProceed} nextStep={nextStep} prevStep={prevStep} />
       )}
     </div>
   );
