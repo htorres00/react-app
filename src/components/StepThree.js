@@ -5,6 +5,7 @@ import AttachmentSingleNew from "./AttachmentSingleNew";
 import axios from "axios";
 import Loader from "./Loader/Loader";
 import Constants from "../Constants";
+import Footer from "./Footer";
 
 const styles = {
   fadeInUp: {
@@ -16,35 +17,11 @@ const styles = {
 const StepThree = (props) => {
   const [loader, setLoader] = useState(false);
   let okButn = null;
-  // const [emailValue, setEmailValue] = useState("");
   var value;
 
   useEffect(() => {
-    // setEmailValue(props.values?.email);
-    // emailInput.focus();
-
     props.setValues.setCompletedProgress(40);
   }, []);
-
-  // const setValue = (answer) => {
-  //   value = answer;
-  //   setEmailValue(value);
-  //   setTimeout(function () {
-  //     props.setValues.setEmail(value);
-  //   }, 1000);
-  // };
-
-  // const handleOnButnClick = () => {
-  //   if (emailValue != "") {
-  //     props.setValues.setEmail(emailValue);
-  //     props.nextStep();
-  //   }
-  // };
-
-  const handleOnButnClick = () => {
-    console.log("next page");
-    // props.nextStep();
-  };
 
   const handleUrls = (myurl) => {
     setLoader(true);
@@ -81,6 +58,11 @@ const StepThree = (props) => {
           </div>
 
           <AttachmentSingleNew url={handleUrls} />
+          <Footer
+            stepNo={props.stepNo}
+            nextStep={props.nextStep}
+            prevStep={props.prevStep}
+          />
         </div>
       ) : (
         <Loader />

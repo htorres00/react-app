@@ -8,6 +8,7 @@ import Radium, { StyleRoot } from "radium";
 import axios from "axios";
 import Loader from "./Loader/Loader";
 import Constants from "../Constants";
+import Footer from "./Footer";
 
 const styles = {
   fadeInUp: {
@@ -236,6 +237,11 @@ const StepFour = (props) => {
               </div>
             )}
           </div>
+          <Footer
+            stepNo={props.stepNo}
+            nextStep={props.nextStep}
+            prevStep={props.prevStep}
+          />
         </div>
       )}
     </StyleRoot>

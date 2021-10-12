@@ -3,6 +3,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
+import Footer from "./Footer";
 
 const styles = {
   fadeInUp: {
@@ -12,6 +13,27 @@ const styles = {
 };
 
 const StepThreeD = (props) => {
+  const [appttimes, setApptTimes] = useState([
+    { id: 1, value: "07:00 AM" },
+    { id: 2, value: "07:30 AM" },
+    { id: 3, value: "08:00 AM" },
+    { id: 4, value: "08:30 AM" },
+    { id: 5, value: "09:00 AM" },
+    { id: 6, value: "09:30 AM" },
+    { id: 7, value: "10:00 AM" },
+    { id: 8, value: "10:30 AM" },
+    { id: 9, value: "11:00 AM" },
+    { id: 10, value: "11:30 AM" },
+    { id: 11, value: "12:00 AM" },
+    { id: 12, value: "12:30 PM" },
+    { id: 13, value: "01:00 PM" },
+    { id: 14, value: "01:30 PM" },
+    { id: 15, value: "02:00 PM" },
+    { id: 16, value: "02:30 PM" },
+    { id: 17, value: "03:00 PM" },
+    { id: 18, value: "03:30 PM" },
+    { id: 19, value: "04:00 PM" },
+  ]);
   const [startDateOne, setStartDateOne] = useState(null);
   const [startTimeOne, setStartTimeOne] = useState(null);
 
@@ -32,14 +54,8 @@ const StepThreeD = (props) => {
   const [optdatetwomsg, setOptDateTwoMsg] = useState("");
   const [optdatethreemsg, setOptDateThreeMsg] = useState("");
 
-  const [messagemins, setMessageMins] = useState("");
-  const [messageminstwo, setMessageMinsTwo] = useState("");
-  const [messageminsthree, setMessageMinsThree] = useState("");
-
   useEffect(() => {
-    //console.log("props three D", props);
     props.setValues.setCompletedProgress(85);
-
     let date = new Date(new Date().toISOString().slice(0, 10));
     date.setDate(date.getDate() + parseInt(5));
     setMinDate(date.toLocaleDateString("fr-CA"));
@@ -58,94 +74,47 @@ const StepThreeD = (props) => {
   };
 
   const handleStartTimeOne = (timeone) => {
-    //checkTime(timeone);
-    let checktimecond = checkTime(timeone);
-    if (!checktimecond) {
-      setMessageOne("");
+    if (timeone == "") {
+      setMessageOne("Please enter the time between 7am to 4pm Only.");
       return;
     }
-
-    if (timeone > "07:00" && timeone < "17:00") {
-      setStartTimeOne(timeone);
-      setMessageOne("");
-    } else {
-      setMessageOne("Please enter the time between 7am to 4pm Only.");
-    }
-
-    // if (timeone > "07:00" && timeone < "17:00") {
-    //   setStartTimeOne(timeone);
-    //   setMessageOne("");
-    // } else {
-    //   setMessageOne("Please enter the time between 7am to 4pm Only.");
-    // }
-  };
-
-  const checkTime = (timeone) => {
-    let timesplit = timeone.split(":");
-
-    if (timesplit[1] == "00" || timesplit[1] == "30") {
-      setMessageMins("");
-      return true;
-    } else {
-      setMessageMins("Choose minutes between 00 or 30.");
-      return false;
-    }
-  };
-
-  const checkTimetwo = (timeone) => {
-    let timesplit = timeone.split(":");
-
-    if (timesplit[1] == "00" || timesplit[1] == "30") {
-      setMessageMinsTwo("");
-      return true;
-    } else {
-      setMessageMinsTwo("Choose minutes between 00 or 30.");
-      return false;
-    }
-  };
-
-  const checkTimethree = (timeone) => {
-    let timesplit = timeone.split(":");
-
-    if (timesplit[1] == "00" || timesplit[1] == "30") {
-      setMessageMinsThree("");
-      return true;
-    } else {
-      setMessageMinsThree("Choose minutes between 00 or 30.");
-      return false;
-    }
+    setStartTimeOne(timeone);
+    setMessageOne("");
   };
 
   const handleStartTimeTwo = (timetwo) => {
-    let checktimecond = checkTimetwo(timetwo);
-    if (!checktimecond) {
-      setMessageTwo("");
+    if (timetwo == "") {
+      setMessageTwo("Please enter the time between 7am to 4pm Only.");
       return;
     }
-
-    if (timetwo > "07:00" && timetwo < "17:00") {
-      setStartTimeTwo(timetwo);
-      setMessageTwo("");
-    } else {
-      setMessageTwo("Please enter the time between 7am to 4pm Only.");
-    }
+    setStartTimeTwo(timetwo);
+    setMessageTwo("");
   };
 
   const handleStartTimeThree = (timethree) => {
-    let checktimecond = checkTimethree(timethree);
-    if (!checktimecond) {
-      setMessageThree("");
+    if (timethree == "") {
+      setMessageThree("Please enter the time between 7am to 4pm Only.");
       return;
     }
-    if (timethree > "07:00" && timethree < "17:00") {
-      setStartTimeThree(timethree);
-      setMessageThree("");
-    } else {
-      setMessageThree("Please enter the time between 7am to 4pm Only.");
-    }
+    setStartTimeThree(timethree);
+    setMessageThree("");
   };
 
   const handleOnButnClick = () => {
+    if (
+      startDateOne === null ||
+      startDateTwo === null ||
+      startDateThree === null ||
+      startTimeOne === null ||
+      startTimeTwo === null ||
+      startTimeThree === null
+    ) {
+      setMessageFour(
+        "The appointment options should be unique or should not be empty Please review your options."
+      );
+      return;
+    }
+    setMessageFour("");
     if (startDateOne >= mindate) {
       setOptDateOneMsg("");
     } else {
@@ -193,11 +162,13 @@ const StepThreeD = (props) => {
   };
 
   const handleBlurDate = () => {
-    console.log(startDateOne, startDateTwo, startDateThree);
     if (
       startDateOne === null ||
       startDateTwo === null ||
-      startDateThree === null
+      startDateThree === null ||
+      startTimeOne === null ||
+      startTimeTwo === null ||
+      startTimeThree === null
     ) {
       setMessageFour(
         "The appointment options should be unique or should not be empty Please review your options."
@@ -220,7 +191,6 @@ const StepThreeD = (props) => {
 
   return (
     <StyleRoot>
-      {/* <div> <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /></div> */}
       <div className="step-three" style={styles.fadeInUp}>
         <div className="question">
           <span className="step-no">
@@ -260,35 +230,50 @@ const StepThreeD = (props) => {
                 onChange={(e) => handleStartDateOne(e.target.value)}
               />
             </span>
-            <span>
-              <input
-                // onKeyDown={(e) => e.preventDefault()}
-                // className="datetime"
-                style={{
-                  marginLeft: "90px",
-                  //marginBottom: "30px",
-                  fontSize: "20px",
-                  color: "darkslategrey",
-                }}
-                type="time"
-                value={startTimeOne}
-                step="1800"
-                selected=""
+
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+              }}
+            >
+              <select
+                className="appttime"
+                onBlur={() => handleBlurDate()}
                 onChange={(e) => handleStartTimeOne(e.target.value)}
-              />
-              <div
-                style={{
-                  color: "red",
-                  marginBottom: messageone == "" ? "0px" : "30px",
-                }}
+                value={startTimeOne}
               >
-                {messageone}
-                {messagemins}
-              </div>
-              <div style={{ color: "red", marginBottom: "30px" }}>
-                {optdateonemsg}
-              </div>
-            </span>
+                <option value="" selected disabled style={{ fontSize: "15px" }}>
+                  00:00 AM
+                </option>
+
+                {appttimes.map((appttime) => (
+                  <option
+                    key={appttime.id}
+                    value={appttime.value}
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    {appttime.value}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div
+              style={{
+                color: "red",
+                marginBottom: messageone == "" ? "0px" : "30px",
+              }}
+            >
+              {messageone}
+            </div>
+            <div style={{ color: "red", marginBottom: "30px" }}>
+              {optdateonemsg}
+            </div>
           </div>
 
           <div style={{ marginBottom: "8px", fontWeight: "bold" }}>
@@ -309,20 +294,43 @@ const StepThreeD = (props) => {
               />
             </span>
             <span>
-              <input
-                // onKeyDown={(e) => e.preventDefault()}
-                // className="datetime"
+              <div
                 style={{
-                  marginLeft: "90px",
-                  // marginBottom: "30px",
-                  fontSize: "20px",
-                  color: "darkslategrey",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
                 }}
-                type="time"
-                value={startTimeTwo}
-                selected=""
-                onChange={(e) => handleStartTimeTwo(e.target.value)}
-              />
+              >
+                <select
+                  className="appttime"
+                  onBlur={() => handleBlurDate()}
+                  onChange={(e) => handleStartTimeTwo(e.target.value)}
+                  value={startTimeTwo}
+                >
+                  <option
+                    value=""
+                    selected
+                    disabled
+                    style={{ fontSize: "15px" }}
+                  >
+                    00:00 AM
+                  </option>
+
+                  {appttimes.map((appttime) => (
+                    <option
+                      key={appttime.id}
+                      value={appttime.value}
+                      style={{
+                        fontSize: "15px",
+                      }}
+                    >
+                      {appttime.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div
                 style={{
                   color: "red",
@@ -330,7 +338,6 @@ const StepThreeD = (props) => {
                 }}
               >
                 {messagetwo}
-                {messageminstwo}
               </div>
               <div style={{ color: "red", marginBottom: "30px" }}>
                 {optdatetwomsg}
@@ -356,20 +363,43 @@ const StepThreeD = (props) => {
               />
             </span>
             <span>
-              <input
-                // onKeyDown={(e) => e.preventDefault()}
-                // className="datetime"
+              <div
                 style={{
-                  marginLeft: "90px",
-                  //marginBottom: "30px",
-                  fontSize: "20px",
-                  color: "darkslategrey",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
                 }}
-                type="time"
-                value={startTimeThree}
-                selected=""
-                onChange={(e) => handleStartTimeThree(e.target.value)}
-              />
+              >
+                <select
+                  className="appttime"
+                  onBlur={() => handleBlurDate()}
+                  onChange={(e) => handleStartTimeThree(e.target.value)}
+                  value={startTimeThree}
+                >
+                  <option
+                    value=""
+                    selected
+                    disabled
+                    style={{ fontSize: "15px" }}
+                  >
+                    00:00 AM
+                  </option>
+
+                  {appttimes.map((appttime) => (
+                    <option
+                      key={appttime.id}
+                      value={appttime.value}
+                      style={{
+                        fontSize: "15px",
+                      }}
+                    >
+                      {appttime.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div
                 style={{
                   color: "red",
@@ -377,7 +407,6 @@ const StepThreeD = (props) => {
                 }}
               >
                 {messagethree}
-                {messageminsthree}
               </div>
               <div style={{ color: "red", marginBottom: "30px" }}>
                 {optdatethreemsg}
@@ -411,6 +440,11 @@ const StepThreeD = (props) => {
           </button>
           <span className="enter-text">press Enter ↵</span>
         </>
+        <Footer
+          stepNo={props.stepNo}
+          nextStep={props.nextStep}
+          prevStep={props.prevStep}
+        />
       </div>
     </StyleRoot>
   );

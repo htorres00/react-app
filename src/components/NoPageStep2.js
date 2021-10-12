@@ -3,8 +3,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
-import Attachment from "./Attachment";
-import AttachmentSingleNew from "./AttachmentSingleNew";
+import Footer from "./Footer";
 import React from "react";
 
 const styles = {
@@ -14,26 +13,16 @@ const styles = {
   },
 };
 
-
 const NoPageStep2 = (props) => {
   const [email, setEmail] = useState("");
-  let okButn = null;
-  let emailInput = null;
 
   useEffect(() => {
     props.setValues.setCompletedProgress(22);
-  })
-  
+  });
 
   const handleOnButnClick = () => {
-    console.log(email, "Email ");
     props.setValues.setEmail(email);
     props.nextStep(4);
-
-    // if (emailValue != "") {
-    //   props.setValues.setEmail(emailValue);
-    //   props.nextStep2(4)
-    // }
   };
 
   return (
@@ -63,9 +52,6 @@ const NoPageStep2 = (props) => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            ref={(emailInpt) => {
-              emailInput = emailInpt;
-            }}
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
                 handleOnButnClick();
@@ -82,9 +68,6 @@ const NoPageStep2 = (props) => {
               onClick={() => {
                 handleOnButnClick();
               }}
-              ref={(button) => {
-                okButn = button;
-              }}
               onKeyDown={() => {
                 handleOnButnClick();
               }}
@@ -95,14 +78,13 @@ const NoPageStep2 = (props) => {
             <span className="enter-text">press Enter ↵</span>
           </>
         )}
+        <Footer
+          stepNo={props.stepNo}
+          nextStep={props.nextStep}
+          prevStep={props.prevStep}
+        />
       </div>
     </StyleRoot>
-    // <div>
-    //     <h1>No page 2</h1>
-    //     <button
-    //     onClick={() => {props.nextStep2(4);}}
-    //     >ok</button>
-    // </div>
   );
 };
 export default NoPageStep2;

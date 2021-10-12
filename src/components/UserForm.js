@@ -16,7 +16,7 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 
 const UserForm = () => {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(0);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
   const [input, setInput] = useState("");
@@ -296,9 +296,9 @@ const UserForm = () => {
             />
           ))}
       <HandleView />
-      {step === 0 || step === 12 ? null : (
+      {/* {step === 0 || step === 12 ? null : (
         <Footer stepNo={step} nextStep={nextStep} prevStep={prevStep} />
-      )}
+      )} */}
     </div>
   );
 };

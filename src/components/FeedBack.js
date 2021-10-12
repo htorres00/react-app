@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
+import Footer from "./Footer";
 
 const styles = {
   fadeInUp: {
@@ -23,17 +24,6 @@ const FeedBack = (props) => {
         <div className="question">
           <p>
             <span className="level-one">{props.tecnicianresponce}</span>
-            {/* <span className="level-one">
-              Good news, you're within our area of service.
-            </span>
-            <span className="level-one">
-              A mileage fee of at least $7.30 will be added to the order.
-            </span>
-
-            <span className="level-two">
-              The final amount will be included when the appoitment is
-              confirmed.
-            </span> */}
           </p>
         </div>
 
@@ -52,9 +42,15 @@ const FeedBack = (props) => {
             }}
           >
             OK
+            <HiOutlineCheck></HiOutlineCheck>
           </button>
           <span className="enter-text">press Enter ↵</span>
         </>
+        <Footer
+          stepNo={props.stepNo}
+          nextStep={props.nextStep}
+          prevStep={props.prevStep}
+        />
       </div>
     </StyleRoot>
   );

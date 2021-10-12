@@ -306,6 +306,16 @@ button.ok-butn {
   text-align: center;
 }
 
+.appttime {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #cac8b0;
+  font-size: 18px;
+  color: darkslategrey;
+  margin-right: 100px;
+  margin-top: -35px;
+}
+
 .picture-choice-content-wraper {
   display: flex;
   -webkit-box-align: center;
@@ -337,6 +347,10 @@ button.ok-butn {
 }
 
 .footer-navigation-butn {
+  width: 36px;
+  min-width: 36px;
+  height: 32px;
+  font-weight: 700;
   border-radius: 4px;
   background-color: rgb(251, 206, 55);
   border: 0px none;

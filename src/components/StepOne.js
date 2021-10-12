@@ -5,6 +5,7 @@ import yes from "../images/yes.png";
 import no from "../images/no.png";
 import { fadeInUp, flash } from "react-animations";
 import Radium, { StyleRoot } from "radium";
+import Footer from "./Footer";
 
 const styles = {
   fadeInUp: {
@@ -178,6 +179,11 @@ const StepOne = (props) => {
             <HiOutlineCheck></HiOutlineCheck>
           </button>
         )}
+        <Footer
+          stepNo={props.stepNo}
+          nextStep={props.nextStep}
+          prevStep={props.prevStep}
+        />
       </div>
     </StyleRoot>
   );

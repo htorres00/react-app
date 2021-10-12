@@ -5,6 +5,7 @@ import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Footer from "./Footer";
 
 const styles = {
   fadeInUp: {
@@ -14,16 +15,7 @@ const styles = {
 };
 
 const NoPageStep1 = (props) => {
-  useEffect(() => {
-    console.log(props, "step two props");
-  }, []);
-  let textInput = null;
-
-  //   useEffect(() => {
-  //     textInput.focus();
-  //   }, []);
-
-  let okButn = null;
+  useEffect(() => {}, []);
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
@@ -36,7 +28,6 @@ const NoPageStep1 = (props) => {
   };
 
   const handleOnButnClick = () => {
-    console.log(phone, "phone number");
     props.setValues.setPhone(phone);
     props.nextStep(3);
   };
@@ -97,15 +88,13 @@ const NoPageStep1 = (props) => {
             <span className="enter-text">press Enter ↵</span>
           </>
         )}
+        <Footer
+          stepNo={props.stepNo}
+          nextStep={props.nextStep}
+          prevStep={props.prevStep}
+        />
       </div>
     </StyleRoot>
-
-    // <div>
-    //     <h1>No page 1</h1>
-    //     <button
-    //     onClick={() => {props.nextStep(3);}}
-    //     >ok</button>
-    // </div>
   );
 };
 
