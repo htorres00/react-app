@@ -53,8 +53,12 @@ const StepThreeD = (props) => {
   const [optdateonemsg, setOptDateOneMsg] = useState("");
   const [optdatetwomsg, setOptDateTwoMsg] = useState("");
   const [optdatethreemsg, setOptDateThreeMsg] = useState("");
+  let apptdate = null;
+  let okButn = null;
 
   useEffect(() => {
+    apptdate.focus();
+    //okButn.focus();
     props.setValues.setCompletedProgress(85);
     let date = new Date(new Date().toISOString().slice(0, 10));
     date.setDate(date.getDate() + parseInt(5));
@@ -62,14 +66,33 @@ const StepThreeD = (props) => {
   }, []);
 
   const handleStartDateOne = (startdateone) => {
+    if (startdateone >= mindate) {
+      setOptDateOneMsg("");
+    } else {
+      setOptDateOneMsg("Date should be greater than Today + 4 days");
+      return;
+    }
     setStartDateOne(startdateone);
   };
 
   const handleStartDateTwo = (startdatetwo) => {
+    if (startdatetwo >= mindate) {
+      setOptDateTwoMsg("");
+    } else {
+      setOptDateTwoMsg("Date should be greater than Today + 4 days");
+      return;
+    }
+
     setStartDateTwo(startdatetwo);
   };
 
   const handleStartDateThree = (startdatethree) => {
+    if (startdatethree >= mindate) {
+      setOptDateThreeMsg("");
+    } else {
+      setOptDateThreeMsg("Date should be greater than Today + 4 days");
+      return;
+    }
     setStartDateThree(startdatethree);
   };
 
@@ -180,6 +203,7 @@ const StepThreeD = (props) => {
         startDateTwo !== startDateThree
       ) {
         console.log("Good to go");
+        okButn.focus();
         setMessageFour("");
       } else {
         setMessageFour(
@@ -191,7 +215,15 @@ const StepThreeD = (props) => {
 
   return (
     <StyleRoot>
-      <div className="step-three" style={styles.fadeInUp}>
+      <div
+        className="step-three"
+        style={styles.fadeInUp}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) {
+            handleOnButnClick();
+          }
+        }}
+      >
         <div className="question">
           <span className="step-no">
             {props.indicator === true ? (
@@ -219,6 +251,9 @@ const StepThreeD = (props) => {
           <div>
             <span>
               <input
+                ref={(apptDT) => {
+                  apptdate = apptDT;
+                }}
                 //onKeyDown={(e) => e.preventDefault()}
                 //className="datetime"
                 min={mindate}
@@ -428,12 +463,14 @@ const StepThreeD = (props) => {
             className="ok-butn ok-step-three"
             // tabIndex="0"
             onClick={handleOnButnClick}
-            // ref={(button) => {
-            //   okButn = button;
-            // }}
-            // onKeyDown={() => {
-            //   handleOnButnClick();
-            // }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                handleOnButnClick();
+              }
+            }}
+            ref={(button) => {
+              okButn = button;
+            }}
           >
             OK
             <HiOutlineCheck></HiOutlineCheck>

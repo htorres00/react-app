@@ -41,17 +41,6 @@ const AttachmentSingle = (props) => {
   };
 
   const handleFile = (e) => {
-    if (urls.length + e.target.files.length > 20) {
-      setSelected(true);
-      return;
-    }
-
-    if (urls.length + e.target.files.length < 3) {
-      setSelected(true);
-    } else {
-      setSelected(false);
-    }
-
     for (let i = 0; i < e.target.files.length; i++) {
       urls.push({
         name: e.target.files[i].name,
@@ -60,6 +49,7 @@ const AttachmentSingle = (props) => {
       });
       selectedFile.push(e.target.files[i]);
     }
+    setSelected(false);
     setUrls(urls);
     setRefresh(refresh + 1);
   };
@@ -82,7 +72,7 @@ const AttachmentSingle = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
-    if (urls.length < 3 || urls.length > 20) {
+    if (urls.length == 0) {
       setSelected(true);
       return;
     }
@@ -93,11 +83,6 @@ const AttachmentSingle = (props) => {
   const remove = (url, index) => {
     urls.splice(index, 1);
     selectedFile.splice(index, 1);
-    if (urls.length < 3 || urls.length > 20) {
-      setSelected(true);
-    } else {
-      setSelected(false);
-    }
     setRefresh(refresh + 1);
   };
 
@@ -205,6 +190,13 @@ const AttachmentSingle = (props) => {
         </div>
       </div>
 
+      {selected ? (
+        <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
+          Please select any file.
+        </div>
+      ) : (
+        <></>
+      )}
       <button
         className="ok-butn ok-step-attachment"
         onClick={() => handleClick()}
@@ -212,14 +204,6 @@ const AttachmentSingle = (props) => {
         OK
         <HiOutlineCheck></HiOutlineCheck>
       </button>
-
-      {selected ? (
-        <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          Files should be minimum 3 or maximum 20
-        </div>
-      ) : (
-        <></>
-      )}
     </section>
   );
 };

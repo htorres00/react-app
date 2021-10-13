@@ -275,7 +275,7 @@ const DistanceApi = (props) => {
   };
 
   const handleDistance = () => {
-    if (address === "") {
+    if (!handledistance) {
       setShowErrMsg(true);
       setErrorMsg("Please enter your service location.");
       return;
@@ -324,7 +324,15 @@ const DistanceApi = (props) => {
               <div>
                 <input
                   style={{ width: "100%" }}
-                  {...getInputProps({ placeholder: "Type address" })}
+                  {...getInputProps({
+                    placeholder: "Type your answer here...",
+                    autoFocus: true,
+                  })}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 13) {
+                      handleDistance();
+                    }
+                  }}
                 />
                 <div>
                   {loading ? <div> ...Loading</div> : null}

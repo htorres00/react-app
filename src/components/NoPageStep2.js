@@ -15,9 +15,11 @@ const styles = {
 
 const NoPageStep2 = (props) => {
   const [email, setEmail] = useState("");
+  let inputfocus = null;
 
   useEffect(() => {
     props.setValues.setCompletedProgress(22);
+    inputfocus?.focus();
   });
 
   const handleOnButnClick = () => {
@@ -27,7 +29,15 @@ const NoPageStep2 = (props) => {
 
   return (
     <StyleRoot>
-      <div className="step-three" style={styles.fadeInUp}>
+      <div
+        className="step-three"
+        style={styles.fadeInUp}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) {
+            handleOnButnClick();
+          }
+        }}
+      >
         <div className="question">
           <span className="step-no">
             {props.stepNo}
@@ -48,6 +58,7 @@ const NoPageStep2 = (props) => {
             type="email"
             name="email"
             value={email}
+            style={{ width: "100%" }}
             placeholder="name@example.com"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -57,27 +68,29 @@ const NoPageStep2 = (props) => {
                 handleOnButnClick();
               }
             }}
+            ref={(email) => {
+              inputfocus = email;
+            }}
           />
         </div>
 
-        {email && email.length > 0 && (
-          <>
-            <button
-              className="ok-butn ok-step-three"
-              tabIndex="0"
-              onClick={() => {
-                handleOnButnClick();
-              }}
-              onKeyDown={() => {
-                handleOnButnClick();
-              }}
-            >
-              OK
-              <HiOutlineCheck></HiOutlineCheck>
-            </button>
-            <span className="enter-text">press Enter ↵</span>
-          </>
-        )}
+        <>
+          <button
+            className="ok-butn ok-step-three"
+            tabIndex="0"
+            onClick={() => {
+              handleOnButnClick();
+            }}
+            onKeyDown={() => {
+              handleOnButnClick();
+            }}
+          >
+            OK
+            <HiOutlineCheck></HiOutlineCheck>
+          </button>
+          <span className="enter-text">press Enter ↵</span>
+        </>
+
         <Footer
           stepNo={props.stepNo}
           nextStep={props.nextStep}

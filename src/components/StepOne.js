@@ -32,6 +32,7 @@ const StepOne = (props) => {
 
   useEffect(() => {
     setKeyValue(props.values?.emailQuestion);
+    console.log(props.values?.emailQuestion, emailOption, "t");
     emailOption.focus();
     props.setValues.setCompletedProgress(10);
   }, []);
@@ -68,6 +69,8 @@ const StepOne = (props) => {
           if (e.keyCode === 65) {
             setValue("yes");
           } else if (e.keyCode === 66) {
+            setValue("no");
+          } else {
             setValue("no");
           }
         }}
@@ -168,7 +171,7 @@ const StepOne = (props) => {
             tabIndex="0"
             onClick={() => {
               if (value != "") {
-                props.nextStep();
+                props.nextStep(2);
               }
             }}
             ref={(button) => {

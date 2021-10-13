@@ -12,10 +12,10 @@ const styles = {
 };
 
 const FeedBack = (props) => {
-  let textInput = null;
+  let fdbackbtnfocus = null;
 
   useEffect(() => {
-    textInput.focus();
+    fdbackbtnfocus?.focus();
   }, []);
 
   return (
@@ -37,12 +37,11 @@ const FeedBack = (props) => {
             onClick={() => {
               props.nextStep(6);
             }}
-            ref={(button) => {
-              textInput = button;
+            ref={(fdbackbtn) => {
+              fdbackbtnfocus = fdbackbtn;
             }}
           >
-            OK
-            <HiOutlineCheck></HiOutlineCheck>
+            Continue
           </button>
           <span className="enter-text">press Enter ↵</span>
         </>

@@ -34,7 +34,15 @@ const NoPageStep1 = (props) => {
 
   return (
     <StyleRoot>
-      <div className="step-two" style={styles.fadeInUp}>
+      <div
+        className="step-two"
+        style={styles.fadeInUp}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) {
+            handleOnButnClick();
+          }
+        }}
+      >
         <div className="question">
           <span className="step-no">
             {props.stepNo}
@@ -57,6 +65,7 @@ const NoPageStep1 = (props) => {
             placeholder="(201) 555-0123"
             value={phone}
             onChange={(phone) => handlePhone(phone)}
+            tabIndex="0"
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
                 handleOnButnClick();
@@ -70,24 +79,22 @@ const NoPageStep1 = (props) => {
           />
         </div>
 
-        {phone && phone.length > 0 && (
-          <>
-            <button
-              className="ok-butn ok-step-two"
-              tabIndex="0"
-              onClick={() => {
-                handleOnButnClick();
-              }}
-              onKeyDown={() => {
-                handleOnButnClick();
-              }}
-            >
-              OK
-              <HiOutlineCheck></HiOutlineCheck>
-            </button>
-            <span className="enter-text">press Enter ↵</span>
-          </>
-        )}
+        <>
+          <button
+            className="ok-butn ok-step-two"
+            tabIndex="0"
+            onClick={() => {
+              handleOnButnClick();
+            }}
+            onKeyDown={() => {
+              handleOnButnClick();
+            }}
+          >
+            OK
+            <HiOutlineCheck></HiOutlineCheck>
+          </button>
+          <span className="enter-text">press Enter ↵</span>
+        </>
         <Footer
           stepNo={props.stepNo}
           nextStep={props.nextStep}

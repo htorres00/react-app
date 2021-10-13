@@ -200,42 +200,40 @@ const StepFour = (props) => {
               <span className="bold">Enter ↵</span> to make a line break
             </div>
 
-            {inputValue && inputValue.length > 0 && (
-              <div className="butnWrap">
-                <button
-                  type="submit"
-                  className="submit-form"
-                  tabIndex="0"
-                  onClick={() => {
-                    handleOnButnClick();
-                  }}
-                >
-                  Submit
-                </button>
-                {window.navigator.platform.toLowerCase().includes("win") && (
-                  <>
-                    <span>press </span>
-                    <span className="bold">
-                      Ctrl <AiOutlinePlus></AiOutlinePlus>
-                    </span>
-                    <span className="bold">
-                      &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
-                    </span>
-                  </>
-                )}
-                {window.navigator.platform.toLowerCase().includes("mac") && (
-                  <>
-                    <span>press </span>
-                    <span className="bold">
-                      Cmd <BiCommand></BiCommand>
-                    </span>
-                    <span className="bold">
-                      &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
-                    </span>
-                  </>
-                )}
-              </div>
-            )}
+            <div className="butnWrap">
+              <button
+                type="submit"
+                className="submit-form"
+                tabIndex="0"
+                onClick={() => {
+                  handleOnButnClick();
+                }}
+              >
+                Submit
+              </button>
+              {window.navigator.platform.toLowerCase().includes("win") && (
+                <>
+                  <span>press </span>
+                  <span className="bold">
+                    Ctrl <AiOutlinePlus></AiOutlinePlus>
+                  </span>
+                  <span className="bold">
+                    &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
+                  </span>
+                </>
+              )}
+              {window.navigator.platform.toLowerCase().includes("mac") && (
+                <>
+                  <span>press </span>
+                  <span className="bold">
+                    Cmd <BiCommand></BiCommand>
+                  </span>
+                  <span className="bold">
+                    &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
+                  </span>
+                </>
+              )}
+            </div>
           </div>
           <Footer
             stepNo={props.stepNo}

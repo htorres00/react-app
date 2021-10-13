@@ -83,6 +83,10 @@ const AttachmentSingleNew = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
+    if (urls.length == 0) {
+      setErrorMsg(true);
+      return;
+    }
     props.url(selectedFile);
   };
 
@@ -201,26 +205,21 @@ const AttachmentSingleNew = (props) => {
       </div>
 
       {errormsg ? (
-        <div style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
+        <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
           Only one file is acceptable.
         </div>
       ) : (
         <></>
       )}
 
-      {urls.length > 0 || loader ? (
-        <>
-          <button
-            className="ok-butn ok-step-attachment"
-            onClick={() => handleClick()}
-          >
-            {loader ? <Loader /> : "OK"}
-            <HiOutlineCheck></HiOutlineCheck>
-          </button>
-        </>
-      ) : (
-        <></>
-      )}
+      <>
+        <button
+          className="ok-butn ok-step-attachment"
+          onClick={() => handleClick()}
+        >
+          OK <HiOutlineCheck></HiOutlineCheck>
+        </button>
+      </>
     </section>
   );
 };

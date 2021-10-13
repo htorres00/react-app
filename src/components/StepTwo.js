@@ -15,16 +15,11 @@ const styles = {
 
 const StepTwo = (props) => {
   useEffect(() => {}, []);
-  let textInput = null;
-
-  useEffect(() => {
-    textInput.focus();
-  }, []);
-
-  let okButn = null;
+  let serreqfocus = null;
 
   useEffect(() => {
     props.setValues.setCompletedProgress(26);
+    serreqfocus?.focus();
   }, []);
 
   return (
@@ -58,8 +53,13 @@ const StepTwo = (props) => {
             onClick={() => {
               props.nextStep(7);
             }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                props.nextStep(7);
+              }
+            }}
             ref={(button) => {
-              textInput = button;
+              serreqfocus = button;
             }}
           >
             Continue
