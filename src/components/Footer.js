@@ -21,9 +21,12 @@ const Footer = (props) => {
           onClick={
             props.stepNo < 12
               ? () => {
-                  // if (props.canProceed) {}
-                  props.nextStep(props.stepNo + 1);
-                  console.log(props.stepNo, "pg in footor");
+                  if (props.stepNo == 4) {
+                    props.handleDistance();
+                  } else {
+                    props.nextStep(props.stepNo + 1);
+                    console.log(props.stepNo, "pg in footor");
+                  }
                 }
               : null
           }

@@ -387,6 +387,7 @@ const DistanceApi = (props) => {
             <Loader />
           )}
           <Footer
+            handleDistance={handleDistance}
             stepNo={props.stepNo}
             nextStep={props.nextStep}
             prevStep={props.prevStep}
