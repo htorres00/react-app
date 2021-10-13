@@ -43,7 +43,7 @@ const DistanceApi = (props) => {
 
   useEffect(() => {
     setLoader(true);
-
+    setAddress(props.values?.address);
     getUserList();
   }, []);
 
@@ -287,6 +287,7 @@ const DistanceApi = (props) => {
       props.callBackFeedBack(servicemsg);
       props.setValues.setLocation(serviceaddress);
       props.setValues.setDistance(mindistance);
+      props.setValues.setAddress(address);
       props.nextStep(5);
     } else {
       setErrorMsg("Sorry, we don't have any technicians available near you.");

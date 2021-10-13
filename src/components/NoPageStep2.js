@@ -18,9 +18,10 @@ const NoPageStep2 = (props) => {
   let inputfocus = null;
 
   useEffect(() => {
+    setEmail(props.values?.email);
     props.setValues.setCompletedProgress(22);
     inputfocus?.focus();
-  });
+  }, []);
 
   const handleOnButnClick = () => {
     props.setValues.setEmail(email);

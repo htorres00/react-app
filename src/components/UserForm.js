@@ -16,7 +16,7 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 
 const UserForm = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(10);
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
@@ -25,17 +25,27 @@ const UserForm = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [files, setFiles] = useState([]);
+  const [frontfile, setFrontFile] = useState([]);
+  const [backfile, setBackFile] = useState([]);
+  const [multfile, setMultFile] = useState([]);
   const [cardback, setCardBack] = useState([]);
   const [laborder, setLabOrder] = useState([]);
   const [optionone, setOptionOne] = useState([]);
+  const [dateone, setDateOne] = useState(null);
+  const [timeone, setTimeOne] = useState(null);
   const [optiontwo, setOptionTwo] = useState([]);
+  const [datetwo, setDateTwo] = useState(null);
+  const [timetwo, setTimeTwo] = useState(null);
   const [optionthree, setOptionThree] = useState([]);
+  const [datethree, setDateThree] = useState(null);
+  const [timethree, setTimeThree] = useState(null);
   const [comments, setComments] = useState("");
   const [completedProgress, setCompletedProgress] = useState("");
   const [tecnicianResponce, setTecnicianResponce] = useState("");
   const [location, setLocation] = useState("");
   const [id, setId] = useState("");
   const [distance, setDistance] = useState("");
+  const [address, setAddress] = useState("");
 
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
@@ -105,6 +115,16 @@ const UserForm = () => {
       location,
       id,
       distance,
+      address,
+      frontfile,
+      backfile,
+      multfile,
+      dateone,
+      timeone,
+      datetwo,
+      timetwo,
+      datethree,
+      timethree,
     };
     const setValues = {
       setEmailQuestion,
@@ -123,6 +143,16 @@ const UserForm = () => {
       setLocation,
       setId,
       setDistance,
+      setAddress,
+      setFrontFile,
+      setBackFile,
+      setMultFile,
+      setDateOne,
+      setTimeOne,
+      setDateTwo,
+      setTimeTwo,
+      setDateThree,
+      setTimeThree,
     };
     switch (step) {
       case 1:

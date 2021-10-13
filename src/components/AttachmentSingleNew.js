@@ -44,8 +44,22 @@ const AttachmentSingleNew = (props) => {
     height: "100%",
   };
 
+  useEffect(() => {
+    input.focus();
+    if (props.myfrontfile?.length > 0) {
+      urls.push({
+        name: props.myfrontfile[0].name,
+        url: props.myfrontfile[0].url,
+        type: props.myfrontfile[0].type,
+      });
+      setErrorMsg(false);
+      setSelected(true);
+      setUrls(urls);
+      setRefresh(refresh + 1);
+    }
+  }, []);
+
   const handleFile = (e) => {
-    //console.log(e.target.files);
     if (urls.length > 0) {
       setErrorMsg(true);
       return;
@@ -66,13 +80,6 @@ const AttachmentSingleNew = (props) => {
   };
 
   useEffect(() => {
-    input.focus();
-    if (props.values?.files.length > 0) {
-      setUrls(props.values?.files);
-    }
-  }, []);
-
-  useEffect(() => {
     //setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
     setTimeout(function () {
       for (let k = 0; k < urls.length; k++) {
@@ -87,7 +94,7 @@ const AttachmentSingleNew = (props) => {
       setErrorMsg(true);
       return;
     }
-    props.url(selectedFile);
+    props.url(selectedFile, urls);
   };
 
   const remove = (url, index) => {

@@ -20,10 +20,10 @@ const StepThreeB = (props) => {
     props.setValues.setCompletedProgress(55);
   }, []);
 
-  const handleUrls = (myurl) => {
+  const handleUrls = (selectedfile, urls) => {
     setLoader(true);
     let data = new FormData();
-    data.append("file", myurl);
+    data.append("file", selectedfile);
     data.append("action", "post_file");
     const url = Constants.API_URL; //`http://philobotoapi.hztech.biz/php/upload.php`;
     axios
@@ -31,6 +31,7 @@ const StepThreeB = (props) => {
       .then((res) => {
         console.log(res.data, "Image");
         setLoader(false);
+        props.setValues.setBackFile(urls);
         props.setValues.setCardBack(res.data);
         props.nextStep(9);
       })
@@ -54,7 +55,10 @@ const StepThreeB = (props) => {
             </p>
           </div>
 
-          <AttachmentSingleNew url={handleUrls} />
+          <AttachmentSingleNew
+            url={handleUrls}
+            myfrontfile={props.values.backfile}
+          />
           <Footer
             stepNo={props.stepNo}
             nextStep={props.nextStep}

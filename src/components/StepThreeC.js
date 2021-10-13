@@ -21,19 +21,20 @@ const StepThreeC = (props) => {
     props.setValues.setCompletedProgress(75);
   }, []);
 
-  const handleUrl = (urls) => {
+  const handleUrl = (selectedfile, urls) => {
     setLoader(true);
     let data = new FormData();
     const url = Constants.API_URL;
     data.append("action", "post_file");
-    for (let i = 0; i < urls.length; i++) {
-      data.append(`file${i}`, urls[i]);
+    for (let i = 0; i < selectedfile.length; i++) {
+      data.append(`file${i}`, selectedfile[i]);
     }
     axios
       .post(url, data)
       .then((res) => {
         setLoader(false);
         props.setValues.setLabOrder(res.data);
+        props.setValues.setMultFile(urls);
         console.log(res.data, "upload api");
         props.nextStep(10);
       })
@@ -67,7 +68,10 @@ const StepThreeC = (props) => {
             </p>
           </div>
 
-          <AttachmentSingle url={handleUrl} />
+          <AttachmentSingle
+            url={handleUrl}
+            mybackfile={props.values.multfile}
+          />
           <Footer
             stepNo={props.stepNo}
             nextStep={props.nextStep}

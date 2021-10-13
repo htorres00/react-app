@@ -60,6 +60,12 @@ const StepThreeD = (props) => {
     apptdate.focus();
     //okButn.focus();
     props.setValues.setCompletedProgress(85);
+    setStartDateOne(props.values?.dateone);
+    setStartTimeOne(props.values?.timeone);
+    setStartDateTwo(props.values?.datetwo);
+    setStartTimeTwo(props.values?.timetwo);
+    setStartDateThree(props.values?.datethree);
+    setStartTimeThree(props.values?.timethree);
     let date = new Date(new Date().toISOString().slice(0, 10));
     date.setDate(date.getDate() + parseInt(5));
     setMinDate(date.toLocaleDateString("fr-CA"));
@@ -180,6 +186,14 @@ const StepThreeD = (props) => {
       props.setValues.setOptionOne(opt1);
       props.setValues.setOptionTwo(opt2);
       props.setValues.setOptionThree(opt3);
+
+      props.setValues.setDateOne(startDateOne);
+      props.setValues.setTimeOne(startTimeOne);
+      props.setValues.setDateTwo(startDateTwo);
+      props.setValues.setTimeTwo(startTimeTwo);
+      props.setValues.setDateThree(startDateThree);
+      props.setValues.setTimeThree(startTimeThree);
+
       props.nextStep(11);
     }
   };
