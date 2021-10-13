@@ -53,6 +53,7 @@ const AttachmentSingleNew = (props) => {
         type: props.myfrontfile[0].type,
       });
       setErrorMsg(false);
+      setMsg("");
       setSelected(true);
       setUrls(urls);
       setRefresh(refresh + 1);
@@ -61,6 +62,7 @@ const AttachmentSingleNew = (props) => {
 
   const handleFile = (e) => {
     if (urls.length > 0) {
+      setMsg("Only one file is acceptable.");
       setErrorMsg(true);
       return;
     }
@@ -73,6 +75,7 @@ const AttachmentSingleNew = (props) => {
       });
     }
     setErrorMsg(false);
+    setMsg("");
     setSelected(true);
     setUrls(urls);
     setsSelectedFile(e.target.files[0]);
@@ -91,6 +94,7 @@ const AttachmentSingleNew = (props) => {
 
   const handleClick = () => {
     if (urls.length == 0) {
+      setMsg("Please select any file.");
       setErrorMsg(true);
       return;
     }
@@ -99,6 +103,7 @@ const AttachmentSingleNew = (props) => {
 
   const remove = (url, index) => {
     setErrorMsg(false);
+    setMsg("");
     setSelected(false);
     urls.splice(index, 1); // remove the file from the array
     setRefresh(refresh + 1);
@@ -213,7 +218,7 @@ const AttachmentSingleNew = (props) => {
 
       {errormsg ? (
         <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-          Only one file is acceptable.
+          {msg}
         </div>
       ) : (
         <></>
