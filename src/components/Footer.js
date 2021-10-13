@@ -35,6 +35,11 @@ const Footer = (props) => {
           <IoIosArrowDown></IoIosArrowDown>
         </button>
         <button
+          style={{
+            borderRight: "1px solid rgba(50, 39, 1, 0.3)",
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+          }}
           className={[
             "footer-navigation-butn up",
             props.stepNo <= 1 && " disabled",
