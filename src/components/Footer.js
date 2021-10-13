@@ -16,10 +16,10 @@ const Footer = (props) => {
         <button
           className={[
             "footer-navigation-butn down bold",
-            props.stepNo >= 12 && " disabled",
+            props.stepNo >= 11 && " disabled",
           ]}
           onClick={
-            props.stepNo < 12
+            props.stepNo < 11
               ? () => {
                   if (props.stepNo == 4) {
                     props.handleDistance();

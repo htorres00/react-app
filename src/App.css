@@ -357,6 +357,9 @@ button.ok-butn {
   font-size: 20px;
 }
 
+.new-line {
+  white-space: pre-line;
+}
 /* .footer-navigation-butn.up {
   border-right: 1px solid rgba(50, 39, 1, 0.3);
   border-top-right-radius: 0;

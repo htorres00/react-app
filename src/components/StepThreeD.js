@@ -139,7 +139,7 @@ const StepThreeD = (props) => {
       startTimeThree === null
     ) {
       setMessageFour(
-        "The appointment options should be unique or should not be empty Please review your options."
+        "The appointment options should be unique or should not \n be empty Please review your options."
       );
       return;
     }
@@ -178,7 +178,7 @@ const StepThreeD = (props) => {
       (opt1 === opt2 || opt1 === opt3 || opt2 === opt3)
     ) {
       setMessageFour(
-        "The appointment options should be unique or should not be empty Please review your options."
+        "The appointment options should be unique or should not \n be empty Please review your options."
       );
     } else {
       console.log("Good to go");
@@ -208,7 +208,7 @@ const StepThreeD = (props) => {
       startTimeThree === null
     ) {
       setMessageFour(
-        "The appointment options should be unique or should not be empty Please review your options."
+        "The appointment options should be unique or should not \n be empty Please review your options."
       );
     } else {
       if (
@@ -221,7 +221,7 @@ const StepThreeD = (props) => {
         setMessageFour("");
       } else {
         setMessageFour(
-          "The appointment options should be unique or should not be empty Please review your options."
+          "The appointment options should be unique or should not \n be empty Please review your options."
         );
       }
     }
@@ -466,7 +466,8 @@ const StepThreeD = (props) => {
 
         <div className="messagefour">
           <span
-            style={{ color: "red", textAlign: "center", fontWeight: "bolder" }}
+            className="new-line"
+            style={{ color: "red", fontWeight: "bold" }}
           >
             {messagefour}
           </span>
