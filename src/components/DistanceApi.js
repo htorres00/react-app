@@ -10,7 +10,6 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import { DistanceMatrixService, GoogleMap } from "@react-google-maps/api";
 import Constants from "../Constants";
 import Footer from "./Footer";
 
@@ -43,7 +42,14 @@ const DistanceApi = (props) => {
 
   useEffect(() => {
     setLoader(true);
-    setAddress(props.values?.address);
+    if (props.values?.address != "") {
+      setAddress(props.values?.address);
+      setServiceMsg(props.values?.servicemsg);
+      setServiceAddress(props.values?.location);
+      setMinDistance(props.values?.distance);
+      setHandleDistance(true);
+      setProceed(true);
+    }
     getUserList();
   }, []);
 
@@ -283,8 +289,8 @@ const DistanceApi = (props) => {
 
     if (proceed) {
       setShowErrMsg(false);
-
-      props.callBackFeedBack(servicemsg);
+      console.log(servicemsg, serviceaddress, mindistance, address);
+      props.setValues.setServiceMsg(servicemsg);
       props.setValues.setLocation(serviceaddress);
       props.setValues.setDistance(mindistance);
       props.setValues.setAddress(address);

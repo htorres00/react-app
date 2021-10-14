@@ -72,33 +72,14 @@ const StepThreeD = (props) => {
   }, []);
 
   const handleStartDateOne = (startdateone) => {
-    if (startdateone >= mindate) {
-      setOptDateOneMsg("");
-    } else {
-      setOptDateOneMsg("Date should be greater than Today + 4 days");
-      return;
-    }
     setStartDateOne(startdateone);
   };
 
   const handleStartDateTwo = (startdatetwo) => {
-    if (startdatetwo >= mindate) {
-      setOptDateTwoMsg("");
-    } else {
-      setOptDateTwoMsg("Date should be greater than Today + 4 days");
-      return;
-    }
-
     setStartDateTwo(startdatetwo);
   };
 
   const handleStartDateThree = (startdatethree) => {
-    if (startdatethree >= mindate) {
-      setOptDateThreeMsg("");
-    } else {
-      setOptDateThreeMsg("Date should be greater than Today + 4 days");
-      return;
-    }
     setStartDateThree(startdatethree);
   };
 
@@ -143,6 +124,7 @@ const StepThreeD = (props) => {
       );
       return;
     }
+
     setMessageFour("");
     if (startDateOne >= mindate) {
       setOptDateOneMsg("");
@@ -165,23 +147,25 @@ const StepThreeD = (props) => {
       return;
     }
 
-    let opt1 = startDateOne + "T" + startTimeOne + ":00";
-    let opt2 = startDateTwo + "T" + startTimeTwo + ":00";
-    let opt3 = startDateThree + "T" + startTimeThree + ":00";
+    let opt1 = startDateOne + "T" + startTimeOne.slice(0, 5) + ":00";
+    let opt2 = startDateTwo + "T" + startTimeTwo.slice(0, 5) + ":00";
+    let opt3 = startDateThree + "T" + startTimeThree.slice(0, 5) + ":00";
 
-    console.log(opt1, opt2, opt3, "My options");
+    //console.log(opt1, opt2, opt3, "My options");
 
     if (
       opt1 != null &&
       opt2 != null &&
       opt3 != null &&
-      (opt1 === opt2 || opt1 === opt3 || opt2 === opt3)
+      (startDateOne === startDateTwo ||
+        startDateOne === startDateThree ||
+        startDateTwo === startDateThree)
     ) {
       setMessageFour(
         "The appointment options should be unique or should not \n be empty Please review your options."
       );
     } else {
-      console.log("Good to go");
+      //console.log("Good to go");
       setMessageFour("");
       props.setValues.setOptionOne(opt1);
       props.setValues.setOptionTwo(opt2);
@@ -216,7 +200,7 @@ const StepThreeD = (props) => {
         startDateOne !== startDateThree &&
         startDateTwo !== startDateThree
       ) {
-        console.log("Good to go");
+        //console.log("Good to go");
         okButn.focus();
         setMessageFour("");
       } else {

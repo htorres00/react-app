@@ -23,7 +23,7 @@ const FeedBack = (props) => {
       <div className="step-two" style={styles.fadeInUp}>
         <div className="question">
           <p>
-            <span className="level-one">{props.tecnicianresponce}</span>
+            <span className="level-one">{props.values?.servicemsg}</span>
           </p>
         </div>
 

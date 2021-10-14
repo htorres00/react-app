@@ -16,7 +16,7 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 
 const UserForm = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(10);
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
@@ -41,11 +41,11 @@ const UserForm = () => {
   const [timethree, setTimeThree] = useState(null);
   const [comments, setComments] = useState("");
   const [completedProgress, setCompletedProgress] = useState("");
-  const [tecnicianResponce, setTecnicianResponce] = useState("");
   const [location, setLocation] = useState("");
   const [id, setId] = useState("");
   const [distance, setDistance] = useState("");
   const [address, setAddress] = useState("");
+  const [servicemsg, setServiceMsg] = useState("");
 
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
@@ -90,10 +90,6 @@ const UserForm = () => {
     setInput(e.target.value);
   };
 
-  const callBackFeedBack = (cbFeedBack) => {
-    setTecnicianResponce(cbFeedBack);
-  };
-
   const HandleView = () => {
     useEffect(() => {
       //console.log(files, "files user form");
@@ -125,6 +121,7 @@ const UserForm = () => {
       timetwo,
       datethree,
       timethree,
+      servicemsg,
     };
     const setValues = {
       setEmailQuestion,
@@ -153,6 +150,7 @@ const UserForm = () => {
       setTimeTwo,
       setDateThree,
       setTimeThree,
+      setServiceMsg,
     };
     switch (step) {
       case 1:
@@ -206,7 +204,6 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
-            callBackFeedBack={callBackFeedBack}
             indicator={yesindicator}
             canProceed={handleCanProceed}
           />
@@ -221,7 +218,6 @@ const UserForm = () => {
             handleChange={handleChange}
             values={values}
             setValues={setValues}
-            tecnicianresponce={tecnicianResponce}
             canProceed={handleCanProceed}
           />
         );
