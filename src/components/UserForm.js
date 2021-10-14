@@ -14,9 +14,11 @@ import NoPageStep1 from "./NoPageStep1";
 import NoPageStep2 from "./NoPageStep2";
 import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
+import EmailReponse from "./EmailResponse";
+import EmailThank from "./EmailThank";
 
 const UserForm = () => {
-  const [step, setStep] = useState(10);
+  const [step, setStep] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
@@ -308,6 +310,30 @@ const UserForm = () => {
       case 12:
         return (
           <ThankYou
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+          />
+        );
+
+      case 13:
+        return (
+          <EmailReponse
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+          />
+        );
+
+      case 14:
+        return (
+          <EmailThank
             stepNo={step}
             setStep={setStep}
             nextStep={nextStep}

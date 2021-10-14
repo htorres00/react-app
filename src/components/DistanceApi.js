@@ -76,7 +76,6 @@ const DistanceApi = (props) => {
               item.addressWork_State.length > 0 ||
               item.addressWork_PostalCode.length > 0)
         );
-        let temp = [];
         filterdata.forEach((dest) => {
           let destination = "";
 
@@ -141,7 +140,7 @@ const DistanceApi = (props) => {
     setServiceAddress(storableLocation);
     setDistance({});
     setHandleDistance(true);
-    getDistanceMatrix();
+    getDistanceMatrixCalc(value);
     setCoordinates(latLng);
   };
 
@@ -170,7 +169,6 @@ const DistanceApi = (props) => {
         console.log("---------");
       });
     }
-
     let firstFinalDistance = () => {
       for (var i in Object.keys(sortedDistance)) {
         return sortedDistance[Object.keys(i)];
@@ -186,39 +184,39 @@ const DistanceApi = (props) => {
 
     if (distanceCallbacks.length === distanceRequested.length) {
       console.log("Final: ", finalDistanceObj);
-    }
 
-    if (finalDistance > 0) {
-      if (finalDistance > 25 && finalDistance <= 100) {
-        setMinDistance(finalDistance.toFixed(2));
-        setServiceMsg(
-          <>
-            Good news, you're within our area of service. A millage fee of at
-            least{" "}
-            {formatter
-              .format((finalDistance * 0.54).toFixed(2))
-              .replace(/^(\D+)/, "$1 ")}{" "}
-            will be added to the order.
-            <br />
-            <div style={{ fontSize: 20, color: "#777368" }}>
-              The final amount will be added when the appointment is confirmed.
-            </div>
-          </>
-        );
-        setLoader2(false);
-        setProceed(true);
-      } else if (finalDistance > 100) {
-        setServiceMsg(
-          "Sorry, we don't have any technicians available near you."
-        );
-        setLoader2(false);
-        setProceed(false);
-      } else {
-        setServiceMsg(
-          "Good news. This address is within our area of service. Please notice mileage fees might be incurred when the appointment is confirmed."
-        );
-        setLoader2(false);
-        setProceed(true);
+      if (finalDistance > 0) {
+        if (finalDistance > 25 && finalDistance <= 100) {
+          setMinDistance(finalDistance.toFixed(2));
+          setServiceMsg(
+            <>
+              Good news, you're within our area of service. A millage fee of at
+              least{" "}
+              {formatter
+                .format((finalDistance * 0.54).toFixed(2))
+                .replace(/^(\D+)/, "$1 ")}{" "}
+              will be added to the order.
+              <br />
+              <div style={{ fontSize: 20, color: "#777368" }}>
+                The final amount will be added when the appointment is
+                confirmed.
+              </div>
+            </>
+          );
+          setLoader2(false);
+          setProceed(true);
+        } else if (finalDistance > 100) {
+          console.log(finalDistance, "finalDistance elseif");
+          setLoader2(false);
+          setProceed(false);
+          props.nextStep(13);
+        } else {
+          setServiceMsg(
+            "Good news. This address is within our area of service. Please notice mileage fees might be incurred when the appointment is confirmed."
+          );
+          setLoader2(false);
+          setProceed(true);
+        }
       }
     }
   };
@@ -253,8 +251,7 @@ const DistanceApi = (props) => {
     return R;
   };
 
-  const getDistanceMatrix = () => {
-    // let temp = [];
+  const getDistanceMatrixCalc = (addr) => {
     let dest = chunks(destinations, 25);
     console.log(dest);
 
@@ -265,7 +262,7 @@ const DistanceApi = (props) => {
 
       service.getDistanceMatrix(
         {
-          origins: [address],
+          origins: [addr],
           destinations: dest[i], // destinations
           travelMode: window.google.maps.TravelMode.DRIVING, // destination by driving
           unitSystem: window.google.maps.UnitSystem.IMPERIAL, // miles and feet.
@@ -289,16 +286,23 @@ const DistanceApi = (props) => {
 
     if (proceed) {
       setShowErrMsg(false);
-      console.log(servicemsg, serviceaddress, mindistance, address);
       props.setValues.setServiceMsg(servicemsg);
       props.setValues.setLocation(serviceaddress);
       props.setValues.setDistance(mindistance);
       props.setValues.setAddress(address);
       props.nextStep(5);
     } else {
-      setErrorMsg("Sorry, we don't have any technicians available near you.");
-      setShowErrMsg(true);
+      setShowErrMsg(false);
+      setLoader2(false);
+      setProceed(false);
+      props.nextStep(13);
     }
+  };
+
+  const onError = (status, clearSuggestions) => {
+    setShowErrMsg(true);
+    setErrorMsg("Hmm… that address not found.");
+    clearSuggestions();
   };
 
   return (
@@ -321,6 +325,7 @@ const DistanceApi = (props) => {
             onChange={handleSetAddress}
             onSelect={handleSelect}
             searchOptions={searchOptions}
+            onError={onError}
           >
             {({
               getInputProps,
@@ -362,8 +367,6 @@ const DistanceApi = (props) => {
             )}
           </PlacesAutocomplete>
 
-          {/*{handledistance ? getDistanceMatrix() : <></>}*/}
-
           <div className="instructions">
             <span className="bold">Shift ⇧</span> +{" "}
             <span className="bold">Enter ↵</span> to make a line break
@@ -389,16 +392,16 @@ const DistanceApi = (props) => {
                 <HiOutlineCheck></HiOutlineCheck>
               </button>
               <span className="enter-text">press Enter ↵</span>
+              <Footer
+                handleDistance={handleDistance}
+                stepNo={props.stepNo}
+                nextStep={props.nextStep}
+                prevStep={props.prevStep}
+              />
             </>
           ) : (
             <Loader />
           )}
-          <Footer
-            handleDistance={handleDistance}
-            stepNo={props.stepNo}
-            nextStep={props.nextStep}
-            prevStep={props.prevStep}
-          />
         </div>
       ) : (
         <Loader />

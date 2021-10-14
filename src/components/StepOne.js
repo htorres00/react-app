@@ -20,11 +20,6 @@ const styles = {
 
 const StepOne = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
-
-  useEffect(() => {
-    console.log(props, "step one props");
-  }, []);
-
   const [KeyValue, setKeyValue] = useState("");
   var value;
   let emailOption = null;
@@ -32,7 +27,6 @@ const StepOne = (props) => {
 
   useEffect(() => {
     setKeyValue(props.values?.emailQuestion);
-    console.log(props.values?.emailQuestion, emailOption, "t");
     emailOption.focus();
     props.setValues.setCompletedProgress(10);
   }, []);
@@ -42,16 +36,14 @@ const StepOne = (props) => {
   }, [KeyValue]);
 
   const setValue = (answer) => {
-    console.log(answer, "answer");
-    // value = answer;
-    // setKeyValue(value);
+    value = answer;
+    setKeyValue(value);
     setTimeout(function () {
-      //console.log(answer, "");
       if (answer == "yes") {
-        // props.setValues.setEmailQuestion(value);
+        props.setValues.setEmailQuestion(value);
         props.nextStep(4, true);
       } else {
-        // props.setValues.setEmailQuestion(value);
+        props.setValues.setEmailQuestion(value);
         props.nextStep(2, false);
       }
     }, 1000);
@@ -170,7 +162,9 @@ const StepOne = (props) => {
             className="ok-butn ok-step-one"
             tabIndex="0"
             onClick={() => {
-              if (value != "") {
+              if (KeyValue == "yes") {
+                props.nextStep(4);
+              } else {
                 props.nextStep(2);
               }
             }}

@@ -15,6 +15,8 @@ const styles = {
 
 const NoPageStep2 = (props) => {
   const [email, setEmail] = useState("");
+  const [showerrmsg, setShowErrMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   let inputfocus = null;
 
   useEffect(() => {
@@ -24,8 +26,16 @@ const NoPageStep2 = (props) => {
   }, []);
 
   const handleOnButnClick = () => {
-    props.setValues.setEmail(email);
-    props.nextStep(4);
+    var pattern = /^([a-zA-Z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/;
+    if (pattern.test(email)) {
+      setShowErrMsg(false);
+      setErrorMsg("");
+      props.setValues.setEmail(email);
+      props.nextStep(4);
+    } else {
+      setShowErrMsg(true);
+      setErrorMsg("Hmm… that email doesn't look valid");
+    }
   };
 
   return (
@@ -74,6 +84,14 @@ const NoPageStep2 = (props) => {
             }}
           />
         </div>
+
+        {showerrmsg ? (
+          <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
+            {errorMsg}
+          </div>
+        ) : (
+          <></>
+        )}
 
         <>
           <button
