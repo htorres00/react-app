@@ -61,8 +61,6 @@ const StepThree = (props) => {
           <AttachmentSingleNew
             url={handleUrls}
             myfrontfile={props.values.frontfile}
-          />
-          <Footer
             stepNo={props.stepNo}
             nextStep={props.nextStep}
             prevStep={props.prevStep}

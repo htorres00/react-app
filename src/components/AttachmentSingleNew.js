@@ -3,8 +3,8 @@ import { HiOutlineCheck } from "react-icons/hi";
 import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
-import Loader from "./Loader/Loader";
 import pdfImage from "../images/pdficon.png";
+import Footer from "./Footer";
 
 const AttachmentSingleNew = (props) => {
   useEffect(() => {
@@ -18,8 +18,6 @@ const AttachmentSingleNew = (props) => {
   const [selected, setSelected] = useState(false);
   const [errormsg, setErrorMsg] = useState(false);
   const [selectedFile, setsSelectedFile] = useState(null);
-  const [loader, setLoader] = useState(false);
-  const [imgres, setImgRes] = useState(false);
   const [msg, setMsg] = useState("");
 
   const thumb = {
@@ -232,6 +230,13 @@ const AttachmentSingleNew = (props) => {
           OK <HiOutlineCheck></HiOutlineCheck>
         </button>
       </>
+      <div style={{ marginTop: 10 }} />
+      <Footer
+        handleClick={handleClick}
+        stepNo={props.stepNo}
+        nextStep={props.nextStep}
+        prevStep={props.prevStep}
+      />
     </section>
   );
 };

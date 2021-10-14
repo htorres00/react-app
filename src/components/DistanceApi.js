@@ -301,7 +301,7 @@ const DistanceApi = (props) => {
 
   const onError = (status, clearSuggestions) => {
     setShowErrMsg(true);
-    setErrorMsg("Hmm… that address not found.");
+    setErrorMsg("Hmm… that Address doesn't look valid");
     clearSuggestions();
   };
 

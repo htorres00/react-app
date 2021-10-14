@@ -477,6 +477,7 @@ const StepThreeD = (props) => {
           <span className="enter-text">press Enter ↵</span>
         </>
         <Footer
+          handleOnButnClick={handleOnButnClick}
           stepNo={props.stepNo}
           nextStep={props.nextStep}
           prevStep={props.prevStep}

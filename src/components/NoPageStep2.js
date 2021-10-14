@@ -27,7 +27,9 @@ const NoPageStep2 = (props) => {
 
   const handleOnButnClick = () => {
     var pattern = /^([a-zA-Z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/;
-    if (pattern.test(email)) {
+    if (email == "") {
+      props.nextStep(4);
+    } else if (pattern.test(email)) {
       setShowErrMsg(false);
       setErrorMsg("");
       props.setValues.setEmail(email);
@@ -72,6 +74,10 @@ const NoPageStep2 = (props) => {
             style={{ width: "100%" }}
             placeholder="name@example.com"
             onChange={(e) => {
+              if (e.target.value == "") {
+                setShowErrMsg(false);
+                setErrorMsg("");
+              }
               setEmail(e.target.value);
             }}
             onKeyDown={(e) => {
@@ -111,6 +117,7 @@ const NoPageStep2 = (props) => {
         </>
 
         <Footer
+          handleOnButnClick={handleOnButnClick}
           stepNo={props.stepNo}
           nextStep={props.nextStep}
           prevStep={props.prevStep}

@@ -21,16 +21,36 @@ const Footer = (props) => {
           onClick={
             props.stepNo < 11
               ? () => {
-                  if (props.stepNo == 4) {
-                    props.handleDistance();
-                  } else {
-                    props.nextStep(props.stepNo + 1);
-                    console.log(props.stepNo, "pg in footor");
+                  switch (props.stepNo) {
+                    case 2:
+                      props.handleOnButnClick();
+                      break;
+                    case 3:
+                      props.handleOnButnClick();
+                      break;
+                    case 4:
+                      props.handleDistance();
+                      break;
+                    case 7:
+                      props.handleClick();
+                      break;
+                    case 8:
+                      props.handleClick();
+                      break;
+                    case 9:
+                      props.handleClick();
+                      break;
+                    case 10:
+                      props.handleOnButnClick();
+                      break;
+
+                    default:
+                      props.nextStep(props.stepNo + 1);
+                      console.log(props.stepNo, "pg in footor");
                   }
                 }
               : null
           }
-          // onClick={props.stepNo < 10 ? props.nextStep(props.stepNo) : null}
         >
           <IoIosArrowDown></IoIosArrowDown>
         </button>

@@ -4,6 +4,7 @@ import { BiCloudUpload } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
 import pdfImage from "../images/pdficon.png";
+import Footer from "./Footer";
 
 const AttachmentSingle = (props) => {
   useEffect(() => {
@@ -214,6 +215,14 @@ const AttachmentSingle = (props) => {
         OK
         <HiOutlineCheck></HiOutlineCheck>
       </button>
+
+      <div style={{ marginTop: 10 }} />
+      <Footer
+        handleClick={handleClick}
+        stepNo={props.stepNo}
+        nextStep={props.nextStep}
+        prevStep={props.prevStep}
+      />
     </section>
   );
 };
