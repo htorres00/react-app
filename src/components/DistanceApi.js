@@ -50,10 +50,11 @@ const DistanceApi = (props) => {
       setHandleDistance(true);
       setProceed(true);
     }
-    if (props.bfusers.length == 0) {
+    console.log(JSON.parse(localStorage.getItem("bfusers")), "bfuserslength");
+    if (!localStorage.getItem("bfusers")) {
       getUserList();
     } else {
-      getPrefilledUserList(props.bfusers);
+      getPrefilledUserList(JSON.parse(localStorage.getItem("bfusers")));
     }
   }, []);
 
@@ -72,6 +73,8 @@ const DistanceApi = (props) => {
     axios(options)
       .then((res) => {
         let userdata = res.data.user;
+        localStorage.setItem("bfusers", JSON.stringify(res.data.user));
+
         let filterdata = userdata.filter(
           (item, key) =>
             item.inactive === "0" &&

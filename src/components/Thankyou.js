@@ -1,5 +1,6 @@
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
+import { useState, useEffect } from "react";
 
 const styles = {
   fadeInUp: {
@@ -7,7 +8,12 @@ const styles = {
     animationName: Radium.keyframes(fadeInUp, "fadeInUp"),
   },
 };
+
 const ThankYou = (props) => {
+  useEffect(() => {
+    localStorage.removeItem("bfusers");
+  }, []);
+
   return (
     <StyleRoot>
       <div className="thank-you" style={styles.fadeInUp}>

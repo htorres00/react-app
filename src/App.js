@@ -11,6 +11,7 @@ function App() {
 
   var apiLoading = false;
   useEffect(() => {
+    localStorage.removeItem("bfusers");
     if (bfusers.length == 0) {
       console.log("api fetch one time");
       getUserList();
@@ -34,6 +35,7 @@ function App() {
         setLoader(false);
         apiLoading = false;
         setBFUsers(res.data.user);
+        localStorage.setItem("bfusers", JSON.stringify(res.data.user));
       })
       .catch((error) => {
         setLoader(false);
