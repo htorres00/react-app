@@ -11,7 +11,7 @@ const Welcome = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(props, "default props");
+    //console.log(props, "default props");
   }, []);
   return (
     <div className="welcome-screen">

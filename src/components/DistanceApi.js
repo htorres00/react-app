@@ -50,7 +50,11 @@ const DistanceApi = (props) => {
       setHandleDistance(true);
       setProceed(true);
     }
-    getUserList();
+    if (props.bfusers.length == 0) {
+      getUserList();
+    } else {
+      getPrefilledUserList(props.bfusers);
+    }
   }, []);
 
   const _setProceed = (bool) => {
@@ -97,6 +101,32 @@ const DistanceApi = (props) => {
         setLoader(false);
         console.log("how", error);
       });
+  };
+
+  const getPrefilledUserList = (bfusers) => {
+    let filterdata = bfusers.filter(
+      (item, key) =>
+        item.inactive === "0" &&
+        item.roles.role.customName === "Technician" &&
+        (item.addressWork_Street.length > 0 ||
+          item.addressWork_State.length > 0 ||
+          item.addressWork_PostalCode.length > 0)
+    );
+    filterdata.forEach((dest) => {
+      let destination = "";
+
+      if (dest.addressWork_Street.length > 0)
+        destination += dest.addressWork_Street.replace(/\n|\r/g, "") + " ";
+
+      if (dest.addressWork_State.length > 0)
+        destination += dest.addressWork_State + " ";
+
+      if (dest.addressWork_PostalCode.length > 0)
+        destination += dest.addressWork_PostalCode;
+
+      destinations.push(destination);
+    });
+    setLoader(false);
   };
 
   const handleSetAddress = (address) => {
@@ -175,6 +205,7 @@ const DistanceApi = (props) => {
       }
       return [0, 0];
     };
+
     var finalDistanceObj = firstFinalDistance();
     var finalDistance = finalDistanceObj[1];
     var formatter = new Intl.NumberFormat("en-US", {
@@ -217,6 +248,11 @@ const DistanceApi = (props) => {
           setLoader2(false);
           setProceed(true);
         }
+      } else {
+        setLoader2(false);
+        setProceed(false);
+        setShowErrMsg(true);
+        setErrorMsg("Results not found, Please try another address.");
       }
     }
   };
@@ -253,7 +289,7 @@ const DistanceApi = (props) => {
 
   const getDistanceMatrixCalc = (addr) => {
     let dest = chunks(destinations, 25);
-    console.log(dest);
+    console.log(dest, addr);
 
     for (let i = 0; i < dest.length; i++) {
       distanceRequested.push(i);

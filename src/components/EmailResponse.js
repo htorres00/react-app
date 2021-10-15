@@ -42,7 +42,7 @@ const EmailResponse = (props) => {
           </p>
         </div>
 
-        <div class="buttons" style={{ display: "flex" }}>
+        <div className="buttons" style={{ display: "flex" }}>
           <div
             className="butnWraper"
             style={{ width: "35%", marginRight: "20px" }}

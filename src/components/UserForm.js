@@ -17,7 +17,7 @@ import FeedBack from "./FeedBack";
 import EmailReponse from "./EmailResponse";
 import EmailThank from "./EmailThank";
 
-const UserForm = () => {
+const UserForm = (props) => {
   const [step, setStep] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
@@ -48,7 +48,6 @@ const UserForm = () => {
   const [distance, setDistance] = useState("");
   const [address, setAddress] = useState("");
   const [servicemsg, setServiceMsg] = useState("");
-
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
   ];
@@ -93,9 +92,9 @@ const UserForm = () => {
   };
 
   const HandleView = () => {
-    useEffect(() => {
-      //console.log(files, "files user form");
-    }, []);
+    //console.log("bfusers handleviews: ", props.bfusers);
+    useEffect(() => {}, []);
+
     const values = {
       emailQuestion,
       phone,
@@ -208,6 +207,7 @@ const UserForm = () => {
             setValues={setValues}
             indicator={yesindicator}
             canProceed={handleCanProceed}
+            bfusers={props.bfusers}
           />
         );
       case 5:
