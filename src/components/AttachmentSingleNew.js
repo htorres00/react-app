@@ -91,12 +91,24 @@ const AttachmentSingleNew = (props) => {
   }, [refresh]);
 
   const handleClick = () => {
+    console.log(props.stepNo, props.myfrontfile.length, urls);
+
     if (urls.length == 0) {
       setMsg("Please select any file.");
       setErrorMsg(true);
       return;
     }
-    props.url(selectedFile, urls);
+
+    if (
+      props.myfrontfile.length !== 0 &&
+      props.myfrontfile[0].name == urls[0].name
+    ) {
+      props.stepNo == 7 ? props.nextStep(8) : props.nextStep(9);
+      console.log("if:", props.myfrontfile[0].name, urls[0].name);
+    } else {
+      console.log("else:", props.myfrontfile, urls);
+      props.url(selectedFile, urls);
+    }
   };
 
   const remove = (url, index) => {

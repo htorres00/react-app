@@ -5,6 +5,7 @@ import { GrClose } from "react-icons/gr";
 import AttachmentLoader from "./AttachmentLoader";
 import pdfImage from "../images/pdficon.png";
 import Footer from "./Footer";
+import _ from "lodash";
 
 const AttachmentSingle = (props) => {
   useEffect(() => {
@@ -88,7 +89,23 @@ const AttachmentSingle = (props) => {
       setSelected(true);
       return;
     }
-    props.url(selectedFile, urls);
+
+    if (props.mybackfile.length == 0) {
+      props.url(selectedFile, urls);
+      return;
+    }
+    let result = props.mybackfile.filter((o1) =>
+      urls.some((o2) => o1.name === o2.name)
+    );
+
+    if (
+      result.length != urls.length ||
+      result.length != props.mybackfile.length
+    ) {
+      props.url(selectedFile, urls);
+    } else {
+      props.nextStep(10);
+    }
   };
 
   const remove = (url, index) => {
