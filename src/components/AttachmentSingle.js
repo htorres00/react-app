@@ -41,7 +41,11 @@ const AttachmentSingle = (props) => {
     width: "auto",
     height: "100%",
   };
-
+  const pdfimg = {
+    display: "block",
+    width: "140px !important",
+    height: "100%",
+  };
   useEffect(() => {
     input.focus();
 
@@ -194,7 +198,7 @@ const AttachmentSingle = (props) => {
                   <div className="img-box" style={thumbInner}>
                     <div className="img-inner-box">
                       {url.name.split(".").pop() == "pdf" ? (
-                        <img src={pdfImage} style={img} />
+                        <img src={pdfImage} style={{ width: "140px" }} />
                       ) : (
                         <img src={url.url} style={img} />
                       )}

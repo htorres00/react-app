@@ -22,6 +22,9 @@ const Footer = (props) => {
             props.stepNo < 11
               ? () => {
                   switch (props.stepNo) {
+                    case 1:
+                      props.handleClick();
+                      break;
                     case 2:
                       props.handleOnButnClick();
                       break;

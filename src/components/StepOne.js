@@ -48,6 +48,14 @@ const StepOne = (props) => {
       }
     }, 1000);
   };
+
+  const handleClick = () => {
+    if (KeyValue == "yes") {
+      props.nextStep(4);
+    } else {
+      props.nextStep(2);
+    }
+  };
   return (
     <StyleRoot>
       <div
@@ -161,13 +169,7 @@ const StepOne = (props) => {
           <button
             className="ok-butn ok-step-one"
             tabIndex="0"
-            onClick={() => {
-              if (KeyValue == "yes") {
-                props.nextStep(4);
-              } else {
-                props.nextStep(2);
-              }
-            }}
+            onClick={() => handleClick()}
             ref={(button) => {
               okButn = button;
             }}
@@ -177,6 +179,7 @@ const StepOne = (props) => {
           </button>
         )}
         <Footer
+          handleClick={handleClick}
           stepNo={props.stepNo}
           nextStep={props.nextStep}
           prevStep={props.prevStep}

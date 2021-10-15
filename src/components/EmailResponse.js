@@ -74,9 +74,9 @@ const EmailResponse = (props) => {
 
         <div className="footer-navigation">
           <button
-            className={["footer-navigation-butn down bold"]}
+            className={["footer-navigation-butn down bold", " disabled"]}
             onClick={() => {
-              props.nextStep(14);
+              //props.nextStep(14);
             }}
           >
             <IoIosArrowDown></IoIosArrowDown>

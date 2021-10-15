@@ -241,6 +241,12 @@ const DistanceApi = (props) => {
           setProceed(true);
         } else if (finalDistance > 100) {
           console.log(finalDistance, "finalDistance elseif");
+
+          props.setValues.setServiceMsg("");
+          props.setValues.setLocation("");
+          props.setValues.setDistance("");
+          props.setValues.setAddress("");
+
           setLoader2(false);
           setProceed(false);
           props.nextStep(13);

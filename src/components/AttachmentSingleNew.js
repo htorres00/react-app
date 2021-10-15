@@ -41,6 +41,11 @@ const AttachmentSingleNew = (props) => {
     width: "auto",
     height: "100%",
   };
+  const pdfimg = {
+    display: "block",
+    width: "140px",
+    height: "100%",
+  };
 
   useEffect(() => {
     input.focus();
@@ -204,7 +209,7 @@ const AttachmentSingleNew = (props) => {
                       {url.type === "image/jpeg" || url.type === "image/png" ? (
                         <img src={url.url} style={img} />
                       ) : (
-                        <img src={pdfImage} style={img} />
+                        <img src={pdfImage} style={pdfimg} />
                       )}
                     </div>
                   </div>
