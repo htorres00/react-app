@@ -184,30 +184,25 @@ const StepThreeD = (props) => {
 
   const handleBlurDate = () => {
     if (
-      startDateOne === null ||
-      startDateTwo === null ||
-      startDateThree === null ||
-      startTimeOne === null ||
-      startTimeTwo === null ||
-      startTimeThree === null
+      startDateOne !== null &&
+      startDateTwo !== null &&
+      startDateThree !== null
     ) {
-      setMessageFour(
-        "The appointment options should be unique or should not \n be empty Please review your options."
-      );
-    } else {
       if (
-        startDateOne !== startDateTwo &&
-        startDateOne !== startDateThree &&
-        startDateTwo !== startDateThree
+        startDateOne === startDateTwo ||
+        startDateOne === startDateThree ||
+        startDateTwo === startDateThree
       ) {
-        //console.log("Good to go");
-        okButn.focus();
-        setMessageFour("");
-      } else {
         setMessageFour(
           "The appointment options should be unique or should not \n be empty Please review your options."
         );
+      } else {
+        okButn.focus();
+        setMessageFour("");
       }
+    } else {
+      okButn.focus();
+      setMessageFour("");
     }
   };
 
@@ -274,7 +269,7 @@ const StepThreeD = (props) => {
             >
               <select
                 className="appttime"
-                onBlur={() => handleBlurDate()}
+                // onBlur={() => handleBlurDate()}
                 onChange={(e) => handleStartTimeOne(e.target.value)}
                 value={startTimeOne}
               >
@@ -337,7 +332,7 @@ const StepThreeD = (props) => {
               >
                 <select
                   className="appttime"
-                  onBlur={() => handleBlurDate()}
+                  // onBlur={() => handleBlurDate()}
                   onChange={(e) => handleStartTimeTwo(e.target.value)}
                   value={startTimeTwo}
                 >
@@ -406,7 +401,7 @@ const StepThreeD = (props) => {
               >
                 <select
                   className="appttime"
-                  onBlur={() => handleBlurDate()}
+                  // onBlur={() => handleBlurDate()}
                   onChange={(e) => handleStartTimeThree(e.target.value)}
                   value={startTimeThree}
                 >
@@ -488,3 +483,31 @@ const StepThreeD = (props) => {
 };
 
 export default StepThreeD;
+// const handleBlurDate = () => {
+//   if (
+//     startDateOne === null ||
+//     startDateTwo === null ||
+//     startDateThree === null ||
+//     startTimeOne === null ||
+//     startTimeTwo === null ||
+//     startTimeThree === null
+//   ) {
+//     setMessageFour(
+//       "The appointment options should be unique or should not \n be empty Please review your options."
+//     );
+//   } else {
+//     if (
+//       startDateOne !== startDateTwo &&
+//       startDateOne !== startDateThree &&
+//       startDateTwo !== startDateThree
+//     ) {
+//       //console.log("Good to go");
+//       okButn.focus();
+//       setMessageFour("");
+//     } else {
+//       setMessageFour(
+//         "The appointment options should be unique or should not \n be empty Please review your options."
+//       );
+//     }
+//   }
+// };

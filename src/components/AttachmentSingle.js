@@ -41,11 +41,7 @@ const AttachmentSingle = (props) => {
     width: "auto",
     height: "100%",
   };
-  const pdfimg = {
-    display: "block",
-    width: "140px !important",
-    height: "100%",
-  };
+
   useEffect(() => {
     input.focus();
 
@@ -90,7 +86,7 @@ const AttachmentSingle = (props) => {
 
   const handleClick = () => {
     if (urls.length == 0) {
-      setSelected(true);
+      props.nextStep(10);
       return;
     }
 

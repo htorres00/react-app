@@ -63,7 +63,7 @@ const StepThreeC = (props) => {
                 color: "rgb(71, 69, 64) ",
               }}
             >
-              Upload as many files as needed.
+              Upload additional attachments by clicking on the drop area below.
             </p>
           </div>
 
