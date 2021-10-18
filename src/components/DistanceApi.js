@@ -220,8 +220,9 @@ const DistanceApi = (props) => {
       console.log("Final: ", finalDistanceObj);
 
       if (finalDistance > 0) {
+        setMinDistance(finalDistance.toFixed(2));
+
         if (finalDistance > 25 && finalDistance <= 100) {
-          setMinDistance(finalDistance.toFixed(2));
           setServiceMsg(
             <>
               Good news, you're within our area of service. A millage fee of at
