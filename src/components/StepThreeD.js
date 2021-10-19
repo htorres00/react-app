@@ -116,11 +116,11 @@ const StepThreeD = (props) => {
     let fullDatesArray = [];
     let timesArray = [];
 
-    if(startDateOne) {
+    if (startDateOne) {
       if (startDateOne < mindate) {
         setOptDateOneMsg("Date should be greater than Today + 4 days");
         hasError = true;
-      } else if(!startTimeOne) {
+      } else if (!startTimeOne) {
         setOptDateOneMsg("Please select any time");
         hasError = true;
       } else {
@@ -131,14 +131,14 @@ const StepThreeD = (props) => {
       }
     }
 
-    if(startDateTwo) {
+    if (startDateTwo) {
       if (startDateTwo < mindate) {
         setOptDateTwoMsg("Date should be greater than Today + 4 days");
         hasError = true;
-      } else if(!startTimeTwo) {
+      } else if (!startTimeTwo) {
         setOptDateTwoMsg("Please select any time");
         hasError = true;
-      }  else {
+      } else {
         setOptDateTwoMsg("");
         fullDatesArray.push(startDateTwo + "T" + startTimeTwo.slice(0, 5) + ":00");
         datesArray.push(startDateTwo);
@@ -146,14 +146,14 @@ const StepThreeD = (props) => {
       }
     }
 
-    if(startDateThree) {
+    if (startDateThree) {
       if (startDateThree < mindate) {
         setOptDateThreeMsg("Date should be greater than Today + 4 days");
         hasError = true;
-      } else if(!startTimeThree) {
+      } else if (!startTimeThree) {
         setOptDateThreeMsg("Please select any time");
         hasError = true;
-      }  else {
+      } else {
         setOptDateThreeMsg("");
         fullDatesArray.push(startDateThree + "T" + startTimeThree.slice(0, 5) + ":00");
         datesArray.push(startDateThree);
@@ -163,10 +163,10 @@ const StepThreeD = (props) => {
 
     let filteredDatesArray = [...new Set(fullDatesArray)];
 
-    if(filteredDatesArray.length !== fullDatesArray.length) {
+    if (filteredDatesArray.length !== fullDatesArray.length) {
       hasError = true;
       setMessageFour(
-          "The appointment options should be unique. Please review your options."
+        "The appointment options should be unique. Please review your options."
       );
     } else {
       setMessageFour('');
@@ -179,15 +179,15 @@ const StepThreeD = (props) => {
     const hasError = validate[0];
     const fullDatesArray = validate[1];
 
-    if(!hasError) {
-      for(var i in fullDatesArray) {
+    if (!hasError) {
+      for (var i in fullDatesArray) {
         var d = fullDatesArray[i];
 
         switch (i) {
-          case 1:
+          case "1":
             props.setValues.setOptionTwo(d);
             break;
-          case 2:
+          case "2":
             props.setValues.setOptionThree(d);
             break;
           default:
