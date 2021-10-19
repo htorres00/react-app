@@ -17,7 +17,7 @@ const Welcome = (props) => {
     <div className="welcome-screen">
       <img src={logo} className="logo" alt="logo" />
       <h1>
-        Hello {queryParams.get("first_name")} {queryParams.get("last_name")},
+        Hello {queryParams.get("first_name")},
         please respond to few questions to get your service request started:
       </h1>
       <div className="butnWraper">

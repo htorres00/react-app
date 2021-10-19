@@ -110,7 +110,7 @@ const StepThreeD = (props) => {
     setMessageThree("");
   };
 
-  const handleOnButnClick = () => {
+  const validateTimeOptions = () => {
     let hasError = false;
     let datesArray = [];
     let fullDatesArray = [];
@@ -161,14 +161,23 @@ const StepThreeD = (props) => {
       }
     }
 
-    let filteredDatesArray = [...new Set(datesArray)];
+    let filteredDatesArray = [...new Set(fullDatesArray)];
 
-    if(filteredDatesArray.length !== datesArray.length) {
+    if(filteredDatesArray.length !== fullDatesArray.length) {
       hasError = true;
       setMessageFour(
           "The appointment options should be unique. Please review your options."
       );
+    } else {
+      setMessageFour('');
     }
+    return [hasError, fullDatesArray];
+  };
+
+  const handleOnButnClick = () => {
+    const validate = validateTimeOptions();
+    const hasError = validate[0];
+    const fullDatesArray = validate[1];
 
     if(!hasError) {
       for(var i in fullDatesArray) {
@@ -272,6 +281,10 @@ const StepThreeD = (props) => {
   };
 
   const handleBlurDate = () => {
+    //validateTimeOptions();
+  };
+
+  const handleBlurDate2 = () => {
     if (
       startDateOne !== null &&
       startDateTwo !== null &&
