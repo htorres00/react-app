@@ -158,7 +158,7 @@ const StepFour = (props) => {
   return (
     <StyleRoot>
       {loader ? (
-        <Loader />
+        <Loader msg={"Processing your order. Please wait..."} />
       ) : (
         <div className="step-four" style={styles.fadeInUp}>
           <div className="question">

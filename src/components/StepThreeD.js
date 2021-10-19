@@ -111,6 +111,95 @@ const StepThreeD = (props) => {
   };
 
   const handleOnButnClick = () => {
+    let hasError = false;
+    let datesArray = [];
+    let fullDatesArray = [];
+    let timesArray = [];
+
+    if(startDateOne) {
+      if (startDateOne < mindate) {
+        setOptDateOneMsg("Date should be greater than Today + 4 days");
+        hasError = true;
+      } else if(!startTimeOne) {
+        setOptDateOneMsg("Please select any time");
+        hasError = true;
+      } else {
+        setOptDateOneMsg("");
+        fullDatesArray.push(startDateOne + "T" + startTimeOne.slice(0, 5) + ":00");
+        datesArray.push(startDateOne);
+        timesArray.push(startTimeOne.slice(0, 5) + ":00");
+      }
+    }
+
+    if(startDateTwo) {
+      if (startDateTwo < mindate) {
+        setOptDateTwoMsg("Date should be greater than Today + 4 days");
+        hasError = true;
+      } else if(!startTimeTwo) {
+        setOptDateTwoMsg("Please select any time");
+        hasError = true;
+      }  else {
+        setOptDateTwoMsg("");
+        fullDatesArray.push(startDateTwo + "T" + startTimeTwo.slice(0, 5) + ":00");
+        datesArray.push(startDateTwo);
+        timesArray.push(startTimeTwo.slice(0, 5) + ":00");
+      }
+    }
+
+    if(startDateThree) {
+      if (startDateThree < mindate) {
+        setOptDateThreeMsg("Date should be greater than Today + 4 days");
+        hasError = true;
+      } else if(!startTimeThree) {
+        setOptDateThreeMsg("Please select any time");
+        hasError = true;
+      }  else {
+        setOptDateThreeMsg("");
+        fullDatesArray.push(startDateThree + "T" + startTimeThree.slice(0, 5) + ":00");
+        datesArray.push(startDateThree);
+        timesArray.push(startTimeThree.slice(0, 5) + ":00");
+      }
+    }
+
+    let filteredDatesArray = [...new Set(datesArray)];
+
+    if(filteredDatesArray.length !== datesArray.length) {
+      hasError = true;
+      setMessageFour(
+          "The appointment options should be unique. Please review your options."
+      );
+    }
+
+    if(!hasError) {
+      for(var i in fullDatesArray) {
+        var d = fullDatesArray[i];
+
+        switch (i) {
+          case 1:
+            props.setValues.setOptionTwo(d);
+            break;
+          case 2:
+            props.setValues.setOptionThree(d);
+            break;
+          default:
+            props.setValues.setOptionOne(d);
+            break;
+        }
+      }
+
+      props.setValues.setDateOne(startDateOne);
+      props.setValues.setTimeOne(startTimeOne);
+      props.setValues.setDateTwo(startDateTwo);
+      props.setValues.setTimeTwo(startTimeTwo);
+      props.setValues.setDateThree(startDateThree);
+      props.setValues.setTimeThree(startTimeThree);
+
+      props.nextStep(11);
+    }
+  };
+
+  // DISABLED - RECODED THIS FUNC
+  const handleOnButnClick2 = () => {
     if (
       startDateOne === null ||
       startDateTwo === null ||
