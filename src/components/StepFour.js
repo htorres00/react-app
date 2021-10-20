@@ -23,6 +23,7 @@ const StepFour = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [loader, setLoader] = useState(false);
   const [id, setId] = useState(0);
+  const [submissionId, setSubmissionId] = useState(0);
 
   useEffect(() => {
     console.log(props, "my props");
@@ -132,7 +133,9 @@ const StepFour = (props) => {
         console.log(response.data, "response");
         setLoader(false);
         setId(response.data.id);
+        setSubmissionId(response.data.submission_id);
         props.setValues.setId(response.data.id);
+        props.setValues.setSubmissionId(response.data.submission_id);
         props.nextStep(12);
       })
       .catch(function (error) {
@@ -155,7 +158,7 @@ const StepFour = (props) => {
   return (
     <StyleRoot>
       {loader ? (
-        <Loader />
+        <Loader msg={"Processing your order. Please wait..."} />
       ) : (
         <div className="step-four" style={styles.fadeInUp}>
           <div className="question">

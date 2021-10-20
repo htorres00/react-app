@@ -45,6 +45,7 @@ const UserForm = (props) => {
   const [completedProgress, setCompletedProgress] = useState("");
   const [location, setLocation] = useState("");
   const [id, setId] = useState("");
+  const [submissionId, setSubmissionId] = useState("");
   const [distance, setDistance] = useState("");
   const [address, setAddress] = useState("");
   const [servicemsg, setServiceMsg] = useState("");
@@ -111,6 +112,7 @@ const UserForm = (props) => {
       yesstep,
       location,
       id,
+      submissionId,
       distance,
       address,
       frontfile,
@@ -140,6 +142,7 @@ const UserForm = (props) => {
       setYesStep,
       setLocation,
       setId,
+      setSubmissionId,
       setDistance,
       setAddress,
       setFrontFile,

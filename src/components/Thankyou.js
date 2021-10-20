@@ -18,7 +18,12 @@ const ThankYou = (props) => {
     <StyleRoot>
       <div className="thank-you" style={styles.fadeInUp}>
         <h1 className="title">That's it! You've been great.</h1>
+        {props.values.id &&
         <h2 className="title">Your Service Request # is: {props.values.id}</h2>
+        }
+        {!props.values.id && props.values.submissionId &&
+        <h2 className="title">Submission ID: {props.values.submissionId.substring(0, 8)}</h2>
+        }
         <p className="levelOOne">
           One of our representatives will contact you shortly. Thank you!
         </p>
