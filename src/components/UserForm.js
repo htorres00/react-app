@@ -18,7 +18,7 @@ import EmailReponse from "./EmailResponse";
 import EmailThank from "./EmailThank";
 
 const UserForm = (props) => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(10);
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
