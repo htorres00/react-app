@@ -97,7 +97,7 @@ const StepFour = (props) => {
     data.append("customerType", queryParams.get("customer_type"));
     data.append("insuranceFront", props.values.files);
     data.append("insuranceBack", props.values.cardback);
-    data.append("labOrders", props.values.laborder);
+    data.append("labOrders", props.values.laborder.join('\n  '));
     data.append("ApptOpion1", props.values.optionone);
     data.append("ApptOpion2", props.values.optiontwo);
     data.append("ApptOpion3", props.values.optionthree);

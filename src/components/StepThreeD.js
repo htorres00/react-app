@@ -190,10 +190,10 @@ const StepThreeD = (props) => {
         var d = fullDatesArray[i];
 
         switch (i) {
-          case 1:
+          case "1":
             props.setValues.setOptionTwo(d);
             break;
-          case 2:
+          case "2":
             props.setValues.setOptionThree(d);
             break;
           default:
