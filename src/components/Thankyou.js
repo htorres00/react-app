@@ -22,7 +22,7 @@ const ThankYou = (props) => {
         <h2 className="title">Your Service Request # is: {props.values.id}</h2>
         }
         {!props.values.id && props.values.submissionId &&
-        <h2 className="title">Submission ID: {props.values.submissionId.substring(0, 8)}</h2>
+        <h2 className="title">Submission ID: {props.values.submissionId}</h2>
         }
         <p className="levelOOne">
           One of our representatives will contact you shortly. Thank you!
