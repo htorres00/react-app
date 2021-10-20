@@ -336,7 +336,8 @@ const DistanceApi = (props) => {
       props.setValues.setLocation(serviceaddress);
       props.setValues.setDistance(mindistance);
       props.setValues.setAddress(address);
-      props.nextStep(5);
+      //feedbackpage
+      props.nextStep(15);
     } else {
       setShowErrMsg(false);
       setLoader2(false);

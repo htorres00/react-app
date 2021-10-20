@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
-import Footer from "./Footer";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const styles = {
   fadeInUp: {
@@ -35,7 +34,7 @@ const FeedBack = (props) => {
           <button
             className="ok-butn ok-step-three"
             onClick={() => {
-              props.nextStep(6);
+              props.nextStep(5);
             }}
             ref={(fdbackbtn) => {
               fdbackbtnfocus = fdbackbtn;
@@ -45,11 +44,32 @@ const FeedBack = (props) => {
           </button>
           <span className="enter-text">press Enter ↵</span>
         </>
-        <Footer
-          stepNo={props.stepNo}
-          nextStep={props.nextStep}
-          prevStep={props.prevStep}
-        />
+
+        <br />
+
+        <div className="footer-navigation">
+          <button
+            className={["footer-navigation-butn down bold"]}
+            onClick={() => {
+              props.nextStep(5);
+            }}
+          >
+            <IoIosArrowDown></IoIosArrowDown>
+          </button>
+          <button
+            style={{
+              borderRight: "1px solid rgba(50, 39, 1, 0.3)",
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+            }}
+            className={["footer-navigation-butn up"]}
+            onClick={() => {
+              props.nextStep(4);
+            }}
+          >
+            <IoIosArrowUp></IoIosArrowUp>
+          </button>
+        </div>
       </div>
     </StyleRoot>
   );

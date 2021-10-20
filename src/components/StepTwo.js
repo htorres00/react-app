@@ -27,7 +27,7 @@ const StepTwo = (props) => {
       <div className="step-two" style={styles.fadeInUp}>
         <div className="question">
           <span className="step-no">
-            {props.indicator === true ? <span>3</span> : <> {props.stepNo}</>}
+            {props.indicator === true ? <span>4</span> : <> {props.stepNo}</>}
 
             <BsArrowRightShort></BsArrowRightShort>
           </span>

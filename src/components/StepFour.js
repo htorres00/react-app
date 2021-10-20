@@ -109,6 +109,7 @@ const StepFour = (props) => {
     data.append("serviceCity", props.values.location.city);
     data.append("serviceState", props.values.location.state);
     data.append("serviceZip", props.values.location.zip);
+    data.append("address2", props.values.addresstwo);
 
     console.log(
       makeid(5),
@@ -120,7 +121,8 @@ const StepFour = (props) => {
       queryParams.get("last_name"),
       queryParams.get("email"),
       queryParams.get("mobile_number"),
-      queryParams.get("customer_type")
+      queryParams.get("customer_type"),
+      props.values.addresstwo
     );
     var config = {
       method: "post",
@@ -164,7 +166,7 @@ const StepFour = (props) => {
           <div className="question">
             <span className="step-no">
               {props.indicator === true ? (
-                <span>5</span>
+                <span>6</span>
               ) : (
                 <>
                   {" "}

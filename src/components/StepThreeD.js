@@ -116,46 +116,52 @@ const StepThreeD = (props) => {
     let fullDatesArray = [];
     let timesArray = [];
 
-    if(startDateOne) {
+    if (startDateOne) {
       if (startDateOne < mindate) {
         setOptDateOneMsg("Date should be greater than Today + 4 days");
         hasError = true;
-      } else if(!startTimeOne) {
+      } else if (!startTimeOne) {
         setOptDateOneMsg("Please select any time");
         hasError = true;
       } else {
         setOptDateOneMsg("");
-        fullDatesArray.push(startDateOne + "T" + startTimeOne.slice(0, 5) + ":00");
+        fullDatesArray.push(
+          startDateOne + "T" + startTimeOne.slice(0, 5) + ":00"
+        );
         datesArray.push(startDateOne);
         timesArray.push(startTimeOne.slice(0, 5) + ":00");
       }
     }
 
-    if(startDateTwo) {
+    if (startDateTwo) {
       if (startDateTwo < mindate) {
         setOptDateTwoMsg("Date should be greater than Today + 4 days");
         hasError = true;
-      } else if(!startTimeTwo) {
+      } else if (!startTimeTwo) {
         setOptDateTwoMsg("Please select any time");
         hasError = true;
-      }  else {
+      } else {
         setOptDateTwoMsg("");
-        fullDatesArray.push(startDateTwo + "T" + startTimeTwo.slice(0, 5) + ":00");
+        fullDatesArray.push(
+          startDateTwo + "T" + startTimeTwo.slice(0, 5) + ":00"
+        );
         datesArray.push(startDateTwo);
         timesArray.push(startTimeTwo.slice(0, 5) + ":00");
       }
     }
 
-    if(startDateThree) {
+    if (startDateThree) {
       if (startDateThree < mindate) {
         setOptDateThreeMsg("Date should be greater than Today + 4 days");
         hasError = true;
-      } else if(!startTimeThree) {
+      } else if (!startTimeThree) {
         setOptDateThreeMsg("Please select any time");
         hasError = true;
-      }  else {
+      } else {
         setOptDateThreeMsg("");
-        fullDatesArray.push(startDateThree + "T" + startTimeThree.slice(0, 5) + ":00");
+        fullDatesArray.push(
+          startDateThree + "T" + startTimeThree.slice(0, 5) + ":00"
+        );
         datesArray.push(startDateThree);
         timesArray.push(startTimeThree.slice(0, 5) + ":00");
       }
@@ -163,13 +169,13 @@ const StepThreeD = (props) => {
 
     let filteredDatesArray = [...new Set(fullDatesArray)];
 
-    if(filteredDatesArray.length !== fullDatesArray.length) {
+    if (filteredDatesArray.length !== fullDatesArray.length) {
       hasError = true;
       setMessageFour(
-          "The appointment options should be unique. Please review your options."
+        "The appointment options should be unique. Please review your options."
       );
     } else {
-      setMessageFour('');
+      setMessageFour("");
     }
     return [hasError, fullDatesArray];
   };
@@ -179,8 +185,8 @@ const StepThreeD = (props) => {
     const hasError = validate[0];
     const fullDatesArray = validate[1];
 
-    if(!hasError) {
-      for(var i in fullDatesArray) {
+    if (!hasError) {
+      for (var i in fullDatesArray) {
         var d = fullDatesArray[i];
 
         switch (i) {
@@ -324,7 +330,7 @@ const StepThreeD = (props) => {
         <div className="question">
           <span className="step-no">
             {props.indicator === true ? (
-              <span>4</span>
+              <span>5</span>
             ) : (
               <>
                 {" "}
@@ -373,7 +379,7 @@ const StepThreeD = (props) => {
             >
               <select
                 className="appttime"
-                onBlur={() => handleBlurDate()}
+                // onBlur={() => handleBlurDate()}
                 onChange={(e) => handleStartTimeOne(e.target.value)}
                 value={startTimeOne}
               >
@@ -436,7 +442,7 @@ const StepThreeD = (props) => {
               >
                 <select
                   className="appttime"
-                  onBlur={() => handleBlurDate()}
+                  // onBlur={() => handleBlurDate()}
                   onChange={(e) => handleStartTimeTwo(e.target.value)}
                   value={startTimeTwo}
                 >
@@ -505,7 +511,7 @@ const StepThreeD = (props) => {
               >
                 <select
                   className="appttime"
-                  onBlur={() => handleBlurDate()}
+                  // onBlur={() => handleBlurDate()}
                   onChange={(e) => handleStartTimeThree(e.target.value)}
                   value={startTimeThree}
                 >

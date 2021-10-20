@@ -16,9 +16,10 @@ import DistanceApi from "./DistanceApi";
 import FeedBack from "./FeedBack";
 import EmailReponse from "./EmailResponse";
 import EmailThank from "./EmailThank";
+import AddressTwo from "./AddressTwo";
 
 const UserForm = (props) => {
-  const [step, setStep] = useState(10);
+  const [step, setStep] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
@@ -49,6 +50,8 @@ const UserForm = (props) => {
   const [distance, setDistance] = useState("");
   const [address, setAddress] = useState("");
   const [servicemsg, setServiceMsg] = useState("");
+  const [addresstwo, setAddressTwo] = useState("");
+
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
   ];
@@ -125,6 +128,7 @@ const UserForm = (props) => {
       datethree,
       timethree,
       servicemsg,
+      addresstwo,
     };
     const setValues = {
       setEmailQuestion,
@@ -155,6 +159,7 @@ const UserForm = (props) => {
       setDateThree,
       setTimeThree,
       setServiceMsg,
+      setAddressTwo,
     };
     switch (step) {
       case 1:
@@ -215,7 +220,7 @@ const UserForm = (props) => {
         );
       case 5:
         return (
-          <FeedBack
+          <AddressTwo
             stepNo={step}
             setStep={setStep}
             nextStep={nextStep}
@@ -224,6 +229,7 @@ const UserForm = (props) => {
             values={values}
             setValues={setValues}
             canProceed={handleCanProceed}
+            indicator={yesindicator}
           />
         );
       case 6:
@@ -331,6 +337,7 @@ const UserForm = (props) => {
             prevStep={prevStep}
             handleChange={handleChange}
             values={values}
+            indicator={yesindicator}
           />
         );
 
@@ -343,6 +350,19 @@ const UserForm = (props) => {
             prevStep={prevStep}
             handleChange={handleChange}
             values={values}
+          />
+        );
+      case 15:
+        return (
+          <FeedBack
+            stepNo={step}
+            setStep={setStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            canProceed={handleCanProceed}
           />
         );
       default:

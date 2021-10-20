@@ -56,6 +56,17 @@ const StepOne = (props) => {
       props.nextStep(2);
     }
   };
+
+  const formatPhoneNumber = (phoneNumberString) => {
+    var cleaned = ("" + phoneNumberString).replace(/\D/g, "");
+    var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      var intlCode = match[1] ? "+1 " : "";
+      return [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join("");
+    }
+    return phoneNumberString;
+  };
+
   return (
     <StyleRoot>
       <div
@@ -83,8 +94,8 @@ const StepOne = (props) => {
           </span>
           <p>
             We have you with email {queryParams.get("email")} and phone number{" "}
-            {queryParams.get("mobile_number")}. Is this the best email and
-            number to reach you?
+            {formatPhoneNumber(queryParams.get("mobile_number"))}. Is this the
+            best email and number to reach you?
           </p>
         </div>
 
