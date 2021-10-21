@@ -97,6 +97,7 @@ const AttachmentSingleNew = (props) => {
 
   const handleClick = () => {
     if (urls.length == 0) {
+      props.mysetfrontbackfile([]);
       props.stepNo == 7 ? props.nextStep(8) : props.nextStep(9);
     } else if (
       props.myfrontfile.length !== 0 &&

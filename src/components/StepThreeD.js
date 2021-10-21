@@ -71,6 +71,12 @@ const StepThreeD = (props) => {
     setMinDate(date.toLocaleDateString("fr-CA"));
   }, []);
 
+  //MM/DD/YYYY - HH:MM PM Pacific Time
+  const changeDateFormat = (date) => {
+    let datearr = date.split("-");
+    return `${datearr[1]}/${datearr[2]}/${datearr[0]}`;
+  };
+
   const handleStartDateOne = (startdateone) => {
     setStartDateOne(startdateone);
   };
@@ -84,30 +90,15 @@ const StepThreeD = (props) => {
   };
 
   const handleStartTimeOne = (timeone) => {
-    if (timeone == "") {
-      setMessageOne("Please enter the time between 7am to 4pm Only.");
-      return;
-    }
     setStartTimeOne(timeone);
-    setMessageOne("");
   };
 
   const handleStartTimeTwo = (timetwo) => {
-    if (timetwo == "") {
-      setMessageTwo("Please enter the time between 7am to 4pm Only.");
-      return;
-    }
     setStartTimeTwo(timetwo);
-    setMessageTwo("");
   };
 
   const handleStartTimeThree = (timethree) => {
-    if (timethree == "") {
-      setMessageThree("Please enter the time between 7am to 4pm Only.");
-      return;
-    }
     setStartTimeThree(timethree);
-    setMessageThree("");
   };
 
   const validateTimeOptions = () => {
@@ -126,10 +117,10 @@ const StepThreeD = (props) => {
       } else {
         setOptDateOneMsg("");
         fullDatesArray.push(
-          startDateOne + "T" + startTimeOne.slice(0, 5) + ":00"
+          changeDateFormat(startDateOne) + " - " + startTimeOne
         );
         datesArray.push(startDateOne);
-        timesArray.push(startTimeOne.slice(0, 5) + ":00");
+        timesArray.push(startTimeOne);
       }
     }
 
@@ -143,10 +134,11 @@ const StepThreeD = (props) => {
       } else {
         setOptDateTwoMsg("");
         fullDatesArray.push(
-          startDateTwo + "T" + startTimeTwo.slice(0, 5) + ":00"
+          changeDateFormat(startDateTwo) + " - " + startTimeTwo
         );
+
         datesArray.push(startDateTwo);
-        timesArray.push(startTimeTwo.slice(0, 5) + ":00");
+        timesArray.push(startTimeTwo);
       }
     }
 
@@ -160,10 +152,11 @@ const StepThreeD = (props) => {
       } else {
         setOptDateThreeMsg("");
         fullDatesArray.push(
-          startDateThree + "T" + startTimeThree.slice(0, 5) + ":00"
+          changeDateFormat(startDateThree) + " - " + startTimeThree
         );
+
         datesArray.push(startDateThree);
-        timesArray.push(startTimeThree.slice(0, 5) + ":00");
+        timesArray.push(startTimeThree);
       }
     }
 
@@ -188,7 +181,6 @@ const StepThreeD = (props) => {
     if (!hasError) {
       for (var i in fullDatesArray) {
         var d = fullDatesArray[i];
-
         switch (i) {
           case "1":
             props.setValues.setOptionTwo(d);
@@ -593,31 +585,3 @@ const StepThreeD = (props) => {
 };
 
 export default StepThreeD;
-// const handleBlurDate = () => {
-//   if (
-//     startDateOne === null ||
-//     startDateTwo === null ||
-//     startDateThree === null ||
-//     startTimeOne === null ||
-//     startTimeTwo === null ||
-//     startTimeThree === null
-//   ) {
-//     setMessageFour(
-//       "The appointment options should be unique or should not \n be empty Please review your options."
-//     );
-//   } else {
-//     if (
-//       startDateOne !== startDateTwo &&
-//       startDateOne !== startDateThree &&
-//       startDateTwo !== startDateThree
-//     ) {
-//       //console.log("Good to go");
-//       okButn.focus();
-//       setMessageFour("");
-//     } else {
-//       setMessageFour(
-//         "The appointment options should be unique or should not \n be empty Please review your options."
-//       );
-//     }
-//   }
-// };

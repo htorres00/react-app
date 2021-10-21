@@ -58,6 +58,7 @@ const StepThreeB = (props) => {
           <AttachmentSingleNew
             url={handleUrls}
             myfrontfile={props.values.backfile}
+            mysetfrontbackfile={props.setValues.setBackFile}
             stepNo={props.stepNo}
             nextStep={props.nextStep}
             prevStep={props.prevStep}

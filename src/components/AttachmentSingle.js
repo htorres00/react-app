@@ -86,6 +86,7 @@ const AttachmentSingle = (props) => {
 
   const handleClick = () => {
     if (urls.length == 0) {
+      props.mysetmultfile([]);
       props.nextStep(10);
       return;
     }

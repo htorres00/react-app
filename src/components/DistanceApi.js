@@ -50,7 +50,7 @@ const DistanceApi = (props) => {
       setHandleDistance(true);
       setProceed(true);
     }
-    console.log(JSON.parse(localStorage.getItem("bfusers")), "bfuserslength");
+    //console.log(JSON.parse(localStorage.getItem("bfusers")), "bfuserslength");
     if (!localStorage.getItem("bfusers")) {
       getUserList();
     } else {
@@ -241,8 +241,6 @@ const DistanceApi = (props) => {
           setLoader2(false);
           setProceed(true);
         } else if (finalDistance > 100) {
-          console.log(finalDistance, "finalDistance elseif");
-
           props.setValues.setServiceMsg("");
           props.setValues.setLocation("");
           props.setValues.setDistance("");

@@ -60,20 +60,13 @@ const UserForm = (props) => {
   const nextStep = (stepNo, bool) => {
     if (bool === true) {
       setYesindicator(bool);
-      //console.log(bool, " after indicator on yes");
-      //console.log(stepNo, "step number on clicking yess");
     }
 
     if (bool === false) {
       setYesindicator(bool);
-      //console.log(bool, "indicator on no");
     }
 
     setStep(stepNo);
-    //console.log(stepNo, "Step number before");
-
-    // console.log(yesstep, "Yess step");
-    // console.log(bool, "Indicator");
   };
 
   // Proceed to next step
@@ -96,7 +89,6 @@ const UserForm = (props) => {
   };
 
   const HandleView = () => {
-    //console.log("bfusers handleviews: ", props.bfusers);
     useEffect(() => {}, []);
 
     const values = {

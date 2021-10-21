@@ -65,19 +65,11 @@ const StepFour = (props) => {
     var seconds = (date.getSeconds() < 10 ? "0" : "") + date.getSeconds();
     var minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
     var hour = ("0" + date.getHours()).slice(-2);
-    var newDate =
-      year +
-      "-" +
-      monthIndex +
-      "-" +
-      day +
-      "T" +
-      hour +
-      ":" +
-      minutes +
-      ":" +
-      seconds +
-      "";
+    var ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12;
+    hour = hour ? hour : 12; // the hour '0' should be '12'
+    var strTime = hour + ":" + minutes + " " + ampm;
+    var newDate = monthIndex + "/" + day + "/" + year + " - " + strTime;
     return newDate;
   };
 
@@ -97,7 +89,7 @@ const StepFour = (props) => {
     data.append("customerType", queryParams.get("customer_type"));
     data.append("insuranceFront", props.values.files);
     data.append("insuranceBack", props.values.cardback);
-    data.append("labOrders", props.values.laborder.join('\n  '));
+    data.append("labOrders", props.values.laborder.join("\n  "));
     data.append("ApptOpion1", props.values.optionone);
     data.append("ApptOpion2", props.values.optiontwo);
     data.append("ApptOpion3", props.values.optionthree);
@@ -110,7 +102,6 @@ const StepFour = (props) => {
     data.append("serviceState", props.values.location.state);
     data.append("serviceZip", props.values.location.zip);
     data.append("address2", props.values.addresstwo);
-
     console.log(
       makeid(5),
       inputValue,

@@ -31,10 +31,18 @@ const StepThreeC = (props) => {
     axios
       .post(url, data)
       .then((res) => {
-        setLoader(false);
-        props.setValues.setLabOrder(res.data);
-        props.setValues.setMultFile(urls);
         console.log(res.data, "upload api");
+
+        setLoader(false);
+        let arr = [];
+        if (props.values.laborder.length > 0) {
+          arr = [...res.data, ...props.values.laborder];
+        } else {
+          arr = res.data;
+        }
+        let filteredarr = [...new Set(arr)];
+        props.setValues.setLabOrder(filteredarr);
+        props.setValues.setMultFile(urls);
         props.nextStep(10);
       })
       .catch((error) => {
@@ -70,6 +78,7 @@ const StepThreeC = (props) => {
           <AttachmentSingle
             url={handleUrl}
             mybackfile={props.values.multfile}
+            mysetmultfile={props.setValues.setMultFile}
             stepNo={props.stepNo}
             nextStep={props.nextStep}
             prevStep={props.prevStep}

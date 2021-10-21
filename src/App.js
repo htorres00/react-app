@@ -13,7 +13,6 @@ function App() {
   useEffect(() => {
     localStorage.removeItem("bfusers");
     if (bfusers.length == 0) {
-      console.log("api fetch one time");
       getUserList();
     }
   }, []);
@@ -31,7 +30,7 @@ function App() {
     };
     axios(options)
       .then((res) => {
-        console.log(res.data.user);
+        //console.log(res.data.user);
         setLoader(false);
         apiLoading = false;
         setBFUsers(res.data.user);
