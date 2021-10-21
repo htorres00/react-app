@@ -1,48 +1,43 @@
 import { useEffect, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { HiOutlineCheck } from "react-icons/hi";
-import { fadeInUp } from "react-animations";
+import { fadeInUp, flash } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import Footer from "./Footer";
-import React from "react";
 
 const styles = {
   fadeInUp: {
     animation: "x 1s",
+    minWidth: '291px',
     animationName: Radium.keyframes(fadeInUp, "fadeInUp"),
+  },
+  flash: {
+    animation: "x 1s",
+    animationName: Radium.keyframes(flash, "flash"),
   },
 };
 
-const NoPageStep2 = (props) => {
-  const [email, setEmail] = useState("");
-  const [showerrmsg, setShowErrMsg] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  let inputfocus = null;
+
+const StepOne = (props) => {
+  const [hasError, setHasError] = useState("");
+  const [lastName, setLastName] = useState(props.values.firstName);
+  const [firstName, setFirstName] = useState(props.values.lastName);
 
   useEffect(() => {
-    setEmail(props.values?.email || props.values?.mandotaryEmail);
-    props.setValues.setCompletedProgress(22);
-    inputfocus?.focus();
+    props.setValues.setCompletedProgress(10);
   }, []);
 
-  const handleOnButnClick = () => {
-    var pattern = /^([a-zA-Z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/;
-    if (props.values.hasInformation && email == "") {
-      props.nextStep(4);
-    } else if (pattern.test(email)) {
-      setShowErrMsg(false);
-      setErrorMsg("");
-      if (!props.values.hasInformation) {
-        props.setValues.setMandotaryEmail(email);
-      } else {
-        props.setValues.setEmail(email);
-      }
-      props.nextStep(4);
+
+  const handleClick = () => {
+    if (!firstName || !lastName) {
+      setHasError(true) 
     } else {
-      setShowErrMsg(true);
-      setErrorMsg("Hmm… that email doesn't look valid");
+      props.setValues.setFirstName(firstName);
+      props.setValues.setLastName(lastName);
+      props.nextStep(2);
     }
   };
+
 
   return (
     <StyleRoot>
@@ -51,7 +46,7 @@ const NoPageStep2 = (props) => {
         style={styles.fadeInUp}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
-            handleOnButnClick();
+            handleClick();
           }
         }}
       >
@@ -62,42 +57,56 @@ const NoPageStep2 = (props) => {
           </span>
           <p>
             <span className="level-one">
-              {props.values.hasInformation ? 'Do you have an alternative email address?' : "What's your email address?*" }
-            </span>
-            <span className="level-two">
-              We promise not to spam you or sell your contact information.
+              What's your name?*
             </span>
           </p>
         </div>
 
         <div>
           <input
-            type="email"
-            name="email"
-            value={email}
+            name="firstName"
+            value={firstName}
             style={{ width: "100%" }}
-            placeholder="name@example.com"
+            placeholder="First Name"
             onChange={(e) => {
-              if (e.target.value == "") {
-                setShowErrMsg(false);
-                setErrorMsg("");
+              if (!e.target.value) {
+                setHasError(true);
               }
-              setEmail(e.target.value);
+              setFirstName(e.target.value);
             }}
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
-                handleOnButnClick();
+                handleClick();
               }
             }}
-            ref={(email) => {
-              inputfocus = email;
-            }}
           />
+          
         </div>
 
-        {showerrmsg ? (
+        <div>
+          <input
+            name="lastName"
+            value={lastName}
+            style={{ width: "100%", marginTop:"15px" }}
+            placeholder="Last Name"
+            onChange={(e) => {
+              if (!e.target.value) {
+                setHasError(true);
+              }
+              setLastName(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                handleClick();
+              }
+            }}
+          />
+
+        </div>
+
+        {hasError ? (
           <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-            {errorMsg}
+            First Name and Last name are required
           </div>
         ) : (
           <></>
@@ -108,10 +117,10 @@ const NoPageStep2 = (props) => {
             className="ok-butn ok-step-three"
             tabIndex="0"
             onClick={() => {
-              handleOnButnClick();
+              handleClick();
             }}
             onKeyDown={() => {
-              handleOnButnClick();
+              handleClick();
             }}
           >
             OK
@@ -121,7 +130,7 @@ const NoPageStep2 = (props) => {
         </>
 
         <Footer
-          handleOnButnClick={handleOnButnClick}
+          handleClick={handleClick}
           stepNo={props.stepNo}
           nextStep={props.nextStep}
           prevStep={props.prevStep}
@@ -130,4 +139,5 @@ const NoPageStep2 = (props) => {
     </StyleRoot>
   );
 };
-export default NoPageStep2;
+
+export default StepOne;

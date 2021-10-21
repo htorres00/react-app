@@ -80,11 +80,11 @@ const StepFour = (props) => {
     data.append("action", "post_zapier");
     data.append("formSubmission", makeid(5));
     data.append("submissionDate", dateMaker(new Date()));
-    data.append("firstName", queryParams.get("first_name"));
-    data.append("lastName", queryParams.get("last_name"));
-    data.append("email", queryParams.get("email"));
+    data.append("firstName", props.values.firstName)
+    data.append("lastName", props.values.lastName)
+    data.append("email", props.values.mandotaryEmail);
     data.append("altEmail", props.values.email);
-    data.append("phone", queryParams.get("mobile_number"));
+    data.append("phone", props.values.mobileNumber);
     data.append("altPhone", props.values.phone);
     data.append("customerType", queryParams.get("customer_type"));
     data.append("insuranceFront", props.values.files);

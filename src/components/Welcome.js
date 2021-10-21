@@ -4,7 +4,7 @@ import { BsClockFill } from "react-icons/bs";
 
 const Welcome = (props) => {
   let textInput = null;
-  const queryParams = new URLSearchParams(window.location.search);
+  const firstName = new URLSearchParams(window.location.search).get('first_name') || "";
 
   useEffect(() => {
     textInput.focus();
@@ -17,7 +17,7 @@ const Welcome = (props) => {
     <div className="welcome-screen">
       <img src={logo} className="logo" alt="logo" />
       <h1>
-        Hello {queryParams.get("first_name")},
+        Hello{firstName ? ` ` : ''}{firstName},
         please respond to few questions to get your service request started:
       </h1>
       <div className="butnWraper">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ProgressBar from "./ProgressBar";
 import Welcome from "./Welcome";
-import Footer from "./Footer";
+import StepFullName from "./StepFullName";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -20,6 +20,7 @@ import AddressTwo from "./AddressTwo";
 
 const UserForm = (props) => {
   const [step, setStep] = useState(0);
+  // const [mandotaryInformations, setmandotaryInformations] = useState({ firstName: "", lastName:"",phone:"",email:""})
   const [canProceed, setCanProceed] = useState(false);
   const [yesstep, setYesStep] = useState(2);
   const [yesindicator, setYesindicator] = useState(false);
@@ -27,6 +28,11 @@ const UserForm = (props) => {
   const [emailQuestion, setEmailQuestion] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [hasInformation, setHasInformation] = useState(true);
+  const [firstName, setFirstName] = useState(new URLSearchParams(window.location.search).get("first_name"));
+  const [lastName, setLastName] = useState(new URLSearchParams(window.location.search).get("last_name"));
+  const [mobileNumber, setMobileNumber] = useState(new URLSearchParams(window.location.search).get("mobile_number"));
+  const [mandotaryEmail, setMandotaryEmail] = useState(new URLSearchParams(window.location.search).get("email"));
   const [files, setFiles] = useState([]);
   const [frontfile, setFrontFile] = useState([]);
   const [backfile, setBackFile] = useState([]);
@@ -82,7 +88,9 @@ const UserForm = (props) => {
       setStep(step - 1);
     }
   };
-
+  useEffect(() => { 
+    if(!firstName || !lastName || !mandotaryEmail || !mobileNumber) setHasInformation(false)
+  }, []);
   // Handle fields change
   const handleChange = (input) => (e) => {
     setInput(e.target.value);
@@ -92,9 +100,14 @@ const UserForm = (props) => {
     useEffect(() => {}, []);
 
     const values = {
+      hasInformation,
+      firstName,
+      lastName,
+      mobileNumber,
       emailQuestion,
       phone,
       email,
+      mandotaryEmail,
       input,
       files,
       completedProgress,
@@ -124,7 +137,11 @@ const UserForm = (props) => {
     };
     const setValues = {
       setEmailQuestion,
+      setFirstName,
+      setLastName,
+      setMobileNumber,
       setPhone,
+      setMandotaryEmail,
       setEmail,
       setInput,
       setFiles,
@@ -155,8 +172,16 @@ const UserForm = (props) => {
     };
     switch (step) {
       case 1:
+        if (!hasInformation) return <StepFullName
+          stepNo={step}
+          nextStep={nextStep}
+          prevStep={prevStep}
+          handleChange={handleChange}
+          values={values}
+          setValues={setValues}
+          canProceed={handleCanProceed}
+        />
         return (
-          <>
             <StepOne
               stepNo={step}
               nextStep={nextStep}
@@ -166,7 +191,6 @@ const UserForm = (props) => {
               setValues={setValues}
               canProceed={handleCanProceed}
             />
-          </>
         );
 
       case 2:
@@ -378,7 +402,7 @@ const UserForm = (props) => {
               bgcolor={item.bgcolor}
               completed={item.completed}
             />
-          ))}
+        ))}
       <HandleView />
       {/* {step === 0 || step === 12 ? null : (
         <Footer stepNo={step} canProceed={canProceed} nextStep={nextStep} prevStep={prevStep} />

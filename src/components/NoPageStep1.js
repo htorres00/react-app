@@ -17,9 +17,10 @@ const styles = {
 const NoPageStep1 = (props) => {
   useEffect(() => {}, []);
   const [phone, setPhone] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    setPhone(props.values?.phone);
+    setPhone(props.values?.phone || props.values?.mobileNumber);
     props.setValues.setCompletedProgress(15);
   }, []);
 
@@ -28,7 +29,15 @@ const NoPageStep1 = (props) => {
   };
 
   const handleOnButnClick = () => {
-    props.setValues.setPhone(phone);
+    if (!props.values.hasInformation) {
+      if (!phone) {
+        return setHasError(true)
+      }
+      props.setValues.setMobileNumber(phone)
+    }
+    else {
+      props.setValues.setPhone(phone);
+    }
     props.nextStep(3);
   };
 
@@ -79,6 +88,13 @@ const NoPageStep1 = (props) => {
           />
         </div>
 
+        {hasError ? (
+          <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
+            Phone number is required
+          </div>
+        ) : (
+          <></>
+        )}
         <>
           <button
             className="ok-butn ok-step-two"
