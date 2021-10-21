@@ -1,6 +1,16 @@
 import { useEffect } from "react";
 import logo from "../images/logo.png";
 import { BsClockFill } from "react-icons/bs";
+import Radium, { StyleRoot } from "radium";
+import { fadeInUp } from "react-animations";
+
+const styles = {
+  fadeInUp: {
+    animation: "x 1s",
+    animationName: Radium.keyframes(fadeInUp, "fadeInUp"),
+  },
+};
+
 
 const Welcome = (props) => {
   let textInput = null;
@@ -14,7 +24,8 @@ const Welcome = (props) => {
     //console.log(props, "default props");
   }, []);
   return (
-    <div className="welcome-screen">
+    <StyleRoot>
+    <div className="welcome-screen" style={styles.fadeInUp}>
       <img src={logo} className="logo" alt="logo" />
       <h1>
         Hello{firstName ? ` ` : ''}{firstName},
@@ -36,7 +47,8 @@ const Welcome = (props) => {
       <span className="form-fill-time">
         <BsClockFill></BsClockFill> Takes 1 min
       </span>
-    </div>
+      </div>
+    </StyleRoot>
   );
 };
 

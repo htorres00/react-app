@@ -65,10 +65,10 @@ const Footer = (props) => {
           }}
           className={[
             "footer-navigation-butn up",
-            props.stepNo <= 1 && " disabled",
+            props.stepNo < 1 && " disabled",
           ]}
           onClick={
-            props.stepNo > 1
+            props.stepNo >= 1
               ? () => {
                   props.prevStep();
                 }
