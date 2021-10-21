@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
+import { BsArrowRightShort, BsBootstrapReboot } from "react-icons/bs";
 import { HiOutlineCheck } from "react-icons/hi";
 import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import 'react-phone-input-2/lib/bootstrap.css'
 import Footer from "./Footer";
 
 const styles = {
@@ -15,7 +15,7 @@ const styles = {
 };
 
 const NoPageStep1 = (props) => {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const [phone, setPhone] = useState("");
   const [hasError, setHasError] = useState(false);
 
@@ -70,8 +70,11 @@ const NoPageStep1 = (props) => {
         <div>
           <PhoneInput
             enableSearch
-            country={"us"}
+            country={'us'}
+            onlyCountries={['us']}
+            disableDropdown={true}
             placeholder="(201) 555-0123"
+            disableCountryCode={true}
             value={phone}
             onChange={(phone) => handlePhone(phone)}
             tabIndex="0"
