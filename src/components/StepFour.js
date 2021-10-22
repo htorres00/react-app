@@ -95,7 +95,7 @@ const StepFour = (props) => {
     data.append("ApptOpion3", props.values.optionthree);
     data.append("notes", inputValue);
     data.append("serviceDistance", props.values.distance);
-    data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
+    data.append("serviceMillage", props.values.servicemsg === "Good news. This address is within our area of service. Please notice mileage fees might be incurred when the appointment is confirmed." ? 0 : (props.values.distance * 0.54).toFixed(2))
     data.append("serviceStreet1", props.values.location.street1);
     data.append("serviceStreet2", props.values.addresstwo);
     data.append("serviceCity", props.values.location.city);
