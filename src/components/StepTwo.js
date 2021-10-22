@@ -33,14 +33,11 @@ const StepTwo = (props) => {
           </span>
           <p>
             <span className="level-one">
-              To process your Service Request, we need some documents.
-            </span>
-            <span className="level-one">
-              Mainly, insurance details and lab orders.
+              To process your Service Request, we need some documents including, insurance details and lab orders.
             </span>
             <span className="level-two">
-              INSTRUCTIONS: You can upload only one file on each question. If
-              you have a file attachment with multiple pages, great!. Otherwise,
+              INSTRUCTIONS:
+              If you have a file attachment with multiple pages, great!. Otherwise,
               you can take a picture or scan one page and upload it as prompted
               on each of the questions below.
             </span>

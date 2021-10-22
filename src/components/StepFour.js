@@ -169,9 +169,8 @@ const StepFour = (props) => {
                 <BsArrowRightShort></BsArrowRightShort>
               </span>
               <p>
-                Excellent. One of our representatives will be contacting you
-                shortly, but any additional information or comments you can share
-                in advance will help to expedite your order. <br />
+                Excellent. Any additional information or comments you can share
+                in advance will help us expedite your order. <br />
                 Do you have any comments or concerns you would like to add?
               </p>
             </div>

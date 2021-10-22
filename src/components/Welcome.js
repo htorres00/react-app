@@ -25,28 +25,28 @@ const Welcome = (props) => {
   }, []);
   return (
     <StyleRoot>
-    <div className="welcome-screen" style={styles.fadeInUp}>
-      <img src={logo} className="logo" alt="logo" />
-      <h1>
-        Hello{firstName ? ` ` : ''}{firstName},
-        please respond to few questions to get your service request started:
-      </h1>
-      <div className="butnWraper">
-        <button
-          className="start-form"
-          onClick={props.nextStep}
-          ref={(button) => {
-            textInput = button;
-          }}
-        >
-          Start
-        </button>
-        <span className="press">press Enter ↵</span>
-      </div>
+      <div className="welcome-screen" style={styles.fadeInUp}>
+        <img src={logo} className="logo" alt="logo" />
+        <h1>
+          Hello{firstName ? ` ` : ''}{firstName},
+          please respond to a few questions to get your service request started:
+        </h1>
+        <div className="butnWraper">
+          <button
+            className="start-form"
+            onClick={props.nextStep}
+            ref={(button) => {
+              textInput = button;
+            }}
+          >
+            Start
+          </button>
+          <span className="press">press Enter ↵</span>
+        </div>
 
-      <span className="form-fill-time">
-        <BsClockFill></BsClockFill> Takes 1 min
-      </span>
+        <span className="form-fill-time">
+          <BsClockFill></BsClockFill> Takes 3 mins
+        </span>
       </div>
     </StyleRoot>
   );

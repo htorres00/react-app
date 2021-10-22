@@ -47,7 +47,7 @@ const AddressTwo = (props) => {
           </span>
           <p>
             <span className="level-one">
-              Is there an appartment, suite, etc?
+              If the address includes an apartment, suite, etc, please enter it below?
             </span>
           </p>
         </div>
