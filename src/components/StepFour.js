@@ -97,11 +97,10 @@ const StepFour = (props) => {
     data.append("serviceDistance", props.values.distance);
     data.append("serviceMillage", (props.values.distance * 0.54).toFixed(2));
     data.append("serviceStreet1", props.values.location.street1);
-    data.append("serviceStreet2", props.values.location.street2);
+    data.append("serviceStreet2", props.values.addresstwo);
     data.append("serviceCity", props.values.location.city);
     data.append("serviceState", props.values.location.state);
     data.append("serviceZip", props.values.location.zip);
-    data.append("address2", props.values.addresstwo);
     console.log(
       makeid(5),
       inputValue,
@@ -153,89 +152,92 @@ const StepFour = (props) => {
       {loader ? (
         <Loader msg={"Processing your order. Please wait..."} />
       ) : (
-        <div className="step-four" style={styles.fadeInUp}>
-          <div className="question">
-            <span className="step-no">
-              {props.indicator === true ? (
-                <span>6</span>
-              ) : (
-                <>
-                  {" "}
-                  <span>8</span>
-                </>
-              )}
+        <div className="step-four-wrapper">
+          <div className="step-four step-four-container" style={styles.fadeInUp}>
 
-              <BsArrowRightShort></BsArrowRightShort>
-            </span>
-            <p>
-              Excellent. One of our representatives will be contacting you
-              shortly, but any additional information or comments you can share
-              in advance will help to expedite your order. <br />
-              Do you have any comments or concerns you would like to add?
-            </p>
-          </div>
-          <div>
-            <textarea
-              className="input-answer"
-              type="text"
-              name="answer"
-              value={inputValue}
-              placeholder="Type your answer here..."
-              onChange={(e) => {
-                setInputValue(e.target.value);
-                setIsTyped(true);
-              }}
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-              ref={(inputVal) => {
-                inputValueRef = inputVal;
-              }}
-              onKeyDown={(e) => handleKeyPress(e)}
-            />
-            <div className="instructions">
-              <span className="bold">Shift ⇧</span> +{" "}
-              <span className="bold">Enter ↵</span> to make a line break
+            <div className="question">
+              <span className="step-no">
+                {props.indicator === true ? (
+                  <span>6</span>
+                ) : (
+                  <>
+                    {" "}
+                    <span>8</span>
+                  </>
+                )}
+
+                <BsArrowRightShort></BsArrowRightShort>
+              </span>
+              <p>
+                Excellent. One of our representatives will be contacting you
+                shortly, but any additional information or comments you can share
+                in advance will help to expedite your order. <br />
+                Do you have any comments or concerns you would like to add?
+              </p>
             </div>
-
-            <div className="butnWrap">
-              <button
-                type="submit"
-                className="submit-form"
-                tabIndex="0"
-                onClick={() => {
-                  handleOnButnClick();
+            <div>
+              <textarea
+                className="input-answer"
+                type="text"
+                name="answer"
+                value={inputValue}
+                placeholder="Type your answer here..."
+                onChange={(e) => {
+                  setInputValue(e.target.value);
+                  setIsTyped(true);
                 }}
-              >
-                Submit
-              </button>
-              {window.navigator.platform.toLowerCase().includes("win") && (
-                <>
-                  <span>press </span>
-                  <span className="bold">
-                    Ctrl <AiOutlinePlus></AiOutlinePlus>
-                  </span>
-                  <span className="bold">
-                    &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
-                  </span>
-                </>
-              )}
-              {window.navigator.platform.toLowerCase().includes("mac") && (
-                <>
-                  <span>press </span>
-                  <span className="bold">
-                    Cmd <BiCommand></BiCommand>
-                  </span>
-                  <span className="bold">
-                    &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
-                  </span>
-                </>
-              )}
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                ref={(inputVal) => {
+                  inputValueRef = inputVal;
+                }}
+                onKeyDown={(e) => handleKeyPress(e)}
+              />
+              <div className="instructions">
+                <span className="bold">Shift ⇧</span> +{" "}
+                <span className="bold">Enter ↵</span> to make a line break
+              </div>
+
+              <div className="butnWrap">
+                <button
+                  type="submit"
+                  className="submit-form"
+                  tabIndex="0"
+                  onClick={() => {
+                    handleOnButnClick();
+                  }}
+                >
+                  Submit
+                </button>
+                {window.navigator.platform.toLowerCase().includes("win") && (
+                  <>
+                    <span>press </span>
+                    <span className="bold">
+                      Ctrl <AiOutlinePlus></AiOutlinePlus>
+                    </span>
+                    <span className="bold">
+                      &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
+                    </span>
+                  </>
+                )}
+                {window.navigator.platform.toLowerCase().includes("mac") && (
+                  <>
+                    <span>press </span>
+                    <span className="bold">
+                      Cmd <BiCommand></BiCommand>
+                    </span>
+                    <span className="bold">
+                      &nbsp;Enter <AiOutlineEnter></AiOutlineEnter>
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
+            <Footer
+              stepNo={props.stepNo}
+              nextStep={props.nextStep}
+              prevStep={props.prevStep}
+            />
           </div>
-          <Footer
-            stepNo={props.stepNo}
-            nextStep={props.nextStep}
-            prevStep={props.prevStep}
-          />
         </div>
       )}
     </StyleRoot>

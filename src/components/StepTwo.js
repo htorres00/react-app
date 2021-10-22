@@ -14,7 +14,7 @@ const styles = {
 };
 
 const StepTwo = (props) => {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   let serreqfocus = null;
 
   useEffect(() => {
@@ -46,25 +46,26 @@ const StepTwo = (props) => {
             </span>
           </p>
         </div>
-
-        <div className="butnWraper">
-          <button
-            className="start-form"
-            onClick={() => {
-              props.nextStep(7);
-            }}
-            onKeyDown={(e) => {
-              if (e.keyCode === 13) {
+        <div className="service-request">
+          <div className="butnWraper">
+            <button
+              className="start-form"
+              onClick={() => {
                 props.nextStep(7);
-              }
-            }}
-            ref={(button) => {
-              serreqfocus = button;
-            }}
-          >
-            Continue
-          </button>
-          <span className="press">press Enter ↵</span>
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  props.nextStep(7);
+                }
+              }}
+              ref={(button) => {
+                serreqfocus = button;
+              }}
+            >
+              Continue
+            </button>
+            <span className="press">press Enter ↵</span>
+          </div>
         </div>
         <Footer
           stepNo={props.stepNo}

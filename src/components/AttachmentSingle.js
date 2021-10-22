@@ -117,7 +117,7 @@ const AttachmentSingle = (props) => {
 
   return (
     <section
-      className="container"
+      className="container drag-file"
       tabIndex="0"
       ref={(e) => {
         input = e;

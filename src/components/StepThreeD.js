@@ -311,7 +311,7 @@ const StepThreeD = (props) => {
   return (
     <StyleRoot>
       <div
-        className="step-three"
+        className="step-three step-three-container"
         style={styles.fadeInUp}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
@@ -351,6 +351,7 @@ const StepThreeD = (props) => {
                 }}
                 //onKeyDown={(e) => e.preventDefault()}
                 //className="datetime"
+                className="datetime-mob"
                 min={mindate}
                 max="9999-12-31"
                 style={{ fontSize: "20px", color: "darkslategrey" }}
@@ -362,6 +363,7 @@ const StepThreeD = (props) => {
             </span>
 
             <div
+              className="time-option"
               style={{
                 width: "100%",
                 display: "flex",
@@ -414,6 +416,7 @@ const StepThreeD = (props) => {
               <input
                 // onKeyDown={(e) => e.preventDefault()}
                 // className="datetime"
+                className="datetime-mob"
                 min={mindate}
                 max="9999-12-31"
                 style={{ fontSize: "20px", color: "darkslategrey" }}
@@ -425,6 +428,7 @@ const StepThreeD = (props) => {
             </span>
             <span>
               <div
+                className="time-option"
                 style={{
                   width: "100%",
                   display: "flex",
@@ -462,6 +466,7 @@ const StepThreeD = (props) => {
               </div>
 
               <div
+
                 style={{
                   color: "red",
                   marginBottom: messagetwo == "" ? "0px" : "30px",
@@ -483,6 +488,7 @@ const StepThreeD = (props) => {
               <input
                 // onKeyDown={(e) => e.preventDefault()}
                 // className="datetime"
+                className="datetime-mob"
                 min={mindate}
                 style={{ fontSize: "20px", color: "darkslategrey" }}
                 type="date"
@@ -494,6 +500,8 @@ const StepThreeD = (props) => {
             </span>
             <span>
               <div
+                className="time-option"
+
                 style={{
                   width: "100%",
                   display: "flex",

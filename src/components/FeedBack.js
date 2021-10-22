@@ -19,7 +19,7 @@ const FeedBack = (props) => {
 
   return (
     <StyleRoot>
-      <div className="step-two" style={styles.fadeInUp}>
+      <div className="step-two location-accept" style={styles.fadeInUp}>
         <div className="question">
           <p>
             <span className="level-one">{props.values?.servicemsg}</span>

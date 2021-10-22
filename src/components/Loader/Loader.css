@@ -1,3 +1,11 @@
+.style-loader {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .loader {
   border: 5px solid #f3f3f3;
   border-top: 5px solid rgb(251, 206, 55);

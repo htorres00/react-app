@@ -20,7 +20,7 @@ const NoPageStep1 = (props) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    setPhone(props.values?.phone || props.values?.mobileNumber);
+    setPhone(props.values?.phone || props.values?.mobileNumber || "");
     props.setValues.setCompletedProgress(15);
   }, []);
 
@@ -75,7 +75,7 @@ const NoPageStep1 = (props) => {
             disableDropdown={true}
             placeholder="(201) 555-0123"
             disableCountryCode={true}
-            value={phone}
+            value={phone || ""}
             onChange={(phone) => handlePhone(phone)}
             tabIndex="0"
             onKeyDown={(e) => {
