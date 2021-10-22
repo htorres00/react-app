@@ -225,10 +225,10 @@ const DistanceApi = (props) => {
         if (finalDistance > 25 && finalDistance <= 100) {
           setServiceMsg(
             <>
-              Good news, you're within our area of service. A millage fee of at
+              Good news, you're within our area of service. A mileage fee of at
               least{" "}
               {formatter
-                .format((finalDistance * 0.54).toFixed(2))
+                .format((finalDistance * 0.58).toFixed(2))
                 .replace(/^(\D+)/, "$1 ")}{" "}
               will be added to the order.
               <br />

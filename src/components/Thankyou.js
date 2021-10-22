@@ -19,14 +19,14 @@ const ThankYou = (props) => {
       <div className="thank-you" style={styles.fadeInUp}>
         <h1 className="title">That's it! You've been great.</h1>
         {props.values.id &&
-        <h2 className="title">Your Service Request # is: {props.values.id}</h2>
+          <h2 className="title">Your Service Request # is: {props.values.id}</h2>
         }
         {!props.values.id && props.values.submissionId &&
-        <h2 className="title">Submission ID: {props.values.submissionId}</h2>
+          <h2 className="title">Submission ID: {props.values.submissionId}</h2>
         }
-        <p className="levelOOne">
+        <h3 className="levelOOne">
           One of our representatives will contact you shortly. Thank you!
-        </p>
+        </h3>
         <p className="levelTwo">
           Feel free to contact us if you have questions.
           <span className="website bold">phlebotomynetwork.com</span>
