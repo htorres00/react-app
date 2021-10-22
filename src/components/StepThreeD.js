@@ -112,7 +112,7 @@ const StepThreeD = (props) => {
         setOptDateOneMsg("Date should be greater than Today + 4 days");
         hasError = true;
       } else if (!startTimeOne) {
-        setOptDateOneMsg("Please select any time");
+        setOptDateOneMsg("Please select a time for the appointment");
         hasError = true;
       } else {
         setOptDateOneMsg("");
@@ -129,7 +129,7 @@ const StepThreeD = (props) => {
         setOptDateTwoMsg("Date should be greater than Today + 4 days");
         hasError = true;
       } else if (!startTimeTwo) {
-        setOptDateTwoMsg("Please select any time");
+        setOptDateTwoMsg("Please select a time for the appointment");
         hasError = true;
       } else {
         setOptDateTwoMsg("");
@@ -147,7 +147,7 @@ const StepThreeD = (props) => {
         setOptDateThreeMsg("Date should be greater than Today + 4 days");
         hasError = true;
       } else if (!startTimeThree) {
-        setOptDateThreeMsg("Please select any time");
+        setOptDateThreeMsg("Please select a time for the appointment");
         hasError = true;
       } else {
         setOptDateThreeMsg("");
