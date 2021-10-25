@@ -19,10 +19,14 @@ const styles = {
 
 
 const StepOne = (props) => {
+  if(props.values.firstName == null || props.values.lastName == null) {
+    props.values.firstName = ""
+    props.values.lastName = ""
+  }
   const [hasError, setHasError] = useState("");
   const [lastName, setLastName] = useState(props.values.firstName);
   const [firstName, setFirstName] = useState(props.values.lastName);
-
+  
   useEffect(() => {
     props.setValues.setCompletedProgress(10);
   }, []);
@@ -38,11 +42,10 @@ const StepOne = (props) => {
     }
   };
 
-
   return (
     <StyleRoot>
       <div
-        className="step-three"
+        className="step-three step-three-question"
         style={styles.fadeInUp}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {

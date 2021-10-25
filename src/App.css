@@ -1030,6 +1030,18 @@ div.img-uper-box {
   }
 }
 
+.order-process {
+  width: 90%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 320px) {
+  .time-option > select {
+    font-size: 16px;
+    top: -1px;
+  }
+} 
+
 @media only screen and (max-width: 415px) {
   .distance-loader {
     position: absolute; left: 0px; right: 0; display: flex; 
@@ -1038,14 +1050,22 @@ div.img-uper-box {
     width: 100%;
   }
   .appttime {
-    margin: 0;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border: none;
+    margin-right: 2.1rem;
+    position: relative;
+    bottom: 3px;
   }
   .time-option {
     margin-top: 5px;
   }
 }
 @media only screen and (max-width: 365px) {
+  .step-three-question {
+    min-width: auto !important;
+  }
   .enter-address {
     max-width: 50% !important;
   }
@@ -1063,14 +1083,13 @@ div.img-uper-box {
     font-size: 25px;
     line-height: 1.5;
   }
-  .thank-you {
-    width: 90%;
-    margin: auto;
-    font-size: 13px;
-    text-align: center;
-  }
-  .level-one, .user-from input, .step-two > div > p, .step-four-container > .question > p, .step-one-container > div > p{
-    font-size: 20px !important;
+ 
+  .level-one, .user-from input, 
+  .step-two > div > p,
+  .step-four-container > 
+  .question > p, 
+  .step-one-container > div > p{
+    font-size: 18px !important;
   }
   .location-accept {
     width: 90%;

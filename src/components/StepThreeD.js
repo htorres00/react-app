@@ -34,16 +34,16 @@ const StepThreeD = (props) => {
     { id: 18, value: "03:30 PM" },
     { id: 19, value: "04:00 PM" },
   ]);
-  const [startDateOne, setStartDateOne] = useState(null);
-  const [startTimeOne, setStartTimeOne] = useState(null);
+  const [startDateOne, setStartDateOne] = useState('');
+  const [startTimeOne, setStartTimeOne] = useState('');
 
-  const [startDateTwo, setStartDateTwo] = useState(null);
-  const [startTimeTwo, setStartTimeTwo] = useState(null);
+  const [startDateTwo, setStartDateTwo] = useState('');
+  const [startTimeTwo, setStartTimeTwo] = useState('');
 
-  const [startDateThree, setStartDateThree] = useState(null);
-  const [startTimeThree, setStartTimeThree] = useState(null);
+  const [startDateThree, setStartDateThree] = useState('');
+  const [startTimeThree, setStartTimeThree] = useState('');
 
-  const [mindate, setMinDate] = useState(null);
+  const [mindate, setMinDate] = useState('');
 
   const [messageone, setMessageOne] = useState("");
   const [messagetwo, setMessageTwo] = useState("");
@@ -213,7 +213,7 @@ const StepThreeD = (props) => {
       startDateThree === null ||
       startTimeOne === null ||
       startTimeTwo === null ||
-      startTimeThree === null
+      startTimeThree === null 
     ) {
       setMessageFour(
         "The appointment options should be unique or should not \n be empty Please review your options."
@@ -377,7 +377,7 @@ const StepThreeD = (props) => {
                 onChange={(e) => handleStartTimeOne(e.target.value)}
                 value={startTimeOne}
               >
-                <option value="" selected disabled style={{ fontSize: "15px" }}>
+                <option value="" disabled style={{ fontSize: "15px" }}>
                   00:00 AM
                 </option>
 
@@ -444,7 +444,6 @@ const StepThreeD = (props) => {
                 >
                   <option
                     value=""
-                    selected
                     disabled
                     style={{ fontSize: "15px" }}
                   >
@@ -517,7 +516,6 @@ const StepThreeD = (props) => {
                 >
                   <option
                     value=""
-                    selected
                     disabled
                     style={{ fontSize: "15px" }}
                   >

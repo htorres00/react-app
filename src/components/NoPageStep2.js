@@ -20,7 +20,7 @@ const NoPageStep2 = (props) => {
   let inputfocus = null;
 
   useEffect(() => {
-    setEmail(props.values?.email || props.values?.mandotaryEmail);
+    setEmail(props.values?.email || props.values?.mandotaryEmail || "");
     props.setValues.setCompletedProgress(22);
     inputfocus?.focus();
   }, []);

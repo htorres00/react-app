@@ -149,6 +149,7 @@ const StepFour = (props) => {
 
   return (
     <StyleRoot>
+      <div className="order-process">
       {loader ? (
         <Loader msg={"Processing your order. It might take up to 30 seconds. Please wait..."} />
       ) : (
@@ -239,6 +240,7 @@ const StepFour = (props) => {
           </div>
         </div>
       )}
+      </div>
     </StyleRoot>
   );
 };

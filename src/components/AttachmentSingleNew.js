@@ -144,7 +144,7 @@ const AttachmentSingleNew = (props) => {
             handleFile(e);
           }}
           // onChange={onFileChange}
-          single
+          
           style={
             domUploadWraper.height > 0
               ? { height: domUploadWraper.height }

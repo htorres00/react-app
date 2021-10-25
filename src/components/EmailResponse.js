@@ -5,6 +5,7 @@ import { fadeInUp } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import "react-phone-input-2/lib/style.css";
 import Footer from "./Footer";
+import axios from "axios";
 
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
@@ -15,14 +16,55 @@ const styles = {
   },
 };
 
+
 const EmailResponse = (props) => {
+  const [id, setId] = useState(0);
+  const [submissionId, setSubmissionId] = useState(0);
+  const [loader, setLoader] = useState(false);
+  
   useEffect(() => {}, []);
   let serreqfocus = null;
+
+  const postUserList = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const url = "https://hooks.zapier.com/hooks/catch/2616746/bhh3x7a/"
+    
+    var data = {
+      firstName: props.values.firstName,
+      lastName: props.values.lastName,
+      customerType: queryParams.get("customer_type"),
+      phone: props.values.mobileNumber,
+      email: props.values.mandotaryEmail,
+    }
+
+    var config = {
+      method: "post",
+      url: url,
+      data: JSON.stringify([data]),
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    axios(config)
+      .then(function (response) {
+        setLoader(false);
+        setId(response.data.id);
+        props.nextStep(12);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoader(false);
+      });
+  };
 
   useEffect(() => {
     //   props.setValues.setCompletedProgress(26);
     serreqfocus?.focus();
   }, []);
+
+  function handleOnButnClick() {
+    postUserList()
+    props.nextStep(14);
+  }
 
   return (
     <StyleRoot>
@@ -63,7 +105,7 @@ const EmailResponse = (props) => {
               style={{ width: "100%" }}
               className="start-form"
               onClick={() => {
-                props.nextStep(14);
+                handleOnButnClick()
               }}
             >
               Please email me when you can service my area
