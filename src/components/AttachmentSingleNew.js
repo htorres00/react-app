@@ -19,6 +19,8 @@ const AttachmentSingleNew = (props) => {
   const [errormsg, setErrorMsg] = useState(false);
   const [selectedFile, setsSelectedFile] = useState(null);
   const [msg, setMsg] = useState("");
+  const [errorSizeMsg, setErrorSizeMsg] = useState(false);
+  const [errorSize, setErrorSize] = useState("");
 
   const thumb = {
     display: "inline-flex",
@@ -41,6 +43,7 @@ const AttachmentSingleNew = (props) => {
     width: "auto",
     height: "100%",
   };
+
   const pdfimg = {
     display: "block",
     width: "140px",
@@ -63,13 +66,27 @@ const AttachmentSingleNew = (props) => {
     }
   }, []);
 
+
   const handleFile = (e) => {
+    let file = e.target.files[0];
+    if (!selected) {
+      if (file && file.size != undefined && file.size > 1e+7) {
+        setErrorSizeMsg(true);
+        setSelected(false);
+        setErrorSize("Incorrect file size, please try another image...")
+        return
+      } else {
+        setErrorSizeMsg(false);
+      }
+    }
+
     if (urls.length > 0) {
       setMsg("Only one file is acceptable.");
       setErrorMsg(true);
       return;
     }
     for (let i = 0; i < e.target.files.length; i++) {
+      setSelected(true);
       urls.push({
         name: e.target.files[i].name,
         url: URL.createObjectURL(e.target.files[i]),
@@ -79,7 +96,6 @@ const AttachmentSingleNew = (props) => {
     }
     setErrorMsg(false);
     setMsg("");
-    setSelected(true);
     setUrls(urls);
     setsSelectedFile(e.target.files[0]);
     setRefresh(refresh + 1);
@@ -118,8 +134,9 @@ const AttachmentSingleNew = (props) => {
   };
 
   return (
+
     <section
-    className="container drag-file"
+      className="container drag-file"
       tabIndex="0"
       ref={(e) => {
         input = e;
@@ -144,7 +161,7 @@ const AttachmentSingleNew = (props) => {
             handleFile(e);
           }}
           // onChange={onFileChange}
-          
+
           style={
             domUploadWraper.height > 0
               ? { height: domUploadWraper.height }
@@ -226,7 +243,14 @@ const AttachmentSingleNew = (props) => {
 
       {errormsg ? (
         <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-          {msg}
+          {msg} 
+        </div>
+      ) : (
+        <></>
+      )}
+      {errorSizeMsg ? (
+        <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
+          {errorSize}
         </div>
       ) : (
         <></>
