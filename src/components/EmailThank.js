@@ -10,7 +10,7 @@ const styles = {
 };
 const EmailThank = (props) => {
   const handleNavigate = () => {
-    window.location.href = "/";
+    window.location.href = "https://qa.phlebotomynetwork.com/";
   };
   return (
     <StyleRoot>
