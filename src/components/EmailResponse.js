@@ -47,7 +47,7 @@ const EmailResponse = (props) => {
       .then(function (response) {
         setLoader(false);
         setId(response.data.id);
-        props.nextStep(12);
+        props.nextStep(14);
       })
       .catch(function (error) {
         console.log(error);
