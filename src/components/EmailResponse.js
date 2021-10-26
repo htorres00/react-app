@@ -41,7 +41,6 @@ const EmailResponse = (props) => {
       method: "post",
       url: url,
       data: JSON.stringify([data]),
-      headers: { 'Content-Type': 'application/json' },
     };
 
     axios(config)
