@@ -19,6 +19,8 @@ const AttachmentSingle = (props) => {
   const [selected, setSelected] = useState(false);
   const [selectedFile, setSelectedFile] = useState([]);
   const [imgload, setImgLoad] = useState(false);
+  const [errorSizeMsg, setErrorSizeMsg] = useState(false);
+  const [errorSize, setErrorSize] = useState("");
 
   const thumb = {
     display: "inline-flex",
@@ -61,6 +63,19 @@ const AttachmentSingle = (props) => {
   }, []);
 
   const handleFile = (e) => {
+
+    let file = e.target.files[0];
+    if (!selected) {
+      if (file && file.size != undefined && file.size > 1e+7) {
+        setErrorSizeMsg(true);
+        setErrorSize("Incorrect file size, please try another image...")
+        return
+      } else {
+        setErrorSizeMsg(false);
+      }
+    }
+
+
     for (let i = 0; i < e.target.files.length; i++) {
       urls.push({
         name: e.target.files[i].name,
@@ -226,6 +241,15 @@ const AttachmentSingle = (props) => {
       ) : (
         <></>
       )}
+
+      {errorSizeMsg ? (
+        <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
+          {errorSize}
+        </div>
+      ) : (
+        <></>
+      )}
+
       <button
         className="ok-butn ok-step-attachment"
         onClick={() => handleClick()}

@@ -23,7 +23,7 @@ const styles = {
 const DistanceApi = (props) => {
   const [destinations, setDestinations] = useState([]);
   const [distanceCallbacks, setDistanceCallbacks] = useState([]);
-  // const [distanceRequested, setDistanceRequested] = useState([]);
+  const [distanceRequested, setDistanceRequested] = useState([]);
   const [address, setAddress] = useState("");
   const [serviceaddress, setServiceAddress] = useState({});
   const [distance, setDistance] = useState({});
@@ -50,7 +50,6 @@ const DistanceApi = (props) => {
       setHandleDistance(true);
       setProceed(true);
     }
-    //console.log(JSON.parse(localStorage.getItem("bfusers")), "bfuserslength");
     if (!localStorage.getItem("bfusers")) {
       getUserList();
     } else {
@@ -58,10 +57,10 @@ const DistanceApi = (props) => {
     }
   }, []);
 
-  const _setProceed = (bool) => {
-    setProceed(bool);
-    props.canProceed(bool);
-  };
+  // const _setProceed = (bool) => {
+  //   setProceed(bool);
+  //   props.canProceed(bool);
+  // };
 
   const getUserList = () => {
     const url = Constants.API_URL + "?action=get_bf_users"; //"https://philobotoapi.hztech.biz/php/new.php";
@@ -195,13 +194,13 @@ const DistanceApi = (props) => {
 
     let sortedDistance = objSort(distance);
 
-    // if (distanceCallbacks.length === distanceRequested.length) {
+    if (distanceCallbacks.length === distanceRequested.length) {
       sortedDistance.forEach((a) => {
         console.log("Technician Addr: " + a[0] + ", ");
         console.log("Distance: " + a[1] + " mi");
         console.log("---------");
       });
-    // }
+    }
     let firstFinalDistance = () => {
       for (var i in Object.keys(sortedDistance)) {
         return sortedDistance[Object.keys(i)];
@@ -216,7 +215,7 @@ const DistanceApi = (props) => {
       currency: "USD",
     });
 
-    // if (distanceCallbacks.length === distanceRequested.length) {
+    if (distanceCallbacks.length === distanceRequested.length) {
       console.log("Final: ", finalDistanceObj);
 
       if (finalDistance > 0) {
@@ -241,6 +240,8 @@ const DistanceApi = (props) => {
           setLoader2(false);
           setProceed(true);
         } else if (finalDistance > 100) {
+          console.log(finalDistance, "finalDistance elseif");
+
           props.setValues.setServiceMsg("");
           props.setValues.setLocation("");
           props.setValues.setDistance("");
@@ -262,7 +263,7 @@ const DistanceApi = (props) => {
         setShowErrMsg(true);
         setErrorMsg("Results not found, Please try another address.");
       }
-    // }
+    }
   };
 
   const objSort = (obj) => {
@@ -287,27 +288,27 @@ const DistanceApi = (props) => {
     componentRestrictions: { country: "us" },
   };
 
-  // const chunks = (arr, chunkSize) => {
-  //   if (chunkSize <= 0) throw "Invalid chunk size";
-  //   var R = [];
-  //   for (var i = 0, len = arr.length; i < len; i += chunkSize)
-  //     R.push(arr.slice(i, i + chunkSize));
-  //   return R;
-  // };
+  const chunks = (arr, chunkSize) => {
+    if (chunkSize <= 0) throw "Invalid chunk size";
+    var R = [];
+    for (var i = 0, len = arr.length; i < len; i += chunkSize)
+      R.push(arr.slice(i, i + chunkSize));
+    return R;
+  };
 
   const getDistanceMatrixCalc = (addr) => {
-    // let dest = chunks(destinations, 25);
-    console.log(addr,23131321313);
+    let dest = chunks(destinations, 25);
+    console.log(dest, addr);
 
-    // for (let i = 0; i < dest.length; i++) {
-      // distanceRequested.push(0);
+    for (let i = 0; i < dest.length; i++) {
+      distanceRequested.push(i);
 
       var service = new window.google.maps.DistanceMatrixService();
 
       service.getDistanceMatrix(
         {
           origins: [addr],
-          destinations: [addr], // destinations
+          destinations: dest[i], // destinations
           travelMode: window.google.maps.TravelMode.DRIVING, // destination by driving
           unitSystem: window.google.maps.UnitSystem.IMPERIAL, // miles and feet.
           avoidHighways: false,
@@ -318,7 +319,7 @@ const DistanceApi = (props) => {
           calculateDistance(response, status);
         }
       );
-    // }
+    }
   };
 
   const handleDistance = () => {

@@ -88,7 +88,7 @@ const UserForm = (props) => {
       setStep(step - 1);
     }
   };
-  useEffect(() => { 
+  useEffect(() => {
     if(!firstName || !lastName || !mandotaryEmail || !mobileNumber) setHasInformation(false)
   }, []);
   // Handle fields change
