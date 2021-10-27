@@ -39,7 +39,7 @@ const ThankYou = (props) => {
 
   return (
     <StyleRoot>
-      <div  className="thank-you rar" style={styles.fadeInUp}>
+      <div  className="thank-you" style={styles.fadeInUp}>
         <div>
           <h1 className="title">That's it! You've been great.</h1>
           {props.values.id &&

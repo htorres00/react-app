@@ -18,25 +18,23 @@ const styles = {
 
 
 const EmailResponse = (props) => {
-  const [id, setId] = useState(0);
-  const [submissionId, setSubmissionId] = useState(0);
   const [loader, setLoader] = useState(false);
-  
-  useEffect(() => {}, []);
+
+  useEffect(() => { }, []);
   let serreqfocus = null;
 
   const postUserList = () => {
     const queryParams = new URLSearchParams(window.location.search);
     const url = "https://hooks.zapier.com/hooks/catch/2616746/bhh3x7a/"
-    
+
     var data = {
       firstName: props.values.firstName,
       lastName: props.values.lastName,
       customerType: queryParams.get("customer_type"),
       phone: props.values.mobileNumber,
       email: props.values.mandotaryEmail,
+      address: props.values.unattendedAddress,
     }
-
     var config = {
       method: "post",
       url: url,
@@ -44,9 +42,8 @@ const EmailResponse = (props) => {
     };
 
     axios(config)
-      .then(function (response) {
+      .then(function () {
         setLoader(false);
-        setId(response.data.id);
         props.nextStep(14);
       })
       .catch(function (error) {

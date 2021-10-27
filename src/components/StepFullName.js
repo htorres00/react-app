@@ -19,22 +19,21 @@ const styles = {
 
 
 const StepOne = (props) => {
-  if(props.values.firstName == null || props.values.lastName == null) {
+  if (props.values.firstName == null || props.values.lastName == null) {
     props.values.firstName = ""
     props.values.lastName = ""
   }
   const [hasError, setHasError] = useState("");
   const [lastName, setLastName] = useState(props.values.firstName);
   const [firstName, setFirstName] = useState(props.values.lastName);
-  
+
   useEffect(() => {
     props.setValues.setCompletedProgress(10);
   }, []);
 
-
   const handleClick = () => {
     if (!firstName || !lastName) {
-      setHasError(true) 
+      setHasError(true)
     } else {
       props.setValues.setFirstName(firstName);
       props.setValues.setLastName(lastName);
@@ -83,14 +82,14 @@ const StepOne = (props) => {
               }
             }}
           />
-          
+
         </div>
 
         <div>
           <input
             name="lastName"
             value={lastName}
-            style={{ width: "100%", marginTop:"15px" }}
+            style={{ width: "100%", marginTop: "15px" }}
             placeholder="Last Name"
             onChange={(e) => {
               if (!e.target.value) {
