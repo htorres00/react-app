@@ -13,6 +13,8 @@ import PlacesAutocomplete, {
 import Constants from "../Constants";
 import Footer from "./Footer";
 
+let unattendedAddress = '';
+
 const styles = {
   fadeInUp: {
     animation: "x 1s",
@@ -55,7 +57,9 @@ const DistanceApi = (props) => {
     } else {
       getPrefilledUserList(JSON.parse(localStorage.getItem("bfusers")));
     }
+
   }, []);
+
 
   // const _setProceed = (bool) => {
   //   setProceed(bool);
@@ -138,14 +142,16 @@ const DistanceApi = (props) => {
   };
 
   const handleSelect = async (value) => {
+    unattendedAddress = value
     setLoader2(true);
     setShowErrMsg(false);
 
     const results = await geocodeByAddress(value);
-
     let storableLocation = {};
 
     for (let ac = 0; ac < results[0].address_components.length; ac++) {
+    
+
       let component = results[0].address_components[ac];
       if (
         component.types.includes("sublocality") ||
@@ -178,6 +184,7 @@ const DistanceApi = (props) => {
 
   // get distance results
   const calculateDistance = (response, status) => {
+   
     for (let i = 0; i < response.rows[0].elements.length; i++) {
       if (
         response.rows[0].elements[i].status == "NOT_FOUND" ||
@@ -246,7 +253,8 @@ const DistanceApi = (props) => {
           props.setValues.setLocation("");
           props.setValues.setDistance("");
           props.setValues.setAddress("");
-
+          props.setValues.setUnattendedAddress(unattendedAddress)
+          
           setLoader2(false);
           setProceed(false);
           props.nextStep(13);
@@ -336,7 +344,7 @@ const DistanceApi = (props) => {
       props.setValues.setDistance(mindistance);
       props.setValues.setAddress(address);
       //feedbackpage
-      props.nextStep(15);
+       props.nextStep(15);
     } else {
       setShowErrMsg(false);
       setLoader2(false);
@@ -361,6 +369,7 @@ const DistanceApi = (props) => {
               <BsArrowRightShort></BsArrowRightShort>
             </span>
             <p>
+              
               <span>
                 Please enter the address where the service will be rendered.*
               </span>

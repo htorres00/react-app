@@ -57,6 +57,7 @@ const UserForm = (props) => {
   const [address, setAddress] = useState("");
   const [servicemsg, setServiceMsg] = useState("");
   const [addresstwo, setAddressTwo] = useState("");
+  const [unattendedAddress, setUnattendedAddress] = useState("");
 
   const testData = [
     { bgcolor: "rgb(251, 206, 55)", completed: completedProgress },
@@ -134,6 +135,7 @@ const UserForm = (props) => {
       timethree,
       servicemsg,
       addresstwo,
+      unattendedAddress
     };
     const setValues = {
       setEmailQuestion,
@@ -169,6 +171,7 @@ const UserForm = (props) => {
       setTimeThree,
       setServiceMsg,
       setAddressTwo,
+      setUnattendedAddress,
     };
     switch (step) {
       case 1:
