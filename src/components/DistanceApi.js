@@ -57,7 +57,7 @@ const DistanceApi = (props) => {
     } else {
       getPrefilledUserList(JSON.parse(localStorage.getItem("bfusers")));
     }
-
+    return () => { props.setValues.setUnattendedAddress(unattendedAddress) }; 
   }, []);
 
 
@@ -253,7 +253,7 @@ const DistanceApi = (props) => {
           props.setValues.setLocation("");
           props.setValues.setDistance("");
           props.setValues.setAddress("");
-          props.setValues.setUnattendedAddress(unattendedAddress)
+          
           
           setLoader2(false);
           setProceed(false);

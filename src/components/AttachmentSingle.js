@@ -74,8 +74,6 @@ const AttachmentSingle = (props) => {
         setErrorSizeMsg(false);
       }
     }
-
-
     for (let i = 0; i < e.target.files.length; i++) {
       urls.push({
         name: e.target.files[i].name,
@@ -91,12 +89,15 @@ const AttachmentSingle = (props) => {
 
   useEffect(() => {
     setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
-    setTimeout(function () {
+    const urlsArr = setTimeout(function () {
       for (let k = 0; k < urls.length; k++) {
         urls[k].isLoading = true;
         setRefresh(refresh + 1);
       }
     }, 1000);
+    return () => {
+      clearTimeout(urlsArr)
+    }
   }, [refresh]);
 
   const handleClick = () => {
