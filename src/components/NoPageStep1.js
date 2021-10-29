@@ -15,13 +15,16 @@ const styles = {
 };
 
 const NoPageStep1 = (props) => {
-  useEffect(() => { }, []);
+  useEffect(() => { 
+    return () => {
+      props.setValues.setCompletedProgress(15)
+    }
+  }, []);
   const [phone, setPhone] = useState("");
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     setPhone(props.values?.phone || props.values?.mobileNumber || "");
-    props.setValues.setCompletedProgress(15);
   }, []);
 
   const handlePhone = (phone) => {

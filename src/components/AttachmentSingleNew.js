@@ -102,13 +102,16 @@ const AttachmentSingleNew = (props) => {
   };
 
   useEffect(() => {
-    //setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
-    setTimeout(function () {
+   const urlsArr = setTimeout(function () {
+     //setDomUploadWraper(imageWraperContainer.getBoundingClientRect());
       for (let k = 0; k < urls.length; k++) {
         urls[k].isLoading = true;
         setRefresh(refresh + 1);
       }
     }, 1000);
+     return () => {
+       clearTimeout(urlsArr)
+     }
   }, [refresh]);
 
   const handleClick = () => {
