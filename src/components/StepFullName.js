@@ -108,7 +108,7 @@ const StepOne = (props) => {
 
         {hasError ? (
           <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-            First Name and Last name are required
+            Please fill this in
           </div>
         ) : (
           <></>

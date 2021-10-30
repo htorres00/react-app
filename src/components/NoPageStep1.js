@@ -96,7 +96,7 @@ const NoPageStep1 = (props) => {
 
         {hasError ? (
           <div style={{ color: "red", fontWeight: "bold", marginTop: "10px" }}>
-            Phone number is required
+            Please fill this in
           </div>
         ) : (
           <></>
