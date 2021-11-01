@@ -34,12 +34,12 @@ const ThankYou = (props) => {
   }, []);
 
   const closeTab = () => {
-    window.open('','_self').close()
-}
+    window.open('', '_self').close()
+  }
 
   return (
     <StyleRoot>
-      <div  className="thank-you" style={styles.fadeInUp}>
+      <div className="thank-you" style={styles.fadeInUp}>
         <div>
           <h1 className="title">That's it! You've been great.</h1>
           {props.values.id &&
@@ -57,28 +57,28 @@ const ThankYou = (props) => {
             <span className="phone bold">(415) 687-4854</span>
           </p>
         </div>
-        <div style={{marginTop: '2.1rem'}}>
-        <div style={styles.btnGroup}>
-          <div className="butnWraper">
-            <button
-              style={{...styles.btnGroup, ...styles.padding}}
-              
-              className="start-form"
-            >
-              <a style={{...styles.homePageLink, ...styles.mr}} href="https://qa.phlebotomynetwork.com/">Return to Home</a>
-              <img width="13" height="13" src={Check} />
-            </button>
+        <div style={{ marginTop: '2.1rem' }}>
+          <div style={styles.btnGroup}>
+            <div className="butnWraper">
+              <button
+                style={{ ...styles.btnGroup, ...styles.padding }}
+
+                className="start-form"
+              >
+                <a style={{ ...styles.homePageLink, ...styles.mr }} href="https://phlebotomynetwork.com/">Return to Home</a>
+                <img width="13" height="13" src={Check} />
+              </button>
+            </div>
+            <div className="butnWraper">
+              <button
+                style={styles.padding}
+                className="start-form"
+                onClick={closeTab}
+              >
+                Close Page
+              </button>
+            </div>
           </div>
-          <div className="butnWraper">
-            <button
-              style={styles.padding}
-              className="start-form"
-              onClick={closeTab}
-            >
-              Close Page
-            </button>
-          </div>
-        </div>
         </div>
       </div>
     </StyleRoot>

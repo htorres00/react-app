@@ -1,9 +1,9 @@
 import "./App.css";
 import UserForm from "./components/UserForm";
 import axios from "axios";
-import Constants from "./Constants";
 import { useState, useEffect } from "react";
 import Loader from "./components/Loader/Loader";
+import Constants from "./Constants";
 
 function App() {
   const [bfusers, setBFUsers] = useState([]);
