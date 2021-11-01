@@ -184,7 +184,7 @@ const DistanceApi = (props) => {
 
   // get distance results
   const calculateDistance = (response, status) => {
-   
+   if(response.rows != null) {
     for (let i = 0; i < response.rows[0].elements.length; i++) {
       if (
         response.rows[0].elements[i].status == "NOT_FOUND" ||
@@ -198,6 +198,7 @@ const DistanceApi = (props) => {
         );
       }
     }
+   }
 
     let sortedDistance = objSort(distance);
 
@@ -238,10 +239,10 @@ const DistanceApi = (props) => {
                 .replace(/^(\D+)/, "$1 ")}{" "}
               will be added to the order.
               <br />
-              <div style={{ fontSize: 20, color: "#777368" }}>
+              <span style={{ fontSize: 20, color: "#777368" }}>
                 The final amount will be added when the appointment is
                 confirmed.
-              </div>
+              </span>
             </>
           );
           setLoader2(false);

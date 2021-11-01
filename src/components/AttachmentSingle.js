@@ -258,10 +258,10 @@ const AttachmentSingle = (props) => {
           OK <HiOutlineCheck></HiOutlineCheck>
         </button>
         <button
-          className="ok-butn ok-step-attachment"
+          className="ok-butn ok-step-attachment attachment-upload"
         >
-          <label for="imgid">
-          Add File 
+          <label htmlFor="imgid">
+          Upload more files
           </label>
         </button>
 

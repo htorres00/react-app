@@ -351,6 +351,7 @@ button.ok-butn {
 }
 
 .footer-navigation-butn {
+  position: relative;
   width: 40px;
   min-width: 40px;
   height: 40px;
@@ -359,6 +360,16 @@ button.ok-butn {
   background-color: rgb(251, 206, 55);
   border: 0px none;
   font-size: 20px;
+}
+
+.footer-navigation-butn > svg {
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  fill: #322701;
 }
 
 .new-line {
@@ -424,6 +435,7 @@ button.ok-butn {
   font-size: 20px;
   line-height: 24px;
   padding: 0px 0px 8px;
+  border-radius: 0;
   /* width: 100%; */
 }
 
@@ -872,6 +884,11 @@ button.ok-butn.ok-step-three {
   margin-top: 20px;
 }
 
+.perfect-page {
+  width: 90%;
+  margin: auto;
+}
+
 .step-three span.enter-text {
   margin: 0px;
   max-width: 100%;
@@ -1018,6 +1035,9 @@ div.img-uper-box {
 }
 
 @media only screen and (max-width: 463px) {
+  .attachment-upload {
+    width: 100%;
+  }
   .buttons > .butnWraper{
     width: 100% !important;
   }

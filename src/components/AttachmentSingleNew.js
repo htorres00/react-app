@@ -268,13 +268,7 @@ const AttachmentSingleNew = (props) => {
         >
           OK <HiOutlineCheck></HiOutlineCheck>
         </button>
-        <button
-          className={"ok-butn ok-step-attachment add-file-" + (urls.length > 0 ? 'url' : '')}
-        >
-          <label  for="imgid">
-          Add File 
-          </label>
-        </button>
+       
       </>
       <div style={{ marginTop: 10 }} />
       <Footer

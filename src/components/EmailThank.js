@@ -14,7 +14,7 @@ const EmailThank = (props) => {
   };
   return (
     <StyleRoot>
-      <div className="thank-you" style={styles.fadeInUp}>
+      <div className="thank-you perfect-page" style={styles.fadeInUp}>
         <h1 className="title" style={{ margin: 0 }}>
           Perfect. We will notify you
         </h1>
