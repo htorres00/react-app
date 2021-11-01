@@ -250,14 +250,20 @@ const AttachmentSingle = (props) => {
       ) : (
         <></>
       )}
-
-      <button
-        className="ok-butn ok-step-attachment"
-        onClick={() => handleClick()}
-      >
-        OK
-        <HiOutlineCheck></HiOutlineCheck>
-      </button>
+        <button
+          style={{marginRight: '0.5rem'}}
+          className="ok-butn ok-step-attachment"
+          onClick={() => handleClick()}
+        >
+          OK <HiOutlineCheck></HiOutlineCheck>
+        </button>
+        <button
+          className="ok-butn ok-step-attachment attachment-upload"
+        >
+          <label htmlFor="imgid">
+          Upload more files
+          </label>
+        </button>
 
       <div style={{ marginTop: 10 }} />
       <Footer

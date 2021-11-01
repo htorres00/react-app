@@ -12,7 +12,7 @@ function App() {
   var apiLoading = false;
   useEffect(() => {
     localStorage.removeItem("bfusers");
-    if (bfusers.length == 0) {
+    if (bfusers.length === 0) {
       getUserList();
     }
   }, []);

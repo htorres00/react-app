@@ -55,7 +55,10 @@ const EmailResponse = (props) => {
   useEffect(() => {
     //   props.setValues.setCompletedProgress(26);
     serreqfocus?.focus();
-  }, []);
+    return () => {
+      serreqfocus?.focus();
+    }
+  },  []);
 
   function handleOnButnClick() {
     postUserList()

@@ -21,6 +21,7 @@ const AttachmentSingleNew = (props) => {
   const [msg, setMsg] = useState("");
   const [errorSizeMsg, setErrorSizeMsg] = useState(false);
   const [errorSize, setErrorSize] = useState("");
+  const [addFileLimit, setAddFileLimit] = useState(false);
 
   const thumb = {
     display: "inline-flex",
@@ -261,11 +262,13 @@ const AttachmentSingleNew = (props) => {
 
       <>
         <button
+          style={{marginRight: '0.5rem'}}
           className="ok-butn ok-step-attachment"
           onClick={() => handleClick()}
         >
           OK <HiOutlineCheck></HiOutlineCheck>
         </button>
+       
       </>
       <div style={{ marginTop: 10 }} />
       <Footer

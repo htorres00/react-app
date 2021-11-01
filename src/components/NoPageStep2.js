@@ -40,7 +40,7 @@ const NoPageStep2 = (props) => {
       props.nextStep(4);
     } else {
       setShowErrMsg(true);
-      setErrorMsg("Hmm… that email doesn't look valid");
+      setErrorMsg("Please fill this in");
     }
   };
 
